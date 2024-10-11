@@ -9,5 +9,6 @@ Robby Dosanjh
 Bryan Robare
 Christopher Flores
 Alexis Aguilar
+Goodwin Lu
 
 ```
