@@ -38,10 +38,97 @@
 
     </div>
     <div class="Send Text">
-        <p>
-            Free Consoltation
-        </p>
+            <p style="font-size:32px; text-align: center; font-weight: bold; text-decoration: underline;">
+                Free Consultation
+             </p>
+        
+            <p style="text-align: center; width: 100%; max-width: 892px; padding: 10px; margin: 0 auto;">
+                Use the form below to contact us regarding your legal inquiry. Please be as detailed as possible. However, please do not include any confidential or sensitive information. To help us best service your inquiry, we recommend that you describe the debt issues you’re facing and tell us what you want to achieve. You may also email or call us to make an appointment. 
+            </p>
+    
+        <form action="/submit-form" method="POST">
+            <!-- Style for the form -->
+            <style>
+                input[type="text"],
+                input[type="tel"], 
+                input[type="email"], 
+                textarea {
+                    background-color: rgb(217, 217, 217);
+                    width: 100%;
+                    max-width: 892px;
+                    padding: 10px;
+                    box-sizing: border-box;
+                }
+                input[type="submit"]{
+                    max-width: 892px;
+                    box-sizing: border-box;
+                    float: right;
+                    margin-right: 0;
+                }
+    
+                /* Style for First Name and Last Name in the same row */
+                .name-row {
+                    width: 100%;
+                    max-width: 892px;
+                    box-sizing: border-box;
+                }
+    
+                .name-row div {
+                    display: inline-block;
+                    width: 48%;
+                    box-sizing: border-box;
+                    margin-right: 2%;
+                }
+    
+                .name-row div:last-child {
+                    margin-right: 0;
+                }
+    
+                textarea {
+                    height: 142px;
+                    margin: 0 auto;
+                    max-width: 900px;
+                }
+    
+                /* Center the form on the page */
+                form {
+                    margin: 0 auto;
+                    max-width: 900px;
+                }
+            </style>
+    
+            <!-- First Name and Last Name on the same line -->
+            <div class="name-row">
+                <div>
+                    <label for="firstname">First Name:</label> <small>(Required)</small><br>
+                    <input type="text" id="firstname" name="firstname" required>
+                </div>
+                <div>
+                    <label for="lastname">Last Name:</label> <small>(Required)</small><br>
+                    <input type="text" id="lastname" name="lastname" required>
+                </div>
+            </div><br>
+    
+            
+    
+            <!-- Email Address -->
+            <label for="email">Email Address:</label> <small>(Required)</small><br>
+            <input type="email" id="email" name="email" required><br><br>
+    
+            <!-- Phone Number -->
+            <label for="phone">Phone Number:</label><br>
+            <input type="tel" id="phone" name="phone" pattern="\(\d{3}\)-\d{3}-\d{4}" required><br><br>
+    
+            <!-- Message Text Box -->
+            <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.<br></small></label><br>
+            <textarea id="message" name="message" maxlength="250" required></textarea><br><br>
+    
+            <!-- Submit Button -->
+            <input type="submit" value="Submit"><br><br>
+        </form>
     </div>
+    
+    
     <div class="Disclaimer">
         <p>
             We are a debt relief agency. We help people file for bankruptcy relief under the bankruptcy code.
