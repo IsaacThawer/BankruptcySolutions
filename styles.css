@@ -37,12 +37,29 @@ header::before {
     bottom: 0;
     background: rgba(0, 0, 0, 0.2);
 }
+/* add some dynamic styling */
+.navbar.shrink {
+    padding: 10px;
+    background-color: #222;
+  }
 
-/* Nav Bar */
+  .navbar li a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+  }
+
+/* Nav Bar, adjust the navbar to be static */
 nav {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%; /* Makes the navbar span the full width */
+    background-color: #333;
+    padding: 15px;
+    z-index: 1000; /* Ensures the navbar stays on top of other content */
+    box-sizing: border-box;
+    justify-content: center;
+    background-color: #333;
+
 }
 
 nav ul {
