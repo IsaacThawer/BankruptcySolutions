@@ -1,169 +1,168 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Marcellus&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 16px; /* Base font size */
+  font-size: 16px; /* Base font size */
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    font-size: 1rem; /* 16px */
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  font-size: 1rem; /* 16px */
 }
 
 /* Header Image (City) */
 header {
-    background-image: url('./Pictures/city.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 50vh;
-    position: relative;
-    color: white;
+  background-image: url('./Pictures/city.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  position: relative;
+  color: white;
 }
 
 /* Header Transperency Layer */
 header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
 }
 /* add some dynamic styling */
 .navbar.shrink {
-    padding: 10px;
-    background-color: #222;
-  }
+  padding: 10px;
+  background-color: #222;
+}
 
-  .navbar li a:hover {
-    background-color: #575757;
-    border-radius: 5px;
-  }
+.navbar li a:hover {
+  background-color: #575757;
+  border-radius: 5px;
+}
 
 /* Nav Bar, adjust the navbar to be static */
 nav {
-    position: fixed;
-    top: 0;
-    width: 100%; /* Makes the navbar span the full width */
-    background-color: #333;
-    padding: 15px;
-    z-index: 1000; /* Ensures the navbar stays on top of other content */
-    box-sizing: border-box;
-    justify-content: center;
-    background-color: #333;
-
+  position: fixed;
+  top: 0;
+  width: 100%; /* Makes the navbar span the full width */
+  background-color: #333;
+  padding: 15px;
+  z-index: 1000; /* Ensures the navbar stays on top of other content */
+  box-sizing: border-box;
+  justify-content: center;
+  background-color: #333;
 }
 
 nav ul {
-    list-style-type: none;
-    display: flex;
+  list-style-type: none;
+  display: flex;
 }
 
 nav ul li {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 /* Nav Bar */
 nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 /* Sacramento Website Title */
 .hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 50%;
 }
 
 /* Rectangle color / Transperecny */
 .hero-text h1 {
-    font-family: 'Marcellus', serif;
-    font-size: 2.5rem;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 1rem;
-    border-radius: 0.5rem;
+  font-family: 'Marcellus', serif;
+  font-size: 2.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
 main {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 h2 {
-    font-family: 'Marcellus', serif;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #147dd3;
+  font-family: 'Marcellus', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #147dd3;
 }
 
 .content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .introduction {
-    flex-basis: 60%;
+  flex-basis: 60%;
 }
 
 .contactInfo {
-    flex-basis: 35%;
-    display: flex;
-    flex-direction: column;
+  flex-basis: 35%;
+  display: flex;
+  flex-direction: column;
 }
 
 h3 {
-    font-family: 'Marcellus', serif;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #147dd3
+  font-family: 'Marcellus', serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #147dd3
 }
 
 #GMap {
-    width: 100%;
-    height: 300px;
-    border: 0;
-    margin-top: 1rem;
-    display: block;
+  width: 100%;
+  height: 300px;
+  border: 0;
+  margin-top: 1rem;
+  display: block;
 }
 
 footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
 @media (max-width: 768px) {
-    html {
-        font-size: 14px; /* Slightly smaller base font size for mobile */
-    }
+  html {
+    font-size: 14px; /* Slightly smaller base font size for mobile */
+  }
 
-    .content-wrapper {
-        flex-direction: column;
-    }
+  .content-wrapper {
+    flex-direction: column;
+  }
 
-    .contactInfo {
-        flex-basis: 100%;
-    }
+  .contactInfo {
+    flex-basis: 100%;
+  }
 
-    #GMap {
-        height: 250px;
-    }
+  #GMap {
+    height: 250px;
+  }
 }
