@@ -68,6 +68,102 @@
         </div>
     </div>
 
+    </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        .pastClientsHeader {
+            text-align: left;
+            text-decoration: underline;
+            font-size: 40px;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-left: 0;
+            font-family: 'Marcellus SC', serif;
+            
+        }
+
+        
+
+        .yelp, .google {
+            width: 200px;/* Makes each div take up 45% of the parent width */
+            padding: 10px; /* Adds some padding */
+
+            margin: 0 auto; /* Centers the text horizontally */
+            text-align: center;
+           
+        }
+
+        .reviews{
+            display: flex;
+            justify-content: center;
+            gap: 0px;
+            flex-wrap: wrap;
+            font-family: 'Inter', serif;
+        }
+
+        .google-logo {
+            margin-top: 20px;
+            width: 140px; /* Smaller size for the logo */
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .yelp-logo{
+            margin-top: 0px;
+            width: 140px; /* Smaller size for the logo */
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .client-link {
+            display: block;  /* Makes the link take up the full width, forcing it to a new line */
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px; /* Adds a bit of space between the paragraph and the link */
+        }
+
+        .client-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+
+
+    <div class="pastCLients">
+        <h2 class="pastClientsHeader">Past Clients</h2>
+        <div class="reviews">
+            <div class="yelp">
+                <img src="images/girl-avatar.png" alt="Client 1 Avatar" class="client-avatar">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                </p>
+                <a href="https://www.yelp.com" target="">
+                    <img src="images/other-yelp-logo.webp" alt="yelp Logo" class="yelp-logo">
+                </a>
+            </div>
+            <div class="google">
+                <img src="images/guy-avatar.png" alt="Client 2 Avatar" class="client-avatar">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+                </p>
+                <a href="https://www.google.com" target="">
+                    <img src="images/google-logo.png" alt="Google Logo" class="google-logo">
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="Send Text">
             <p style="font-size:32px; text-align: center; font-weight: bold; text-decoration: underline;">
                 Free Consultation
