@@ -27,6 +27,21 @@ header {
   color: white;
 }
 
+/* Header Image (Library) for About Us Page*/
+.about-header {
+  background-image: url('/pictures/lib.png');
+  background-size: cover;
+  background-position: center;
+  height: 20vh;
+  margin: 20px auto;
+  border-radius:20px;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+  color: white;
+  z-index: 1;
+}
+
 /* Header Transperency Layer */
 header::before {
   content: '';
@@ -37,6 +52,7 @@ header::before {
   bottom: 0;
   background: rgba(0, 0, 0, 0.2);
 }
+
 /* add some dynamic styling */
 .navbar.shrink {
   padding: 10px;
@@ -52,6 +68,7 @@ header::before {
 nav {
   position: fixed;
   top: 0;
+  left:0;
   width: 100%; /* Makes the navbar span the full width */
   background-color: #333;
   padding: 15px;
@@ -64,6 +81,7 @@ nav {
 nav ul {
   list-style-type: none;
   display: flex;
+  justify-content: flex-start;  /* Align items to the left */
 }
 
 nav ul li {
@@ -77,6 +95,7 @@ nav ul li a {
   font-weight: bold;
   font-size: 0.9rem;
 }
+
 
 /* Sacramento Website Title */
 .hero-text {
