@@ -19,7 +19,7 @@ body {
 
 /* Header Image (City) */
 header {
-  background-image: url('./Pictures/city.jpg');
+  background-image: url('/pictures/city.jpg');
   background-size: cover;
   background-position: center;
   height: 50vh;
