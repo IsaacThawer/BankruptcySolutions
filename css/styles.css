@@ -318,6 +318,32 @@ form {
   max-width: 900px;
 }
 
+/* Bankruptcy Styling */
+.bankruptcy-info {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.bankruptcy-info p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.bankruptcy-info a {
+  color: #147dd3;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.bankruptcy-info a:hover {
+  color: #0f5c9e;
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   html {
     font-size: 14px; /* Slightly smaller base font size for mobile */
