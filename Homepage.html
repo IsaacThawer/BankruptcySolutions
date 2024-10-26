@@ -71,16 +71,16 @@
 
       <!-- Bankruptcy Link-->
       <section class="bankruptcy-info">
-        <summary>
+        <div>
           <p>For more information on bankruptcy, visit the 
             <a href="https://www.uscourts.gov/services-forms/bankruptcy" target="_blank">U.S. Courts Bankruptcy Resources</a>
           </p>
-        </summary>
+        </div>
       </section>
 
-      <section class="pastCLients">
+      <section class="pastCLients"> <!-- "CL"... typo? -->
           <h2 class="pastClientsHeader">Past Clients</h2>
-          <div class="reviews">
+          <div class="reviews-grid">
               <div class="yelp">
                   <img src="Pictures/girl-avatar.png" alt="Client 1 Avatar" class="client-avatar">
 
@@ -106,7 +106,7 @@
       </section>
 
       <section class="Send Text">
-          <p style="font-size:32px; text-align: center; font-weight: bold; text-decoration: underline;">
+          <p style="font-size: 32px; text-align: center; font-weight: bold; text-decoration: underline; border-top: 1px solid #e5e5e5";> <!-- this should be moved to styles.css -->
               Free Consultation
           </p>
 
@@ -136,7 +136,7 @@
               <input type="tel" id="phone" name="phone" pattern="\(\d{3}\)-\d{3}-\d{4}" required><br><br>
 
               <!-- Message Text Box -->
-              <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.<br></small></label><br>
+              <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.</small></label><br>
               <textarea id="message" name="message" maxlength="250" required></textarea><br><br>
 
               <!-- Submit Button -->
