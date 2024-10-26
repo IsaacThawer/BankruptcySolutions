@@ -207,6 +207,117 @@ footer {
   line-height: 1.5;
 }
 
+
+/* Testominals*/
+
+.pastClientsHeader {
+  text-align: left;
+  text-decoration: underline;
+  font-size: 40px;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 0;
+  font-family: Marcellus, serif;
+}
+
+.yelp, .google {
+  width: 200px; /* Makes each div take up 45% of the parent width */
+  padding: 10px; /* Adds some padding */
+
+  margin: 0 auto; /* Centers the text horizontally */
+  text-align: center;
+}
+
+.reviews {
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+  flex-wrap: wrap;
+  font-family: 'Inter', serif;
+}
+
+.google-logo {
+  margin-top: 20px;
+  width: 140px; /* Smaller size for the logo */
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.yelp-logo {
+  margin-top: 0px;
+  width: 140px; /* Smaller size for the logo */
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.client-link {
+  display: block; /* Makes the link take up the full width, forcing it to a new line */
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px; /* Adds a bit of space between the paragraph and the link */
+}
+
+.client-link:hover {
+  text-decoration: underline;
+}
+
+
+
+/* Consultation Area*/
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea {
+  background-color: rgb(217, 217, 217);
+  width: 100%;
+  max-width: 892px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  max-width: 892px;
+  box-sizing: border-box;
+  float: right;
+  margin-right: 0;
+}
+
+                  /* Style for First Name and Last Name in the same row */
+.name-row {
+  width: 100%;
+  max-width: 892px;
+  box-sizing: border-box;
+}
+                  
+.name-row div {
+  display: inline-block;
+  width: 48%;
+  box-sizing: border-box;
+  margin-right: 2%;
+}
+
+.name-row div:last-child {
+  margin-right: 0;
+}
+
+textarea {
+  height: 142px;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* Center the form on the page */
+form {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
 @media (max-width: 768px) {
   html {
     font-size: 14px; /* Slightly smaller base font size for mobile */
