@@ -173,14 +173,15 @@ footer {
   padding: 2rem;
 }
 
-.services h2 {
-  color: #147dd3;
-  font-size: 48px;
-  font-family: Marcellus, serif;
-  font-weight: 400;
-  text-decoration: underline;
-  margin-bottom: 3rem;
-}
+  .services h2 {
+    color: #147dd3;
+    font-size: 48px;
+    font-family: Marcellus, serif;
+    font-weight: 400;
+    text-decoration: underline;
+    margin-bottom: 3rem;
+    border-top: 1px solid #e5e5e5;
+  }
 
 .services-grid {
   display: grid;
@@ -209,16 +210,19 @@ footer {
 
 
 /* Testominals*/
+.pastCLients{
+    padding: 2rem;
+}
 
 .pastClientsHeader {
   text-align: left;
   text-decoration: underline;
-  font-size: 40px;
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 48px;
+  font-weight: 400;
   margin-bottom: 20px;
   margin-left: 0;
   font-family: Marcellus, serif;
+  border-top: 1px solid #e5e5e5;
 }
 
 .yelp, .google {
@@ -229,11 +233,13 @@ footer {
   text-align: center;
 }
 
-.reviews {
-  display: flex;
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 0.2fr);
   justify-content: center;
-  gap: 0px;
-  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
   font-family: 'Inter', serif;
 }
 
@@ -274,7 +280,7 @@ input[type="text"],
 input[type="tel"],
 input[type="email"],
 textarea {
-  background-color: rgb(217, 217, 217);
+  background-color: rgb(217, 217, 217);  /* Would it look bettwe to have the color match the background? */
   width: 100%;
   max-width: 892px;
   padding: 10px;
@@ -323,7 +329,6 @@ form {
   text-align: center;
   margin-top: 3rem;
   padding: 1.5rem;
-  border-top: 1px solid #e5e5e5;
 }
 
 .bankruptcy-info p {
