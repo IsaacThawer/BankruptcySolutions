@@ -19,7 +19,7 @@ body {
 
 /* Header Image (City) */
 header {
-  background-image: url('/pictures/city.jpg');
+  background-image: url('../images/city.jpg');
   background-size: cover;
   background-position: center;
   height: 50vh;
@@ -29,7 +29,7 @@ header {
 
 /* Header Image (Library) for About Us Page*/
 .about-header {
-  background-image: url('/pictures/lib.png');
+  background-image: url('../images/lib.png');
   background-size: cover;
   background-position: center;
   height: 20vh;
