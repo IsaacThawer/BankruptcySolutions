@@ -349,6 +349,94 @@ form {
   text-decoration: underline;
 }
 
+/* Additional styles for About Us page layout */
+.education-commitment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.grid-item {
+  padding: 1.5rem;
+}
+
+.grid-item h2 {
+  color: #147dd3;
+  font-family: 'Marcellus', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.Client-photo {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.Client-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Adjustments for About page specific layout */
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.contactInfo {
+  flex: 0 0 35%;
+}
+
+.disclaimer {
+  max-width: 100%;
+  margin: 0;
+  padding: 2rem 1rem;
+  border-top: 1px solid #e5e5e5;
+  color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .education-commitment-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .content-wrapper {
+      flex-direction: column;
+  }
+
+  .introduction,
+  .contactInfo {
+      flex: 0 0 100%;
+  }
+}
+
+/* About header specific styles */
+.about-header {
+  margin-top: 60px; /* To account for fixed navigation */
+  position: relative;
+}
+
+footer {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  position: relative; /* Keeps the footer at the bottom of its containing element */
+}
+
+
+
 @media (max-width: 768px) {
   html {
     font-size: 14px; /* Slightly smaller base font size for mobile */
