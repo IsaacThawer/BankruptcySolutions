@@ -435,6 +435,139 @@ footer {
   position: relative; /* Keeps the footer at the bottom of its containing element */
 }
 
+/* Services Page Header Styles */
+.services-page-header {
+  background-image: url('../images/pexels-pixabay-159711.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 20vh;
+  margin: 20px auto;
+  border-radius: 20px;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+  color: white;
+  z-index: 1;
+}
+
+/* Update hero text positioning */
+.services-page-header .hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 50%;
+}
+
+/* Update title styling with transparency */
+.services-page-header .hero-text h1 {
+  font-family: 'Marcellus', serif;
+  font-size: 2.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: rgb(255, 255, 255);
+}
+
+.services-page-content {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.services-page-overview {
+  margin-bottom: 3rem;
+}
+
+.services-page-overview h2 {
+  color: #147dd3;
+  font-size: 2rem;
+  font-family: 'Marcellus', serif;
+  margin-bottom: 1.5rem;
+}
+
+.services-page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+      "chapter7 chapter11"
+      "chapter12 chapter13"
+      "why-choose why-choose";
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Grid area assignments */
+.chapter7 {
+  grid-area: chapter7;
+}
+
+.chapter11 {
+  grid-area: chapter11;
+}
+
+.chapter12 {
+  grid-area: chapter12;
+}
+
+.chapter13 {
+  grid-area: chapter13;
+}
+
+.why-choose-us {
+  grid-area: why-choose;
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.why-choose-us {
+  grid-area: why-choose;
+}
+
+.services-page-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.services-page-card h3 {
+  color: #147dd3;
+  font-size: 1.8rem;
+  font-family: 'Marcellus', serif;
+  margin-bottom: 1rem;
+}
+
+.services-page-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.services-page-card.why-choose-us p {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .services-page-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas: 
+          "chapter7"
+          "chapter11"
+          "chapter12"
+          "chapter13"
+          "why-choose";
+  }
+  
+  .why-choose-us {
+      max-width: 100%;
+  }
+  
+  .services-page-header {
+      height: 25vh;
+  }
+}
 
 
 @media (max-width: 768px) {
