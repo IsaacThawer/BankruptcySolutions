@@ -1,0 +1,242 @@
+/* General container styling */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display:flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: #333;
+
+}
+
+/* Main container styling */
+.container {
+  display: grid;
+  grid-template-columns: 30% 1px 70%;
+  grid-template-rows: auto auto 1fr;
+  width: 98%;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+/* Header section with 'Sign Out' link and back button */
+.header-buttons {
+  grid-column: span 3;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: white;
+  font-weight: bold;
+}
+.header-buttons button {
+  background-color: white;
+  color: #333;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 9px;
+}
+.header-buttons button:hover {
+  background-color: #e0f7ff;
+  cursor: pointer;
+}
+
+/* Title header */
+.header {
+  grid-column: span 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 0;
+  background-color: #147dd3;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* Action buttons and search bar */
+.top-actions {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  flex-wrap: wrap; /* Ensure wrapping for smaller screens */
+  height: auto;
+  box-sizing: border-box;
+}
+
+/* Buttons within top-actions */
+.top-actions button {
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #83b9e4;
+  border: 1px solid #83b9e4;
+  transition: background-color 0.3s;
+  border-radius: 9px;
+}
+.top-actions button:hover {
+  background-color: #e0f7ff;
+}
+
+/* Search box responsiveness */
+.top-actions input[type="text"] {
+  flex-grow: 1; /* Allows it to grow and take up available space */
+  min-width: 150px; /* Sets a minimum width for small screens */
+  max-width: 300px; /* Sets a maximum width */
+  margin-left: auto;
+  padding: 5px;
+  border: 1px solid #969595;
+  border-radius: 4px;
+  width: 200px;
+  background-color: #fff;
+  color: #333;
+  margin-left: auto; /* Aligns the search box to the right */
+}
+.top-actions input:hover {
+  background-color: #e0f7ff;
+}
+
+/* Sort lable and select button */
+.top-actions select {
+  padding: 5px 0px 5px 10px;
+  appearance: none;
+  -webkit-appearance: none; /* Removes default styling for Webkit browsers */
+  -moz-appearance: none; /* Removes default styling for Mozilla browsers */
+  background-position: calc(100% - 10px) center; /* Adjust arrow position */
+  background-color: #83b9e4;
+  font-size: 14px;
+  border-color: #83b9e4;
+  border-radius: 9px;
+}
+.top-actions select:hover {
+  background-color: #e0f7ff;
+  cursor: pointer;
+}
+
+/* Titles for Clients and Submissions */
+.title-clients, .title-submissions {
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  background-color: white;
+  border-bottom: 1px solid #ccc;
+}
+
+.separator {
+  grid-row: 2 / span 2;
+  background-color: #ccc;
+  width: 1px;
+}
+.title-submissions {
+  grid-column: 3 / 4;
+}
+
+/* Clients panel on the left */
+.clients-panel {
+  grid-column: 1 / 2;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+  max-height: 70vh;
+}
+.client-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.client-item:hover {
+  background-color: #e0f7ff;
+}
+.client-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+.client-item span {
+  flex-grow: 1;
+}
+.client-item .flagged {
+  color: red;
+  margin-left: 10px;
+}
+.client-item .time {
+  font-size: 0.9em;
+  color: #666;
+  text-align: right;
+  margin-left: auto;
+}
+
+/* Right panel for client details */
+.details-panel {
+  grid-column: 3 / 4;
+  padding: 20px;
+}
+.details-panel .field {
+  margin-bottom: 15px;
+}
+.details-panel .field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+.details-panel .field input,
+.details-panel .field textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: #e9e9e9;
+  border: 1px solid #ccc;
+  color: #333;
+  border-radius: 4px;
+}
+.details-panel .field input:disabled,
+.details-panel .field textarea:disabled {
+  background-color: #e9e9e9;
+}
+
+/* Target a button with type="button" */
+.save-notes  {
+  background-color: #83b9e4;
+  border-color: #83b9e4;
+  border: 1px solid #83b9e4;
+  border-radius: 9px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.save-notes:hover {
+  background-color: #e0f7ff;
+
+}
+
+.footer {
+  background-color: #83b9e4;
+  color: white;
+  font-size: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  position: sticky;
+  bottom: 0;
+  width: 98%;
+  margin:auto;
+}
