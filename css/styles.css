@@ -17,9 +17,9 @@ body {
   font-size: 1rem; /* 16px */
 }
 
-/* Header Image (City) */
+/* Header Image (Bridge) */
 header {
-  background-image: url('../images/city.jpg');
+  background-image: url('../images/guy-west-bridge.jpg');
   background-size: cover;
   background-position: center;
   height: 50vh;
