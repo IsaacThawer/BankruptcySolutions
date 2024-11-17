@@ -492,7 +492,7 @@ footer {
   grid-template-areas: 
       "chapter7 chapter11"
       "chapter12 chapter13"
-      "why-choose why-choose";
+      "why-choose service-benefits";
   gap: 2rem;
   margin-bottom: 3rem;
 }
@@ -516,12 +516,10 @@ footer {
 
 .why-choose-us {
   grid-area: why-choose;
-  max-width: 50%;
-  margin: 0 auto;
 }
 
-.why-choose-us {
-  grid-area: why-choose;
+.service-benefits {
+  grid-area: service-benefits;
 }
 
 .services-page-card {
@@ -555,7 +553,8 @@ footer {
           "chapter11"
           "chapter12"
           "chapter13"
-          "why-choose";
+          "why-choose"
+          "service-benefits";
   }
   
   .why-choose-us {
