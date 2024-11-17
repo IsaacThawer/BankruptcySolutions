@@ -1,0 +1,252 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #FFFFFF;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  height: 100%;
+  background: white;
+  padding: 20px; /* Add padding for overall spacing */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align contents to the left */
+}
+
+.sidebar h2 {
+  font-size: 24px;
+  font-weight: 500;
+  padding: top 10px;
+  padding-left: 40px;
+  margin: 0px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.sidebar nav {
+  width: 100%;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  padding: 30px 5px; /* padding for the sidebar*/
+  font-size: 18px;
+  gap: 15px;
+  transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+  text-decoration: underline; /* Add underline on hover */
+  background-color: #e0f7ff;
+  cursor: pointer;
+}
+
+.sidebar a:focus {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+.sidebar a::before {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+/* Main Content Area */
+main {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  box-sizing: border-box;
+  margin-top: 120px;
+}
+
+.header {
+  position: relative; /* Allows absolute positioning for child elements */
+  width: 100%;
+}
+
+
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 5px; /* Add spacing below avatar */
+  margin-left: 40px; /* Ensure the avatar aligns to the left */
+}
+
+.avatar img {
+  width: 100%; /* Make the image responsive within the avatar container */
+  height: 100%; /* Maintain the height within the container */
+  object-fit: cover; /* Ensure the image scales properly without distortion */
+  border-radius: 50%; /* Make the image circular */
+}
+
+.logout {
+  position: absolute; /* Absolute positioning relative to the body */
+  top: 10px; /* Space from the top of the page */
+  right: 10px; /* Space from the right edge of the page */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align items */
+  gap: 5px; /* Add spacing between the icon and button */
+  font-size: 16px;
+  color: #000;
+}
+
+.logout img {
+  width: 28px; /* Adjust size as needed */
+  height: 28px;
+}
+
+.logout button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+.logout button:hover {
+  background-color: #e0f7ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+
+/* Date and Time */
+.date-time {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 40px;
+}
+
+.date-time div {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Edit Home Page Section */
+#rectangle-24 {
+  background: linear-gradient(180deg, #D9D9D9 0%, rgba(115, 115, 115, 0.01) 100%);
+  padding: 20px 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px; /* Restrict max width */
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+#rectangle-24 h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #000000;
+}
+
+/* Content Section */
+.homepage-section {
+  margin-bottom: 30px; /* Increased spacing */
+}
+
+.homepage-section label {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.homepage-section input,
+.homepage-section textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #CCCCCC;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+/* Error State for Inputs */
+input:invalid,
+textarea:invalid {
+  border-color: #FF0000;
+}
+
+input:invalid:focus,
+textarea:invalid:focus {
+  outline: none;
+  box-shadow: 0 0 5px #FF0000;
+}
+
+/* Update Button */
+.button {
+  background: #2C2C2C;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  margin-left: auto;
+  display: block;
+}
+
+.button:hover {
+  background: #147dd3; /* Fixed typo */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding-top: 20px;
+    justify-content: space-around;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+  }
+}
