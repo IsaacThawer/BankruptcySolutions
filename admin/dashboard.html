@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/admin/css/dashboard-styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="avatar">
+      <img src="/images/client-photo.png" alt="Client Photo">
+    </div>
+    <h2>Hello, Eric!</h2>
+    <nav>
+      <a href="#home" id="home-link"> <img src="/admin/images/Home.png" alt="Home Icon" class="nav-icon"> Home Page </a>
+      <a href="#services" id="services-link"> <img src="/admin/images/Search.png" alt="Services Icon" class="nav-icon"> Services Page </a>
+      <a href="#about-us" id="about-us-link"> <img src="/admin/images/Piechart.png" alt="About Icon" class="nav-icon"> About Us Page </a>
+      <a href="#reviews" id="reviews-link"> <img src="/admin/images/Star.png" alt="Reviews Icon" class="nav-icon"> Reviews Page </a>
+      <a href="client_submissions.html" id="database-link"><img src="/admin/images/Database.png" alt="Database Icon" class="nav-icon"> Database</a>
+
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <header>
+      <div class="date-time">
+        <div>Jun 10, 2024</div>
+        <div>9:41 AM</div>
+      </div>
+      <div class="logout">
+        <img src="/admin/images/Logout.png" alt="Logout Icon" class="logout-icon">
+        <button>Sign Out</button>
+      </div>
+    </header>
+
+    <section id="rectangle-24">
+      <h1>Edit Home Page</h1>
+
+      <div class="homepage-section">
+        <label for="home-page-title">Home Page Title</label>
+        <input type="text" id="home-page-title" value="Text that is in the title page">
+      </div>
+
+      <div class="homepage-section">
+        <label for="home-page-description">Home Page Description</label>
+        <textarea id="home-page-description" rows="4">Text that is describing the home page</textarea>
+      </div>
+
+      <div class="homepage-section">
+        <label for="home-page-contactInfo">Home Page Contact Information</label>
+        <textarea id="home-page-contactInfo" rows="4">Text for contact information</textarea>
+      </div>
+
+      <div class="homepage-section">
+        <label for="home-page-services">Home Page Services</label>
+        <textarea id="home-page-services" rows="4">Text for Services</textarea>
+      </div>
+
+      <div class="homepage-section">
+        <label for="home-page-reviews">Home Page Reviews</label>
+        <textarea id="home-page-reviews" rows="4">Text for Reviews</textarea>
+      </div>
+
+      <button class="button">Update Page</button>
+    </section>
+  </main>
+  
+</body>
+</html>

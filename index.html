@@ -119,11 +119,11 @@
               <div class="name-row">
                   <div>
                       <label for="firstname">First Name:</label> <small>(Required)</small><br>
-                      <input type="text" id="firstname" name="firstname" required>
+                      <input type="text" id="firstname" name="firstname" maxlength="25" required>
                   </div>
                   <div>
                       <label for="lastname">Last Name:</label> <small>(Required)</small><br>
-                      <input type="text" id="lastname" name="lastname" required>
+                      <input type="text" id="lastname" name="lastname" maxlength="25" required>
                   </div>
               </div><br>
 
@@ -132,7 +132,7 @@
               <input type="email" id="email" name="email" required><br><br>
 
               <!-- Phone Number -->
-              <label for="phone">Phone Number:</label><br>
+              <label for="phone">Phone Number:</label><small>   Example: (123)-456-7890</small><br>
               <input type="tel" id="phone" name="phone" pattern="\(\d{3}\)-\d{3}-\d{4}" required><br><br>
 
               <!-- Message Text Box -->
