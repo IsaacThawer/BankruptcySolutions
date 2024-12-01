@@ -90,8 +90,28 @@ This project provides a professional and user-friendly interface with the follow
 
 ## Known issues
 - **Browser Compatibility**: The page may not render properly on older versions of Internet Explorer.  
+- **Mobile Device Compatibility**: The page elements are not properly initialized for a mobile device platform.
 - **Responsive Design**: Some elements may overlap on very small or very large screen sizes.  
 - **Limited Testing**: The page has been tested on the latest versions of Chrome, Firefox, and Edge only.  
+
+## Testing
+This section will cover the testing approach for the project in future iterations. Planned testing phases include:
+- **Unit Testing:** 
+- **Integration Testing:** 
+- **UI/UX Testing:** 
+- **Tools Used:** 
+
+## Deployment
+Steps for deploying the project to a live server:
+- **Local Deployment:** 
+- **Cloud Deployment:** 
+
+## Developer Instructions
+This section is intended to guide developers contributing to the project. Future updates will include:
+- **Code Style Guidelines:**
+- **Branching Strategy:**
+- **Testing Requirements:**
+- **Contribution Guidelines:** 
 
 
 ## Getting help
@@ -108,6 +128,17 @@ If you need help with this project, here’s how you can get support:
 
 3. **Contact:**  
    - For direct support, email the [maintainer](mailto:rdelacruz2@csus.edu)
+
+## Timeline
+The following timeline outlines the expected milestones of the project:
+
+- **Sprint 1-2:** Initial project setup and development of the homepage.
+- **Sprint 3-4:** Implementation of About Us, Services, and Testimonials pages.
+- **Sprint 5-6:** Admin page development and testing.
+- **Sprint 7:** Database integration for the consultation form and Admin database.
+- **Sprint 8:** Final testing, search engine optimization, bug fixes, and deployment.
+
+This timeline is based on the JIRA backlog and user stories.
 
 ## Final Message
 
