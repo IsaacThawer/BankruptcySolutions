@@ -1,5 +1,5 @@
 # Tyranno Code
-<img src="images/tyranno-avatar.png" alt="team photo" width="300">
+<img src="images/tyranno-avatar.png" alt="team photo" width="200">
 
 ## BankruptcySolutions
 "Building a user-friendly landing page for bankruptcy solutions."
