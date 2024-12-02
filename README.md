@@ -1,5 +1,5 @@
 # Tyranno Code
-<img src="images/tyranno-avatar.png" alt="team photo" width="200">
+<img src="images/Readme/tyranno-avatar.png" alt="team photo" width="200">
 
 ## BankruptcySolutions
 "Building a user-friendly landing page for bankruptcy solutions."
@@ -15,6 +15,27 @@
 - [Goodwin Lu](https://github.com/username)
 - [Seyed Mojtaba Karanizadeh](https://github.com/username)
 
+## Prototype UI
+### Home Page
+<img src="images/Readme/Home-Page.png" alt="Home-Page" width="400" >
+
+### About Us Page
+<img src="images/Readme/About-page.png" alt="About-page" width="400">
+
+### Testimonials Page
+<img src="images/Readme/Testimonials.png" alt="Testimonials" width="400">
+
+### Services Page
+<img src="images/Readme/Services.png" alt="Services" width="400">
+
+### Login Page
+<img src="images/Readme/Login.png" alt="Login" width="400">
+
+### Admin Dashboard
+<img src="images/Readme/Admin-Dashboard.png" alt="Admin-Dashboard" width="400">
+
+### Admin Database
+<img src="images/Readme/Admin-Database.png" alt="Admin-Database" width="400">
 
 ## Description
 This project is a professional landing page for Bankruptcy Solutions by Eric Schwab, designed to provide clients with easy access to information and services. The website includes:
