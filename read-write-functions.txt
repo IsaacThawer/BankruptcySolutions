@@ -1,0 +1,8 @@
+loadText(contID, filename) - included in read-script.js
+
+saveText(contID, filename) - included in write-script.js
+
+contID - Container ID, input the assigned ID of the html element you want the text to be sent to or read from (example: 'title')
+
+filename - the name of the file containing the text you want to read or write to (example: 'title.txt'). The file must a .txt file and be located in admin/content.
+
