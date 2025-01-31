@@ -6,148 +6,150 @@
         <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
-      <!-- Use the following semantic elements when defining the upper-level element instead of <div> or <span>, to improve clarity and readability.
-           <article> <aside> <details> <figcaption> <figure> <footer> <header> <main> <mark> <nav> <section> <summary> <time> -->
-      <header>
-          <nav class="navbar" id="navbar">
-              <ul>
-                  <li><a href="index.html">HOME</a></li>
-                  <li><a href="about-us.html">ABOUT US</a></li>
-                  <li><a href="services.html">SERVICES</a></li>
-                  <li><a href="reviews.html">REVIEWS</a></li>
-              </ul>
-          </nav>
-          <div class="hero-text">
-              <h1>Eric J. Schwab, Attorney at Law</h1>
-          </div>
-      </header>
+    <!-- Use the following semantic elements when defining the upper-level element instead of <div> or <span>, to improve clarity and readability.
+       <article> <aside> <details> <figcaption> <figure> <footer> <header> <main> <mark> <nav> <section> <summary> <time> -->
+    <header>
+      <nav class="navbar" id="navbar">
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="about-us.html">ABOUT US</a></li>
+          <li><a href="services.html">SERVICES</a></li>
+          <li><a href="reviews.html">REVIEWS</a></li>
+        </ul>
+      </nav>
+      <div class="hero-text">
+        <h1>Eric J. Schwab, Attorney at Law</h1>
+      </div>
+    </header>
 
-      <main>
-          <h2>Debt Relief with Expertise and Understanding</h2>
-          <div class="content-wrapper">
-              <div class="introduction">
-                <p>Eric Schwab is a highly experienced bankruptcy lawyer based in Sacramento, California, and is one of the longest-practicing bankruptcy attorneys in the region, with over 35 years of dedicated service. Since 1990, he has been representing consumer and small business debtors and creditors in bankruptcy liquidation and reorganization throughout the Sacramento Valley. Eric is also the Vice President of the Sacramento Valley Bankruptcy Forum and frequently holds seminars to educate others on bankruptcy law. With a proven track record of helping thousands of clients, Eric specializes in various bankruptcy filings, including Chapter 7, 11, 12, and 13 cases. Known for his compassionate approach and strategic legal expertise, he offers personalized solutions tailored to each client's unique financial situation. Whether you are struggling with overwhelming debt, foreclosure, or creditor harassment, Eric is committed to providing effective, results-driven legal representation, ensuring a fresh start for all his clients.</p>
-              </div>
-              <div class="contactInfo">
-                  <h3>Contact</h3>
-                  <p>Location:<br>455 University Ave # 260, Sacramento, CA 95828</p>
-                  <p>Monday - Friday<br>9AM - 5PM</p>
-                  <p>eric@nelsonschwab.com<br>Cell: (916) 564-9588</p>
-                  <iframe id="GMap"
-                          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGkoHUfCA9LHCXbppnFagNsoR3M00XPc&q=Law+office+of+Eric+Schwab,Sacramento+CA">
-                  </iframe>
-              </div>
-          </div>
-      </main>
-
-      <section class="services">
-        <h2>Our Services</h2>
-        <div class="services-grid">
-            <!-- Chapter 7 -->
-            <article class="service-card">
-                <h3>Chapter 7<br>Bankruptcy</h3>
-                <p>Our Chapter 7 bankruptcy service offers a way to clear certain debts by liquidating nonexempt assets to pay creditors. Eligible individuals and businesses can discharge qualifying debts while keeping exempt property. There's no repayment plan involved, but some debts and liens remain. Let us help you start fresh with a simple and effective solution tailored to your needs.</p>
-            </article>
-    
-            <!-- Chapter 11 -->
-            <article class="service-card">
-                <h3>Chapter 11<br>Bankruptcy</h3>
-                <p>Our Chapter 11 bankruptcy service helps businesses reorganize and restructure their debts while continuing operations. This option allows companies to negotiate with creditors, modify payment terms, and develop a plan for financial recovery while maintaining operations.</p>
-            </article>
-    
-            <!-- Chapter 12 -->
-            <article class="service-card">
-                <h3>Chapter 12<br>Bankruptcy</h3>
-                <p>Our Chapter 12 bankruptcy service is specifically designed for family farmers and fishermen, offering a streamlined path to reorganize their debts. This specialized bankruptcy option allows agricultural operations to create a manageable repayment plan while keeping their business running.</p>
-            </article>
-    
-            <!-- Chapter 13 -->
-            <article class="service-card">
-                <h3>Chapter 13<br>Bankruptcy</h3>
-                <p>Our Chapter 13 bankruptcy service helps individuals with regular income create a 3-5 year repayment plan to manage debts, stop foreclosure, and reschedule certain payments. You'll make payments through a trustee, avoiding direct contact with creditors.</p>
-            </article>
+    <main>
+      <h2 id="title"></h2>
+      <div class="content-wrapper">
+        <div class="introduction" id="introduction">
         </div>
-      </section>
-
-      <!-- Bankruptcy Link-->
-      <section class="bankruptcy-info">
-        <div>
-          <p>For more information on bankruptcy, visit the 
-            <a href="https://www.uscourts.gov/services-forms/bankruptcy" target="_blank">U.S. Courts Bankruptcy Resources</a>
+        <div class="contactInfo">
+          <h3>Contact</h3>
+          <p id="contact">
           </p>
+          <iframe id="GMap"
+                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBqGkoHUfCA9LHCXbppnFagNsoR3M00XPc&q=Law+office+of+Eric+Schwab,Sacramento+CA">
+          </iframe>
         </div>
-      </section>
+      </div>
+    </main>
 
-      <section class="pastCLients"> <!-- "CL"... typo? -->
-          <h2 class="pastClientsHeader">Past Clients</h2>
-          <div class="reviews-grid">
-              <div class="yelp">
-                  <img src="images/girl-avatar.png" alt="Client 1 Avatar" class="client-avatar">
+    <section class="services">
+      <h2>Our Services</h2>
+      <div class="services-grid">
+        <!-- Chapter 7 -->
+        <article class="service-card">
+          <h3>Chapter 7<br>Bankruptcy</h3>
+          <p id="services1"></p>
+        </article>
 
-                  <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  </p>
-                  <a href="https://www.yelp.com/biz/eric-j-schwab-sacramento-2?osq=Eric+Schwab" target="">
+        <!-- Chapter 11 -->
+        <article class="service-card">
+          <h3>Chapter 11<br>Bankruptcy</h3>
+          <p>Our Chapter 11 bankruptcy service helps businesses reorganize and restructure their debts while continuing operations. This option allows companies to negotiate with creditors, modify payment terms, and develop a plan for financial recovery while maintaining operations.</p>
+        </article>
 
-                      <img src="images/other-yelp-logo.webp" alt="yelp Logo" class="yelp-logo">
-                  </a>
-              </div>
-              <div class="google">
-                  <img src="images/guy-avatar.png" alt="Client 2 Avatar" class="client-avatar">
-                  <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                  </p>
-                  <a href="https://www.google.com/search?q=Eric+Schwab+Bankruptcy&newwindow=1&client=opera-gx&hs=ii9&sca_esv=9ea83b4b79de5e32&sxsrf=ADLYWILFJdYPftiCJEELlcQoXSzyVODh3Q%3A1731790303358&ei=3wU5Z_jMFbqG0PEP9MjTuAk&ved=0ahUKEwi4uO3O3eGJAxU6AzQIHXTkFJcQ4dUDCA8&oq=Eric+Schwab+Bankruptcy&gs_lp=Egxnd3Mtd2l6LXNlcnAiFkVyaWMgU2Nod2FiIEJhbmtydXB0Y3lIpiJQAFiVGnAAeACQAQCYAWWgAewCqgEDNC4xuAEMyAEA-AEBmAIAoAIAmAMAkgcAoAfhAQ&sclient=gws-wiz-serp#lrd=0x809ada03e7b7ba91:0xdd1ac700ccb726f9,1,,,," target="">
+        <!-- Chapter 12 -->
+        <article class="service-card">
+          <h3>Chapter 12<br>Bankruptcy</h3>
+          <p>Our Chapter 12 bankruptcy service is specifically designed for family farmers and fishermen, offering a streamlined path to reorganize their debts. This specialized bankruptcy option allows agricultural operations to create a manageable repayment plan while keeping their business running.</p>
+        </article>
 
-                      <img src="images/google-logo.png" alt="Google Logo" class="google-logo">
-                  </a>
-              </div>
-          </div>
-      </section>
+        <!-- Chapter 13 -->
+        <article class="service-card">
+          <h3>Chapter 13<br>Bankruptcy</h3>
+          <p>Our Chapter 13 bankruptcy service helps individuals with regular income create a 3-5 year repayment plan to manage debts, stop foreclosure, and reschedule certain payments. You'll make payments through a trustee, avoiding direct contact with creditors.</p>
+        </article>
+      </div>
+    </section>
 
-      <section class="Send Text">
-          <p style="font-size: 32px; text-align: center; font-weight: bold; text-decoration: underline; border-top: 1px solid #e5e5e5";> <!-- this should be moved to styles.css -->
-              Free Consultation
+    <!-- Bankruptcy Link-->
+    <section class="bankruptcy-info">
+      <div>
+        <p>
+          For more information on bankruptcy, visit the
+          <a href="https://www.uscourts.gov/services-forms/bankruptcy" target="_blank">U.S. Courts Bankruptcy Resources</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="pastCLients">
+      <!-- "CL"... typo? -->
+      <h2 class="pastClientsHeader">Past Clients</h2>
+      <div class="reviews-grid">
+        <div class="yelp">
+          <img src="images/girl-avatar.png" alt="Client 1 Avatar" class="client-avatar">
+
+          <p id="review1">
           </p>
+          <a href="https://www.yelp.com/biz/eric-j-schwab-sacramento-2?osq=Eric+Schwab" target="">
 
-          <p style="text-align: center; width: 100%; max-width: 892px; padding: 10px; margin: 0 auto;">
-              Use the form below to contact us regarding your legal inquiry. Please be as detailed as possible. However, please do not include any confidential or sensitive information. To help us best service your inquiry, we recommend that you describe the debt issues you’re facing and tell us what you want to achieve. You may also email or call us to make an appointment.
+            <img src="images/other-yelp-logo.webp" alt="yelp Logo" class="yelp-logo">
+          </a>
+        </div>
+        <div class="google">
+          <img src="images/guy-avatar.png" alt="Client 2 Avatar" class="client-avatar">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
           </p>
+          <a href="https://www.google.com/search?q=Eric+Schwab+Bankruptcy&newwindow=1&client=opera-gx&hs=ii9&sca_esv=9ea83b4b79de5e32&sxsrf=ADLYWILFJdYPftiCJEELlcQoXSzyVODh3Q%3A1731790303358&ei=3wU5Z_jMFbqG0PEP9MjTuAk&ved=0ahUKEwi4uO3O3eGJAxU6AzQIHXTkFJcQ4dUDCA8&oq=Eric+Schwab+Bankruptcy&gs_lp=Egxnd3Mtd2l6LXNlcnAiFkVyaWMgU2Nod2FiIEJhbmtydXB0Y3lIpiJQAFiVGnAAeACQAQCYAWWgAewCqgEDNC4xuAEMyAEA-AEBmAIAoAIAmAMAkgcAoAfhAQ&sclient=gws-wiz-serp#lrd=0x809ada03e7b7ba91:0xdd1ac700ccb726f9,1,,,," target="">
 
-          <form action="/submit-form" method="POST">
-              <!-- First Name and Last Name on the same line -->
-              <div class="name-row">
-                  <div>
-                      <label for="firstname">First Name:</label> <small>(Required)</small><br>
-                      <input type="text" id="firstname" name="firstname" maxlength="25" required>
-                  </div>
-                  <div>
-                      <label for="lastname">Last Name:</label> <small>(Required)</small><br>
-                      <input type="text" id="lastname" name="lastname" maxlength="25" required>
-                  </div>
-              </div><br>
+            <img src="images/google-logo.png" alt="Google Logo" class="google-logo">
+          </a>
+        </div>
+      </div>
+    </section>
 
-              <!-- Email Address -->
-              <label for="email">Email Address:</label> <small>(Required)</small><br>
-              <input type="email" id="email" name="email" required><br><br>
+    <section class="Send Text">
+      <p style="font-size: 32px; text-align: center; font-weight: bold; text-decoration: underline; border-top: 1px solid #e5e5e5" ;>
+        <!-- this should be moved to styles.css -->
+        Free Consultation
+      </p>
 
-              <!-- Phone Number -->
-              <label for="phone">Phone Number:</label><small>   Example: (123)-456-7890</small><br>
-              <input type="tel" id="phone" name="phone" pattern="\(\d{3}\)-\d{3}-\d{4}" required><br><br>
+      <p style="text-align: center; width: 100%; max-width: 892px; padding: 10px; margin: 0 auto;">
+        Use the form below to contact us regarding your legal inquiry. Please be as detailed as possible. However, please do not include any confidential or sensitive information. To help us best service your inquiry, we recommend that you describe the debt issues you’re facing and tell us what you want to achieve. You may also email or call us to make an appointment.
+      </p>
 
-              <!-- Message Text Box -->
-              <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.</small></label><br>
-              <textarea id="message" name="message" maxlength="250" required></textarea><br><br>
-
-              <!-- Submit Button -->
-              <input type="submit" value="Submit"><br><br>
-          </form>
-      </section>
-
-      <footer>
-          <div class="disclaimer">
-              <p>We are a debt relief agency. We help people file for bankruptcy relief under the bankruptcy code.</p>
+      <form action="/submit-form" method="POST">
+        <!-- First Name and Last Name on the same line -->
+        <div class="name-row">
+          <div>
+            <label for="firstname">First Name:</label> <small>(Required)</small><br>
+            <input type="text" id="firstname" name="firstname" maxlength="25" required>
           </div>
-      </footer>
+          <div>
+            <label for="lastname">Last Name:</label> <small>(Required)</small><br>
+            <input type="text" id="lastname" name="lastname" maxlength="25" required>
+          </div>
+        </div><br>
+
+        <!-- Email Address -->
+        <label for="email">Email Address:</label> <small>(Required)</small><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- Phone Number -->
+        <label for="phone">Phone Number:</label><small>   Example: (123)-456-7890</small><br>
+        <input type="tel" id="phone" name="phone" pattern="\(\d{3}\)-\d{3}-\d{4}" required><br><br>
+
+        <!-- Message Text Box -->
+        <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.</small></label><br>
+        <textarea id="message" name="message" maxlength="250" required></textarea><br><br>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Submit"><br><br>
+      </form>
+    </section>
+
+    <footer>
+      <div class="disclaimer">
+        <p>We are a debt relief agency. We help people file for bankruptcy relief under the bankruptcy code.</p>
+      </div>
+    </footer>
+    <script src="read-script.js">
+    </script>
   </body>
 </html>
