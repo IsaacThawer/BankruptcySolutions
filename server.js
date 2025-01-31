@@ -18,6 +18,10 @@ app.get('/dashboard.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
 });
 
+app.get('/reviews-admin.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'reviews-admin.html'));
+});
+
 app.get('/admin/content/:filename', (req, res) => {
     const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
 

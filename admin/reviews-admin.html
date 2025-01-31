@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/admin/css/dashboard-styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="avatar">
+      <img src="/images/client-photo.png" alt="Client Photo">
+    </div>
+    <h2>Hello, Eric!</h2>
+    <nav>
+      <a href="dashboard.html" id="home-link">
+        <img src="/admin/images/Home.png" alt="Home Icon" class="nav-icon"> Home Page
+      </a>
+      <a href="#services" id="services-link">
+        <img src="/admin/images/Search.png" alt="Services Icon" class="nav-icon"> Services Page
+      </a>
+      <a href="#about-us" id="about-us-link">
+        <img src="/admin/images/Piechart.png" alt="About Icon" class="nav-icon"> About Us Page
+      </a>
+      <a href="#reviews" id="reviews-link">
+        <img src="/admin/images/Star.png" alt="Reviews Icon" class="nav-icon"> Reviews Page
+      </a>
+      <a href="client_submissions.html" id="database-link">
+        <img src="/admin/images/Database.png" alt="Database Icon" class="nav-icon"> Database
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <header>
+      <div class="date-time">
+        <div>Jun 10, 2024</div>
+        <div>9:41 AM</div>
+      </div>
+      <div class="logout">
+        <img src="/admin/images/Logout.png" alt="Logout Icon" class="logout-icon">
+        <button>Sign Out</button>
+      </div>
+    </header>
+
+    <section id="rectangle-24">
+      <h1>Edit Reviews Page</h1>
+
+      <div class="homepage-section">
+        <label for="reviews-page-title">Reviews Page Title</label>
+        <textarea id="reviews-page-title" rows="1"></textarea>
+        <button class="button" onclick="saveText('reviews-page-title', 'reviews-title.txt')">Update</button>
+      </div>
+
+      <div class="homepage-section">
+        <label for="review1-content">Review 1</label>
+        <textarea id="review1-content" rows="4"></textarea>
+        <button class="button" onclick="saveText('review1-content', 'review1.txt')">Update</button>
+      </div>
+
+      <div class="homepage-section">
+        <label for="review2-content">Review 2</label>
+        <textarea id="review2-content" rows="4"></textarea>
+        <button class="button" onclick="saveText('review2-content', 'review2.txt')">Update</button>
+      </div>
+
+      <div class="homepage-section">
+        <label for="review3-content">Review 3</label>
+        <textarea id="review3-content" rows="4"></textarea>
+        <button class="button" onclick="saveText('review3-content', 'review3.txt')">Update</button>
+      </div>
+    </section>
+
+    <script src="write-script.js"></script>
+    <script src="read-script.js"></script>
+  </main>
+</body>
+</html>
