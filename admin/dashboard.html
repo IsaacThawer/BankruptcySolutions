@@ -5,74 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="/admin/css/dashboard-styles.css"> <!-- Link to your CSS file -->
+  <script src="/admin/js/write-script.js"defer></script>
+  <script src="/admin/js/read-script.js"defer></script>
+  <script src="/admin/js/dashboard.js" defer></script>
 </head>
 <body>
   <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="avatar">
-      <img src="/images/client-photo.png" alt="Client Photo">
-    </div>
+    <div class="profile-container">
+      <div class="avatar">
+        <img src="images/client-photo.png" alt="Client Photo">
+      </div>
     <h2>Hello, Eric!</h2>
+    </div>
+
     <nav>
       <a href="#home" id="home-link"> <img src="/admin/images/Home.png" alt="Home Icon" class="nav-icon"> Home Page </a>
       <a href="#services" id="services-link"> <img src="/admin/images/Search.png" alt="Services Icon" class="nav-icon"> Services Page </a>
       <a href="#about-us" id="about-us-link"> <img src="/admin/images/Piechart.png" alt="About Icon" class="nav-icon"> About Us Page </a>
       <a href="#reviews" id="reviews-link"> <img src="/admin/images/Star.png" alt="Reviews Icon" class="nav-icon"> Reviews Page </a>
       <a href="client_submissions.html" id="database-link"><img src="/admin/images/Database.png" alt="Database Icon" class="nav-icon"> Database</a>
-
     </nav>
   </aside>
 
   <!-- Main Content -->
   <main>
-    <header>
-      <div class="date-time">
-        <div>Jun 10, 2024</div>
-        <div>9:41 AM</div>
-      </div>
-      <div class="logout">
-        <img src="/admin/images/Logout.png" alt="Logout Icon" class="logout-icon">
-        <button>Sign Out</button>
-      </div>
-    </header>
-
-    <section id="rectangle-24">
-      <h1>Edit Home Page</h1>
-
-      <div class="homepage-section">
-        <label for="home-page-title">Home Page Title</label>
-        <textarea id="home-page-title" rows="1"></textarea>
-        <button class="button" onclick="saveText('home-page-title', 'index-title.txt')">Update</button>
-      </div>
-
-      <div class="homepage-section">
-        <label for="home-page-description">Home Page Description</label>
-        <textarea id="home-page-description" rows="4"></textarea>
-        <button class="button" onclick="saveText('home-page-description', 'index-description.txt')">Update</button>
-      </div>
-
-      <div class="homepage-section">
-        <label for="home-page-contactInfo">Home Page Contact Information</label>
-        <textarea id="home-page-contactInfo" rows="4"></textarea>
-        <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.txt')">Update</button>
-      </div>
-
-      <div class="homepage-section">
-        <label for="home-page-services">Home Page Services</label>
-        <textarea id="home-page-services" rows="4"></textarea>
-        <button class="button" onclick="saveText('home-page-services', 'index-services.txt')">Update</button>
-      </div>
-
-      <div class="homepage-section">
-        <label for="home-page-reviews">Home Page Reviews</label>
-        <textarea id="home-page-reviews" rows="4"></textarea>
-        <button class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
-      </div>
-    </section>
-    <script src="write-script.js">
-    </script>
-    <script src="read-script.js">
-    </script>
+    <div class="logout">
+      <img src="/admin/images/Logout.png" alt="Logout Icon" class="logout-icon">
+      <button>Sign Out</button>
+    </div>
+    <div class="date-time-container">
+      <div class="date-time-box">Jun 10, 2024</div>
+      <div class="date-time-box">9:41 AM</div>
+    </div>
+    <section id="dynamic-content"></section>
   </main>
 </body>
 </html>

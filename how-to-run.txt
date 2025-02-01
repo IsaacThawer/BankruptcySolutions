@@ -7,4 +7,4 @@
 
 3. open your web browser:
 	to access the main website, go to address http://localhost:8000/
-	to access the admin dashboard, go to address http://localhost:8000/admin/dashboard/
+	to access the admin dashboard, go to address http://localhost:8000/admin/dashboard.html
