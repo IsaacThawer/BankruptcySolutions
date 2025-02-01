@@ -20,6 +20,7 @@ body {
   align-items: flex-start; /* Align contents to the left */
 }
 
+/* Sidebar title */
 .sidebar h2 {
   font-size: 24px;
   font-weight: 500;
@@ -30,6 +31,7 @@ body {
   text-align: center;
 }
 
+/* Sidebar navigation */
 .sidebar nav {
   width: 100%;
 }
@@ -42,18 +44,27 @@ body {
   padding: 30px 5px; /* padding for the sidebar*/
   font-size: 18px;
   gap: 15px;
-  transition: color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a.active {
+  background-color: #D9D9D9; /* Light gray background */
+  font-weight: bold;
+  color: #147dd3; /* Change text color to match highlight */
+  border-radius: 10px;
 }
 
 .sidebar a:hover {
   text-decoration: underline; /* Add underline on hover */
   background-color: #e0f7ff;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .sidebar a:focus {
   outline: 2px solid #000000;
   outline-offset: 2px;
+  outline: none;
 }
 
 .sidebar a::before {
@@ -70,18 +81,25 @@ main {
   padding: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
   align-items: center; /* Center horizontally */
   box-sizing: border-box;
-  margin-top: 120px;
+  margin-top: 20px;
 }
 
-.header {
-  position: relative; /* Allows absolute positioning for child elements */
+/* Profile Section */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
-
+/*
+.header {
+  position: relative; /* Allows absolute positioning for child elements 
+  width: 100%;
+}
+*/
 
 .avatar {
   width: 130px;
@@ -135,32 +153,45 @@ main {
   cursor: pointer;
 }
 
-
-
 /* Date and Time */
-.date-time {
+.date-time-container {
   display: flex;
-  gap: 10px;
-  align-items: center;
-  padding-bottom: 40px;
+  justify-content: center; /* Center the items */
+  gap: 10px; /* Adds space between date and time */
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
 }
 
-.date-time div {
-  background: rgba(0, 0, 0, 0.1);
-  padding: 5px 10px;
+.date-time-box {
+  background: rgba(0, 0, 0, 0.1); /* Light gray background */
+  padding: 8px 15px;
+  margin-bottom: 30px;
   border-radius: 5px;
   font-size: 14px;
+  text-align: center;
+}
+
+/* Dynamic content section */
+#dynamic-content {
+  width: 100%;
+  max-width: 800px; /* Adjust width as needed */
+  padding: 20px;
+  border-radius: 10px;
+  overflow-y:auto;/* enable scrolling if needed*/
+  margin-top: 20px;
+  display: block;/* stay always visible*/
 }
 
 /* Edit Home Page Section */
 #rectangle-24 {
-  background: linear-gradient(180deg, #D9D9D9 0%, rgba(115, 115, 115, 0.01) 100%);
+  background: linear-gradient(180deg, #D9D9D9 0%, rgba(115, 115, 115, 0.1) 100%);
   padding: 20px 40px;
   border-radius: 8px;
-  width: 100%;
   max-width: 800px; /* Restrict max width */
   margin: 0 auto;
   overflow-y: auto;
+  position: relative;
 }
 
 #rectangle-24 h1 {
@@ -172,19 +203,19 @@ main {
 }
 
 /* Content Section */
-.homepage-section {
-  margin-bottom: 30px; /* Increased spacing */
+.page-section {
+  margin-bottom: 20px; /* Increased spacing */
 }
 
-.homepage-section label {
+.page-section label {
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 5px;
   display: block;
 }
 
-.homepage-section input,
-.homepage-section textarea {
+.page-section input,
+.page-section textarea {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -232,21 +263,88 @@ textarea:invalid:focus {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+
+    /* Allow scrolling on mobile */
+    html, body {
+      overflow-x: auto;
+    }
+  
+    /* Ensure dynamic content adjusts to screen */
+    #dynamic-content {
+      width: 95%;
+      padding: 15px;
+      max-height: calc(100vh - 120px); /* Prevent content from getting cut off */
+      overflow-x: auto;
+    }
+  
+    .dynamic-section {
+      padding: 15px;
+      width: 100%;
+      overflow-x: auto; /* Allow scrolling if needed */
+    }
+  /* Sidebar Fix */
   .sidebar {
     width: 100%;
     height: auto;
-    flex-direction: row;
-    padding-top: 20px;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
   }
 
-  main {
-    padding: 20px;
+  .sidebar nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .sidebar a {
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  /* Ensure Avatar & Name Stay Together */
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .sidebar h2 {
+    font-size: 18px;
+  }
+
+  /* Fix Dynamic Content for Mobile */
+  #dynamic-content {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .dynamic-section {
+    padding: 15px;
+    width: 100%;
+  }
+
+  /* Ensure Labels and Fields Fit */
+  .page-section label {
+    font-size: 14px;
+  }
+
+  .page-section textarea {
+    font-size: 14px;
+    padding: 8px;
+    width: 100%;
   }
 
   .button {
     width: 100%;
     text-align: center;
-    margin: 10px 0;
   }
 }

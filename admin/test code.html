@@ -1,0 +1,67 @@
+const pages = {
+  "home": `
+      <h1>Edit Home Page</h1>
+      <div class="page-section">
+          <label for="home-page-title">Home Page Title</label>
+          <textarea id="home-page-title" rows="1"></textarea>
+          <button class="button" onclick="saveText('home-page-title', 'index-title.txt')">Update</button>
+      </div>
+      <div class="page-section">
+          <label for="home-page-description">Home Page Description</label>
+          <textarea id="home-page-description" rows="4"></textarea>
+          <button class="button" onclick="saveText('home-page-description', 'index-description.txt')">Update</button>
+      </div>
+
+
+
+
+      <main>
+        <header>
+          <div class="date-time">
+            <div>Jun 10, 2024</div>
+            <div>9:41 AM</div>
+          </div>
+          <div class="logout">
+            <img src="/admin/images/Logout.png" alt="Logout Icon" class="logout-icon">
+            <button>Sign Out</button>
+          </div>
+        </header>
+    
+        <section id="rectangle-24">
+          <h1>Edit Home Page</h1>
+    
+          <div class="homepage-section">
+            <label for="home-page-title">Home Page Title</label>
+            <textarea id="home-page-title" rows="1"></textarea>
+            <button class="button" onclick="saveText('home-page-title', 'index-title.txt')">Update</button>
+          </div>
+    
+          <div class="homepage-section">
+            <label for="home-page-description">Home Page Description</label>
+            <textarea id="home-page-description" rows="4"></textarea>
+            <button class="button" onclick="saveText('home-page-description', 'index-description.txt')">Update</button>
+          </div>
+    
+          <div class="homepage-section">
+            <label for="home-page-contactInfo">Home Page Contact Information</label>
+            <textarea id="home-page-contactInfo" rows="4"></textarea>
+            <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.txt')">Update</button>
+          </div>
+    
+          <div class="homepage-section">
+            <label for="home-page-services">Home Page Services</label>
+            <textarea id="home-page-services" rows="4"></textarea>
+            <button class="button" onclick="saveText('home-page-services', 'index-services.txt')">Update</button>
+          </div>
+    
+          <div class="homepage-section">
+            <label for="home-page-reviews">Home Page Reviews</label>
+            <textarea id="home-page-reviews" rows="4"></textarea>
+            <button class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
+          </div>
+        </section>
+        <script src="write-script.js">
+        </script>
+        <script src="read-script.js">
+        </script>
+      </main>
