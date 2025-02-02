@@ -104,29 +104,27 @@ document.addEventListener("DOMContentLoaded", function () {
       <section id="rectangle-24">
         <h1>Edit Reviews Page</h1>
         <div class="page-section">
-          <label for="reviews-section">Customer Reviews</label>
-          <textarea id="reviews-section" rows="4"></textarea>
-          <button class="button" onclick="saveText('reviews-section', 'reviews.txt')">Update</button>
+          <label for="reviews-header">Reviews Page Header</label>
+          <textarea id="reviews-header" rows="2"></textarea>
+          <button class="button" onclick="saveText('reviews-header', 'reviews-header.txt')">Update</button>
         </div>
+        
         <div class="page-section">
-          <label for="reviews-section">Customer Reviews</label>
-          <textarea id="reviews-section" rows="4"></textarea>
-          <button class="button" onclick="saveText('reviews-section', 'reviews.txt')">Update</button>
+          <label for="review1">Featured Review 1</label>
+          <textarea id="review1" rows="4"></textarea>
+          <button class="button" onclick="saveText('review1', 'review1.txt')">Update</button>
         </div>
+        
         <div class="page-section">
-          <label for="reviews-section">Customer Reviews</label>
-          <textarea id="reviews-section" rows="4"></textarea>
-          <button class="button" onclick="saveText('reviews-section', 'reviews.txt')">Update</button>
+          <label for="review2">Featured Review 2</label>
+          <textarea id="review2" rows="4"></textarea>
+          <button class="button" onclick="saveText('review2', 'review2.txt')">Update</button>
         </div>
+        
         <div class="page-section">
-          <label for="reviews-section">Customer Reviews</label>
-          <textarea id="reviews-section" rows="4"></textarea>
-          <button class="button" onclick="saveText('reviews-section', 'reviews.txt')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="reviews-section">Customer Reviews</label>
-          <textarea id="reviews-section" rows="4"></textarea>
-          <button class="button" onclick="saveText('reviews-section', 'reviews.txt')">Update</button>
+          <label for="review3">Featured Review 3</label>
+          <textarea id="review3" rows="4"></textarea>
+          <button class="button" onclick="saveText('review3', 'review3.txt')">Update</button>
         </div>
       </section>
     `
@@ -134,18 +132,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateContent(page) {
     if (pages[page]) {
-      contentSection.innerHTML = pages[page]; // Update content instead of removing #dynamic-content
+      // Update the content
+      contentSection.innerHTML = pages[page];
 
-      // Remove 'active' class from all sidebar buttons
+      // Load specific content based on the page
+      if (page === "home") {
+        loadText('home-page-title', 'index-title.txt');
+        loadText('home-page-description', 'index-description.txt');
+        loadText('home-page-contactInfo', 'index-contact.txt');
+        loadText('home-page-services', 'index-services.txt');
+        loadText('home-page-reviews', 'index-reviews.txt');
+      } else if (page === "reviews") {
+        loadText('reviews-header', 'reviews-header.txt');
+        loadText('review1', 'review1.txt');
+        loadText('review2', 'review2.txt');
+        loadText('review3', 'review3.txt');
+      } else if (page === "services") {
+        loadText('services-description', 'services-description.txt');
+      } else if (page === "about-us") {
+        loadText('about-us-description', 'about-us-description.txt');
+      }
+
+      // Update navigation active state
       navLinks.forEach(link => link.classList.remove("active"));
-
-      // Add 'active' class to the clicked button
       const activeLink = document.getElementById(`${page}-link`);
       if (activeLink) {
         activeLink.classList.add("active");
       }
 
-      localStorage.setItem("lastVisitedPage", page); // Save the last visited page
+      // Save the last visited page
+      localStorage.setItem("lastVisitedPage", page);
     }
   }
 
@@ -162,12 +178,9 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();  // Prevents anchor jump for internal pages
       updateContent(page);
     });
-});
+  });
 
-  // Load the home page by default
-  //updateContent("home");
-
-  // Load the last visited page from localStorage instead of always defaulting to home
+  // Load the last visited page from localStorage or default to home
   const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
   updateContent(lastVisitedPage);
 });
