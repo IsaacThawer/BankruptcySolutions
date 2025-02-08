@@ -130,6 +130,43 @@ document.addEventListener("DOMContentLoaded", function () {
     `
   };
 
+  function showTime() {
+    let time = new Date();
+    let hour = time.getHours();
+    let min = time.getMinutes();
+    //let sec = time.getSeconds();  will not be using seconds for now
+    let am_pm = "AM";
+
+    if (hour >= 12) {
+        am_pm = "PM";
+        if (hour > 12) hour -= 12;
+    } else if (hour == 0) {
+        hour = 12;
+    }
+
+    min = min < 10 ? "0" + min : min;
+    //sec = sec < 10 ? "0" + sec : sec;
+
+    let currentTime = hour + ":" + min + " " + am_pm;
+
+    let timeBox = document.querySelector(".time-box");
+    if (timeBox) {
+        timeBox.textContent = currentTime;
+    } else {
+        console.error("Error: .time-box element not found!");
+    }
+
+    let dateBox = document.querySelector(".date-box");
+        if (dateBox) {
+            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let currentDate = time.toLocaleDateString("en-US", options);
+            dateBox.textContent = currentDate;
+        }
+}
+
+setInterval(showTime, 1000);
+showTime();
+
   function updateContent(page) {
     if (pages[page]) {
       // Update the content
