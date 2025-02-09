@@ -16,3 +16,10 @@ window.addEventListener('DOMContentLoaded', loadText('reviews-header', 'reviews-
 window.addEventListener('DOMContentLoaded', loadText('review1', 'review1.txt'));
 window.addEventListener('DOMContentLoaded', loadText('review2', 'review2.txt'));
 window.addEventListener('DOMContentLoaded', loadText('review3', 'review3.txt'));
+
+window.addEventListener('DOMContentLoaded', loadText('services-Chapter7', 'services-Chapter7.txt'));
+window.addEventListener('DOMContentLoaded', loadText('services-Chapter11', 'services-Chapter11.txt'));
+window.addEventListener('DOMContentLoaded', loadText('services-Chapter12', 'services-Chapter12.txt'));
+window.addEventListener('DOMContentLoaded', loadText('services-Chapter13', 'services-Chapter13.txt'));
+window.addEventListener('DOMContentLoaded', loadText('service-benefits', 'service-benefits.txt'));
+window.addEventListener('DOMContentLoaded', loadText('why-choose-us', 'why-choose-us.txt'));
