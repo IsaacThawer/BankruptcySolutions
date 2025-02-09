@@ -208,6 +208,21 @@ footer {
 
 
 /* Testominals*/
+/* Reviews Page Header Styles */
+.reviews-page-header {
+  background-image: url('../images/book-shelf.png');
+  background-size: cover;
+  background-position: bottom;
+  height: 20vh;
+  margin: 20px auto;
+  border-radius: 20px;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+  color: white;
+  z-index: 1;
+}
+
 .pastCLients{
     padding: 2rem;
 }
