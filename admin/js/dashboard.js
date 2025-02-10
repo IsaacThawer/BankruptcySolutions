@@ -49,24 +49,34 @@ document.addEventListener("DOMContentLoaded", function () {
       <section id="rectangle-24">
         <h1>Edit Services Page</h1>
         <div class="page-section">
-          <label for="services-description">Services Description</label>
-          <textarea id="services-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-description', 'services-description.txt')">Update</button>
+          <label for="services-Chapter7">Chapter 7 Description</label>
+          <textarea id="services-Chapter7" rows="4"></textarea>
+          <button class="button" onclick="saveText('services-Chapter7', 'services-Chapter7.txt')">Update</button>
         </div>
         <div class="page-section">
-          <label for="services-description">Services Description</label>
-          <textarea id="services-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-description', 'services-description.txt')">Update</button>
+          <label for="services-Chapter11">Chapter 11 Description</label>
+          <textarea id="services-Chapter11" rows="4"></textarea>
+          <button class="button" onclick="saveText('services-Chapter11', 'services-Chapter11.txt')">Update</button>
         </div>
         <div class="page-section">
-          <label for="services-description">Services Description</label>
-          <textarea id="services-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-description', 'services-description.txt')">Update</button>
+          <label for="services-Chapter12">Chapter 12 Description</label>
+          <textarea id="services-Chapter12" rows="4"></textarea>
+          <button class="button" onclick="saveText('services-Chapter12', 'services-Chapter12.txt')">Update</button>
         </div>
         <div class="page-section">
-          <label for="services-description">Services Description</label>
-          <textarea id="services-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-description', 'services-description.txt')">Update</button>
+          <label for="services-Chapter13">Chapter 13 Description</label>
+          <textarea id="services-Chapter13" rows="4"></textarea>
+          <button class="button" onclick="saveText('services-Chapter13', 'services-Chapter13.txt')">Update</button>
+        </div>
+        <div class="page-section">
+          <label for="service-benefits">Service Benefits Description</label>
+          <textarea id="service-benefits" rows="4"></textarea>
+          <button class="button" onclick="saveText('service-benefits', 'service-benefits.txt')">Update</button>
+        </div>
+        <div class="page-section">
+          <label for="why-choose-us">Why Choose Us Description</label>
+          <textarea id="why-choose-us" rows="4"></textarea>
+          <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.txt')">Update</button>
         </div>
       </section>  
     `,
@@ -185,7 +195,12 @@ showTime();
         loadText('review2', 'review2.txt');
         loadText('review3', 'review3.txt');
       } else if (page === "services") {
-        loadText('services-description', 'services-description.txt');
+        loadText('services-Chapter7', 'services-Chapter7.txt');
+        loadText('services-Chapter11', 'services-Chapter11.txt');
+        loadText('services-Chapter12', 'services-Chapter12.txt');
+        loadText('services-Chapter13', 'services-Chapter13.txt');
+        loadText('services-benefits', 'services-benefits.txt');
+        loadText('why-choose-us', 'why-choose-us.txt');
       } else if (page === "about-us") {
         loadText('about-us-description', 'about-us-description.txt');
       }
