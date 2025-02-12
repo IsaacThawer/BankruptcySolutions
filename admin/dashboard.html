@@ -4,7 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="/admin/css/dashboard-styles.css"> <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="/admin/css/dashboard-styles.css"> <!-- Link CSS file -->
+  
+  <!-- Include AWS SDK for JavaScript --> <!--
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1234.0.min.js"></script> -->
+  <!--
+  <script>
+    // Set AWS region
+    AWS.config.region = "us-east-2";
+    
+    // The credentials here must have permission to call admin functions on your user pool.
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: "us-east-2:a449733c-41bb-4368-afa5-456c0b390d80"
+    });
+    
+    // Initialize the Cognito Identity Provider service object
+    var cognitoISP = new AWS.CognitoIdentityServiceProvider();
+    </script>
+  -->
   <script src="js/write-script.js"defer></script>
   <script src="js/read-script.js"defer></script>
   <script src="js/dashboard.js" defer></script>
@@ -26,6 +43,7 @@
       <a href="#about-us" id="about-us-link"> <img src="/admin/images/Piechart.png" alt="About Icon" class="nav-icon"> About Us Page </a>
       <a href="#reviews" id="reviews-link"> <img src="/admin/images/Star.png" alt="Reviews Icon" class="nav-icon"> Reviews Page </a>
       <a href="client_submissions.html" id="database-link"><img src="/admin/images/Database.png" alt="Database Icon" class="nav-icon"> Database</a>
+      <a href="#modify" id="modify-users-link"> <img src="/admin/images/Folder.png" alt="Modify Icon" class="nav-icon"> Edit Users</a> 
     </nav>
   </aside>
 
@@ -41,7 +59,6 @@
     </div>
     <section id="dynamic-content"></section>
   </main>
-
 
 </body>
 </html>

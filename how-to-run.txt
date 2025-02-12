@@ -3,6 +3,7 @@
 2. in terminal, open the directory where server.js is located and type the following:
 	npm init -y		// this will create a package.json
 	npm install express	// express install
+	npm install cors // for AWS on the login
 	node server.js		// run virtual server
 
 3. open your web browser:

@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Commented out the script to authenticate the login via Cognito
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@5.2.4/dist/amazon-cognito-identity.min.js"></script>
+    <script src="js/auth.js"></script> -->
+    
+
     <title>Login Page</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -13,19 +17,19 @@
                 <h1>Welcome</h1>
             </div>
             <div class="login-side">
-                <h2>Login</h2>
-                <form>
+                <h2>Login</h2> 
+                <form id="login-form"> <!-- Updated the login form to have readable id for components-->
                     <div class="login-form-group">
-                        <label>Username</label>
-                        <input type="text">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required>
                     </div>
                     <div class="login-form-group">
-                        <label>Password</label>
-                        <input type="password">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
                     </div>
                     <div class="login-button-group">
-                        <button class="login-button">Submit</button>
-                        <a href="#" class="login-button">Forgot Password</a>
+                        <button type="submit" class="login-button">Submit</button>
+                        <a href="#" id="forgot-password" class="login-button">Forgot Password</a>
                     </div>
                 </form>
             </div>

@@ -1,3 +1,19 @@
+/*
+AWS.config.region = "us-east-2"; // Replace with Client AWS region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: "us-east-2:a449733c-41bb-4368-afa5-456c0b390d80" // Replace with Client Cognito Identity Pool ID
+});
+AWS.config.credentials.get(function(err) {
+  if (err) {
+      console.error("Error retrieving credentials:", err);
+      alert("Error retrieving AWS credentials: " + err.message);
+  } else {
+      console.log("Credentials loaded successfully");
+      
+  }
+});
+*/
+
 document.addEventListener("DOMContentLoaded", function () {
   const contentSection = document.getElementById("dynamic-content");
   const navLinks = document.querySelectorAll("nav a");
@@ -137,6 +153,41 @@ document.addEventListener("DOMContentLoaded", function () {
           <button class="button" onclick="saveText('review3', 'review3.txt')">Update</button>
         </div>
       </section>
+    `,
+   "modify-users": `
+      <section id="modify-users-section" class="rectangle-24">
+        <h1>Add Users</h1>
+        <div class="page-section">
+          <form id="modify-user-form">
+            <label for="modify-username">Username</label>
+            <input type="text" id="modify-username" placeholder="Enter Username" required />
+            <label for="modify-email">Email</label>
+            <input type="email" id="modify-email" placeholder="Enter Email" required />
+            <label for="modify-password">Password</label>
+            <input type="password" id="modify-password" placeholder="Enter Password" required />
+            <label for="modify-role">Role</label>
+            <select id="modify-role" required>
+            <option value="editor">Editor</option>
+            <option value="viewer">Viewer</option>
+            </select>
+            <button type="submit" class="button">Submit</button>
+          </form>
+        </div>
+        <div class="page-section">
+          <h2>Existing Users</h2>
+          <table border="1" id="user-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="user-list"></tbody>
+          </table>
+        </div>
+      </section>
     `
   };
 
@@ -177,11 +228,12 @@ document.addEventListener("DOMContentLoaded", function () {
 setInterval(showTime, 1000);
 showTime();
 
+
   function updateContent(page) {
     if (pages[page]) {
       // Update the content
       contentSection.innerHTML = pages[page];
-
+      
       // Load specific content based on the page
       if (page === "home") {
         loadText('home-page-title', 'index-title.txt');
@@ -236,3 +288,28 @@ showTime();
   const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
   updateContent(lastVisitedPage);
 });
+/*
+function addUser(username, email, password) {
+  var params = {
+    UserPoolId: "us-east-2_WXPh0LHEc",  // Your User Pool ID
+    Username: username,
+    TemporaryPassword: password,         // This is a temporary password that the user must change
+    UserAttributes: [
+      { Name: "email", Value: email },
+      { Name: "email_verified", Value: "true" }
+    ],
+    MessageAction: "SUPPRESS"            // Do not send the automatic invitation email
+  };
+  cognitoISP.adminCreateUser(params, function(err, data) {
+    if (err) {
+      console.error("Error creating user:", err);
+      alert("Error creating user: " + err.message);
+    } else {
+      console.log("User created successfully:", data);
+      alert("User created successfully!");
+      loadUsers();  // Refresh the user list
+    }
+  });
+}
+*/
+
