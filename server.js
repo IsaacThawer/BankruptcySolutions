@@ -2,9 +2,15 @@ const express = require('express');
 const fs = require('fs'); 
 const path = require('path');
 const bodyParser = require('body-parser');
+//const cors = require('cors');
 
 const app = express();
 const port = 8000;
+/*
+app.use(cors({
+  origin: 'http://localhost:8000' // Implemented to address the issue with the login page
+}));
+*/
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
