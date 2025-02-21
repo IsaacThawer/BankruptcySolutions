@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables from .env
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -5,26 +6,55 @@ const bodyParser = require('body-parser');
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, PutCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
 const { v4: uuidv4 } = require('uuid');
-//const cors = require('cors');
+const cors = require('cors');
+
+
+const { UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
+
+const app = express();
+const port = 8000;
+
+//**************remove these after testing */
+// Check if AWS credentials are loaded
+console.log("AWS_ACCESS_KEY_ID:", process.env.AWS_ACCESS_KEY_ID ? "Loaded" : "Not Found");
+console.log("AWS_SECRET_ACCESS_KEY:", process.env.AWS_SECRET_ACCESS_KEY ? "Loaded" : "Not Found");
+console.log("AWS_REGION:", process.env.AWS_REGION ? process.env.AWS_REGION : "Not Found");
+//******************************************** */
 
 // Initialize the DynamoDB client
-const client = new DynamoDBClient({
+/*const client = new DynamoDBClient({
     region: "us-east-2",
     credentials: {
         accessKeyId: "YOUR-ACCESS-KEY-ID",
         secretAccessKey: "YOUR-SECRET-ACCESS-KEY"
     }
+});*/
+
+// Initialize the AWS DynamoDB client with region and credentials
+const client = new DynamoDBClient({
+    // Set the AWS region from environment variables
+    region: process.env.AWS_REGION,
+
+    // Check if AWS credentials are available in the environment variables
+    credentials: process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY
+        ? {
+            // Use the provided AWS access key and secret key
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        }
+        : undefined // If credentials are not set, allow AWS SDK to use default credentials (e.g., IAM roles, AWS CLI)
 });
 
 const docClient = DynamoDBDocumentClient.from(client);
-const app = express();
-const port = 8000;
 
 /*
 app.use(cors({
     origin: 'http://localhost:8000' // Implemented to address the issue with the login page
 }));
 */
+
+/*Enable CORS globally */
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -88,7 +118,8 @@ app.post('/submit-form', async (req, res) => {
             phoneNumber: phone,
             message: message,
             submissionDate: new Date().toISOString(),
-            status: 'new'
+            status: 'new',
+            flagged: false
         }
     };
 
@@ -127,7 +158,7 @@ app.get('/admin/dashboard.html', requireAuth, (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    // dummy values will replace with real auth later
+    // Dummy values will replace with real auth later
     if (username === 'admin' && password === 'password123') {
         res.redirect('/admin/dashboard.html?auth=true');
     } else {
@@ -154,6 +185,102 @@ app.get('/test-db', async (req, res) => {
             success: false, 
             error: error.message 
         });
+    }
+});
+
+/* GET /api/clients endpoint to fetch all clients */
+app.get('/api/clients', async (req, res) => {
+    console.log("Fetching all clients from DynamoDB (merged endpoint)...");
+    
+    const params = { TableName: process.env.TABLE_NAME || 'clientSubmissions'};
+
+    try {
+        const data = await docClient.send(new ScanCommand(params));
+        console.log("Data retrieved successfully:", data.Items);
+        res.json(data.Items);
+    } catch (error) {
+        console.error("Error fetching data from DynamoDB:", error);
+        res.status(500).json({ error: "Could not fetch data" });
+    }
+});
+
+/*POST /api/clients/notes endpoint to update follow-up notes using submissionId as the primary key */
+app.post('/api/clients/notes', async (req, res) => {
+    const { submissionId, notes } = req.body;
+    if (!submissionId || notes === undefined) {
+        return res.status(400).json({ error: "submissionId and notes are required" });
+    }
+
+    console.log(`Updating follow-up notes for submissionId: ${submissionId}`);
+
+    const params = {
+        TableName: process.env.TABLE_NAME,
+        Key: { submissionId: submissionId }, // Use submissionId as the key
+        UpdateExpression: "SET followUpNotes = :notes",
+        ExpressionAttributeValues: {
+            ":notes": notes
+        },
+        ReturnValues: "UPDATED_NEW"
+    };
+
+    try {
+        const result = await docClient.send(new UpdateCommand(params));
+        console.log("Notes updated successfully:", result);
+        res.json({ success: true, message: "Notes updated successfully", result });
+    } catch (error) {
+        console.error("Error updating notes in DynamoDB:", error);
+        res.status(500).json({ error: "Failed to update notes", details: error });
+    }
+});
+
+/* POST /api/clients/flag to update flagged status using submissionId as the primary key */
+app.post('/api/clients/flag', async (req, res) => {
+    const { submissionId, flagged } = req.body;
+    if (!submissionId || flagged === undefined) {
+        return res.status(400).json({ error: "submissionId and flagged are required" });
+    }
+    console.log(`Updating flagged status for submissionId: ${submissionId} to flagged: ${flagged}`);
+    const params = {
+        TableName: process.env.TABLE_NAME || 'ClientSubmissions',
+        Key: { submissionId: submissionId },
+        UpdateExpression: "SET flagged = :flagged",
+        ExpressionAttributeValues: {
+            ":flagged": flagged
+        },
+        ReturnValues: "UPDATED_NEW"
+    };
+    try {
+        const result = await docClient.send(new UpdateCommand(params));
+        console.log("Flag updated successfully:", result);
+        res.json({ success: true, message: "Flag updated successfully", result });
+    } catch (error) {
+        console.error("Error updating flag in DynamoDB:", error);
+        res.status(500).json({ error: "Failed to update flag", details: error });
+    }
+});
+
+
+/* DELETE /api/clients endpoint updated to use submissionId as primary key */
+app.delete('/api/clients', async (req, res) => {
+    const { submissionId } = req.body;
+    if (!submissionId) {
+        return res.status(400).json({ error: "submissionId is required" });
+    }
+
+    console.log(`Deleting client with submissionId: ${submissionId}`);
+
+    const params = {
+        TableName: process.env.TABLE_NAME,
+        Key: { submissionId: submissionId }
+    };
+
+    try {
+        const result = await docClient.send(new DeleteCommand(params));
+        console.log("Client deleted successfully.", result);
+        res.json({ success: true, message: "Client deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting client from DynamoDB:", error);
+        res.status(500).json({ error: "Failed to delete client", details: error });
     }
 });
 
