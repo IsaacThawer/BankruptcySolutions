@@ -1,11 +1,18 @@
-1. install Node.js (if you don't already have it)
+1. Install Node.js (if you don't already have it)
 
-2. in terminal, open the directory where server.js is located and type the following:
+2. In terminal, open the directory where server.js is located and type the following:
 	npm init -y		// this will create a package.json
 	npm install express	// express install
 	npm install cors // for AWS on the login
 	node server.js		// run virtual server
 
-3. open your web browser:
+3. Make sure you have a .env file in the root folder with the required key. The .env file must be excluded from your .gitignore and should not be uploaded into GitHub.	
+
+4. open your web browser:
 	to access the main website, go to address http://localhost:8000/
 	to access the admin dashboard, go to address http://localhost:8000/admin/dashboard.html
+
+		************ Troubleshooting*************
+	If node server.js gives you an error after installing all the required dependencies above, try these:
+	1- npm install @aws-sdk/lib-dynamodb // install Dynamodb aws module
+	2- cat package.json | grep '"@aws-sdk/lib-dynamodb"' //check and confirm it is installed successfully

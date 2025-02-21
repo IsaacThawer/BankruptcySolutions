@@ -5,118 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Client Submissions</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Load the client submissions script -->
+  <script defer src="js/client_submissions.js"></script>
 </head>
 <body>
-
-  <section class="container">
-    <!-- Sign out and Back to Main Page buttons -->
+  <div class="container">
     <div class="header-buttons">
-      <button id="sign-out-button", onclick="location.href='../public/index.html'">Sign Out</button>
-      <a href="dashboard.html">
-        <button id="back-to-main-button">Back to Main Page</button>
-      </a>
+        <!-- Navigation buttons -->
+        <button onclick="window.location.href='/signout'">Sign Out</button>
+        <button onclick="window.location.href='dashboard.html'">Back to Main Page</button>
     </div>
 
-    <!-- Header with title -->
-    <header class="header">
-      Client Submission
-    </header>
+    <div class="header">Client Submissions</div>
 
-    <!-- Action buttons for Delete, Reply, Flag, Sort, and Search -->
-    <fieldset class="top-actions">
-      <button type="button">Delete</button>
-      <button type="button">Reply</button>
-      <button type="button">Flag</button>
+    <div class="top-actions">
+        <button onclick="deleteClient()">Delete</button>
+        <button onclick="replyToEmail()">Reply</button>
+        <button onclick="toggleFlag()">Flag</button>
+        <input type="text" id="search" placeholder="Search" oninput="searchClients()">
+    </div>
 
-      <!-- Drop down for flag -->
-      
-      <select id="sort-options" name="sort-options">
-        <option value="disabled selected">Sort</option>
-        <option value="name">by Name</option>
-        <option value="date">by Date</option>
-      </select>
-      <input type="text" id="search" placeholder="Search">
-    </fieldset>
-
-    <!-- Titles for Clients and Submissions-->
     <div class="title-clients">Clients</div>
+    <div class="separator"></div>
     <div class="title-submissions">Submissions</div>
 
-    <!-- Clients list on the left side of the page-->
-    <ul class="clients-panel" id="client-list">
-      <!-- Sample client entry which needs to be removed later-->
-      <li class=" client-item">
-        <input type="checkbox">
-        <span>Jonn Smith</span>
-        <span class="flagged">⚑</span>
-        <span class="time">9/10/2024 11:21 AM</span>
-      </li>
-      
-      <li class=" client-item">
-        <input type="checkbox">
-        <span>Emily Johnson</span>
-        <span class="flagged"></span>
-        <span class="time">9/8/2024 10:35 AM</span>
-      </li>
-      <li class=" client-item">
-        <input type="checkbox">
-        <span>Michael Brown</span>
-        <span class="flagged"></span>
-        <span class="time">9/5/2024 1:01 PM</span>
-      </li>
-      <li class=" client-item">
-        <input type="checkbox">
-        <span>Sophia Davis</span>
-        <span class="flagged"></span>
-        <span class="time">9/5/2024 9:42 AM</span>
-      </li>
-    </ul> 
+    <!-- Container where the client list will be populated by client_submissions.js -->
+    <div class="clients-panel" id="client-list"></div>
 
-    <!-- Information fields on the right side of the page-->
-    <form class="details-panel">
-      <!-- First Name and Last Name on the same line --> 
-      <div class="field">
-        <label for="first-name">First Name:</label>
-        <input type="text" id="first-name" disabled>
-      </div>
-      <div class="field">
-        <label for="last-name">Last Name:</label> 
-        <input type="text" id="last-name" disabled >
-      </div>
-      
-      <!-- Email Address -->
-      <div class="field">
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" disabled>
-      </div>
+    <div class="details-panel">
+        <!-- Client details are shown below. Note that the input IDs match those used in the JS file. -->
+        <div class="field">
+            <label for="first-name">First Name</label>
+            <!-- This field displays the firstName from DynamoDB -->
+            <input type="text" id="first-name" disabled>
+        </div>
+        <div class="field">
+            <label for="last-name">Last Name</label>
+            <!-- This field displays the lastName from DynamoDB -->
+            <input type="text" id="last-name" disabled>
+        </div>
+        <div class="field">
+            <label for="email">Email Address</label>
+            <!-- This field displays the email address -->
+            <input type="text" id="email" disabled>
+        </div>
+        <div class="field">
+            <label for="phone">Phone</label>
+            <!-- This field displays the phoneNumber -->
+            <input type="text" id="phone" disabled>
+        </div>
+        <div class="field">
+            <label for="help-request">How Can We Help?</label>
+            <!-- This field displays the message (help request) -->
+            <textarea id="help-request" rows="3" disabled></textarea>
+        </div>
+        <div class="field">
+            <label for="follow-up-notes">Follow-Up Notes</label>
+            <!-- Extra field to add or update follow-up notes for the client -->
+            <textarea id="follow-up-notes" rows="3" placeholder="Add notes..."></textarea>
+        </div>
+        <!-- Button to save the follow-up notes -->
+        <button onclick="saveNotes()">Save Notes</button>
+    </div>
 
-      <!-- Phone Number -->
-      <div class="field">
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" name="phone" pattern="\(\d{3}\)-\d{3}-\d{4}" disabled>
-      </div>
-
-      <!-- Message Text Box -->
-      <div class="field">
-        <label for="message">How Can We Help? </label>
-        <textarea id="message" name="message" maxlength="250" disabled></textarea>
-      </div>
-
-      <div class="field">
-        <label for="message">Follow Up Notes </label>
-        <textarea id="message" name="message" maxlength="250"></textarea>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="button" class="save-notes">Save Notes</button>
-    </form>
-  </section>
-
-  <footer>
     <div class="footer">
       &copy; 2024 Eric Schwab, Attorney at Law. All Rights Reserved.
     </div>
-  </footer>
-
+    
+  </div>
 </body>
 </html>
