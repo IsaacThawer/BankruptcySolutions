@@ -23,3 +23,9 @@ window.addEventListener('DOMContentLoaded', loadText('services-Chapter12', 'serv
 window.addEventListener('DOMContentLoaded', loadText('services-Chapter13', 'services-Chapter13.txt'));
 window.addEventListener('DOMContentLoaded', loadText('service-benefits', 'service-benefits.txt'));
 window.addEventListener('DOMContentLoaded', loadText('why-choose-us', 'why-choose-us.txt'));
+
+window.addEventListener('DOMContentLoaded', loadText('about-us', 'about-us.txt'));
+window.addEventListener('DOMContentLoaded', loadText('about-meet-eric', 'about-meet-eric.txt'));
+window.addEventListener('DOMContentLoaded', loadText('about-erics-role', 'about-erics-role.txt'));
+window.addEventListener('DOMContentLoaded', loadText('about-education', 'about-education.txt'));
+window.addEventListener('DOMContentLoaded', loadText('about-client-commitment', 'about-client-commitment.txt'));
