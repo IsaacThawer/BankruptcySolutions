@@ -163,7 +163,7 @@ main {
   position: relative;
 }
 
-.date-time-box {
+.date-box, .time-box {
   background: rgba(0, 0, 0, 0.1); /* Light gray background */
   padding: 8px 15px;
   margin-bottom: 30px;
