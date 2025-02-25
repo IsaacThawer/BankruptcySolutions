@@ -115,12 +115,14 @@ app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {
     res.send(`File uploaded successfully: ${req.file.originalname}`);
 });
 
-app.get('/admin/content/images/:fileName', upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded.');
+app.get('/images/:fileName', (req, res) => {
+    const filePath = path.join(__dirname, 'admin', 'content', 'images', req.params.fileName);
+
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).send('Image not found');
     }
-    console.log('File uploaded successfully: ' + req.file.originalname);
-    res.send(`File uploaded successfully: ${req.file.originalname}`);
 });
     
 

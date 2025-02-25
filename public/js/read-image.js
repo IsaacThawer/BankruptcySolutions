@@ -1,5 +1,5 @@
 async function readImage(contID, fileName) {
-	const response = await fetch(`/admin/content/images/${fileName}`, {
+	const response = await fetch(`/images/${fileName}`, {
 		method: 'GET',
 	}); 
 	if (response.ok){
@@ -11,7 +11,7 @@ async function readImage(contID, fileName) {
 }
 
 async function readImageBackground(contID, fileName) {
-	const response = await fetch(`/admin/content/images/${fileName}`, {
+	const response = await fetch(`/images/${fileName}`, {
 		method: 'GET',
 	});
 	if (response.ok) {
