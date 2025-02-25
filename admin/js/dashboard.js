@@ -59,6 +59,17 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-reviews" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
         </div>
+
+        <div class="page-section">
+        <label for="home-page-banner-image">Home Page Banner Image</label>
+        <br>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="index-banner.jpg" id="image" required>
+        <br><br>
+        <button type="submit">Upload</button>
+        </form>
+        </div>
       </section>
     `,
     "services": `

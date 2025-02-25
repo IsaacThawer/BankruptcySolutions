@@ -1,0 +1,1 @@
+npm install express multer cors @aws-sdk/lib-dynamodb --save dotenv

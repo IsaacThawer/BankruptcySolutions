@@ -7,12 +7,21 @@ const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, PutCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
 const { v4: uuidv4 } = require('uuid');
 const cors = require('cors');
+const multer = require('multer');
 
 
 const { UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
 
 const app = express();
 const port = 8000;
+const imgStorage = multer.diskStorage({
+    destination: './admin/content/images',
+    filename: function (req, file, cb) {
+        const newName = req.params.fileName;
+        cb(null, newName);
+    }
+});
+const upload = multer({ storage: imgStorage });
 
 //**************remove these after testing */
 // Check if AWS credentials are loaded
@@ -61,6 +70,8 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', express.static(path.join(__dirname, 'admin'))); // when implementing the login auth this might interfere
 
+
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -95,6 +106,23 @@ app.post('/admin/content/:filename', (req, res) => {
         }
     });
 });
+
+app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    console.log('File uploaded successfully: ' + req.file.originalname);
+    res.send(`File uploaded successfully: ${req.file.originalname}`);
+});
+
+app.get('/admin/content/images/:fileName', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+    console.log('File uploaded successfully: ' + req.file.originalname);
+    res.send(`File uploaded successfully: ${req.file.originalname}`);
+});
+    
 
 // New endpoint for form submission to DynamoDB
 app.post('/submit-form', async (req, res) => {
@@ -286,5 +314,4 @@ app.delete('/api/clients', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
-    console.log(__dirname);
 });
