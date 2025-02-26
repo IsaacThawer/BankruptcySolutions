@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-reviews" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
         </div>
+        
       </section>
     `,
     "services": `
