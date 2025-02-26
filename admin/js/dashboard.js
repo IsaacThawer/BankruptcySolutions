@@ -100,30 +100,30 @@ document.addEventListener("DOMContentLoaded", function () {
     "about-us": `
       <section id="rectangle-24">
         <h1>Edit About Us Page</h1>
-        <div class="page-section">
-          <label for="about-us-description">About Us Description</label>
-          <textarea id="about-us-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-us-description', 'about-us-description.txt')">Update</button>
+         <div class="page-section">
+          <label for="about-us">About Us Description</label>
+          <textarea id="about-us" rows="4"></textarea>
+          <button class="button" onclick="saveText('about-us', 'about-us.txt')">Update</button>
         </div>
         <div class="page-section">
-          <label for="about-us-description">About Us Description</label>
-          <textarea id="about-us-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-us-description', 'about-us-description.txt')">Update</button>
+          <label for="about-meet-eric">Meet Eric Description</label>
+          <textarea id="about-meet-eric" rows="4"></textarea>
+          <button class="button" onclick="saveText('about-meet-eric', 'about-meet-eric.txt')">Update</button>
         </div>
         <div class="page-section">
-          <label for="about-us-description">About Us Description</label>
-          <textarea id="about-us-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-us-description', 'about-us-description.txt')">Update</button>
+          <label for="about-erics-role">Eric's Role Description</label>
+          <textarea id="about-erics-role" rows="4"></textarea>
+          <button class="button" onclick="saveText('about-erics-role', 'about-erics-role.txt')">Update</button>
         </div>
         <div class="page-section">
-          <label for="about-us-description">About Us Description</label>
-          <textarea id="about-us-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-us-description', 'about-us-description.txt')">Update</button>
+          <label for="about-education">Education Description</label>
+          <textarea id="about-education" rows="4"></textarea>
+          <button class="button" onclick="saveText('about-education', 'about-education.txt')">Update</button>
         </div>
         <div class="page-section">
-          <label for="about-us-description">About Us Description</label>
-          <textarea id="about-us-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-us-description', 'about-us-description.txt')">Update</button>
+          <label for="about-client-commitment">Client Commitment Description</label>
+          <textarea id="about-client-commitment" rows="4"></textarea>
+          <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.txt')">Update</button>
         </div>
       </section>
     `,
@@ -162,14 +162,18 @@ document.addEventListener("DOMContentLoaded", function () {
           <form id="modify-user-form">
             <label for="modify-username">Username</label>
             <input type="text" id="modify-username" placeholder="Enter Username" required />
+            <label for="modify-phone-number">Phone Number</label>
+            <input type="phone-number" id="modify-phone-number" placeholder="Enter Phone Number" required />
             <label for="modify-email">Email</label>
             <input type="email" id="modify-email" placeholder="Enter Email" required />
             <label for="modify-password">Password</label>
             <input type="password" id="modify-password" placeholder="Enter Password" required />
+            <label for="modify-password-verify">Confirm Password</label>
+            <input type="password" id="modify-password-verify" placeholder="Re-enter Password" required />
             <label for="modify-role">Role</label>
             <select id="modify-role" required>
-            <option value="editor">Editor</option>
-            <option value="viewer">Viewer</option>
+            <option value="Admin">Admin</option>
+            <option value="Editor">Editor</option>
             </select>
             <button type="submit" class="button">Submit</button>
           </form>
@@ -255,7 +259,11 @@ showTime();
         loadText('services-benefits', 'services-benefits.txt');
         loadText('why-choose-us', 'why-choose-us.txt');
       } else if (page === "about-us") {
-        loadText('about-us-description', 'about-us-description.txt');
+        loadText('about-us', 'about-us.txt');
+        loadText('about-meet-eric', 'about-meet-eric.txt');
+        loadText('about-erics-role', 'about-erics-role.txt');
+        loadText('about-education', 'about-education.txt');
+        loadText('about-client-commitment', 'about-client-commitment.txt');
       }
 
       // Update navigation active state

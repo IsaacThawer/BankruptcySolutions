@@ -1,12 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 	<meta charset="utf-8" />
 	<title>Eric Schwab, Attorney at Law</title>
 	<link rel="stylesheet" href="css/styles.css">
 	<script src="js/read-script.js"></script>
 	<script src="js/read-image.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
+
   <body>
     <!-- Use the following semantic elements when defining the upper-level element instead of <div> or <span>, to improve clarity and readability.
        <article> <aside> <details> <figcaption> <figure> <footer> <header> <main> <mark> <nav> <section> <summary> <time> -->
@@ -141,6 +144,9 @@
         <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.</small></label><br>
         <textarea id="message" name="message" maxlength="250" required></textarea><br><br>
 
+        <!-- Captcha Display Box -->
+        <div class="g-recaptcha" data-sitekey="6LfkeeAqAAAAAHaYetGOlRdTdA06kV7Ae5fdT6UV"></div><br>
+        
         <!-- Submit Button -->
         <input type="submit" value="Submit"><br><br>
       </form>
