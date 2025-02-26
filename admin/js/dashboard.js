@@ -1,22 +1,7 @@
-/*
-AWS.config.region = "us-east-2"; // Replace with Client AWS region
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: "us-east-2:a449733c-41bb-4368-afa5-456c0b390d80" // Replace with Client Cognito Identity Pool ID
-});
-AWS.config.credentials.get(function(err) {
-  if (err) {
-      console.error("Error retrieving credentials:", err);
-      alert("Error retrieving AWS credentials: " + err.message);
-  } else {
-      console.log("Credentials loaded successfully");
-      
-  }
-});
-*/
-
 document.addEventListener("DOMContentLoaded", function () {
   const contentSection = document.getElementById("dynamic-content");
   const navLinks = document.querySelectorAll("nav a");
+
 
   // Check if the dynamic content section exists
   if (!contentSection) {
@@ -264,6 +249,19 @@ showTime();
         loadText('about-erics-role', 'about-erics-role.txt');
         loadText('about-education', 'about-education.txt');
         loadText('about-client-commitment', 'about-client-commitment.txt');
+      } else if (page === "modify-users") {
+        // Example: Call loadUsers on page load or when needed
+        document.addEventListener("DOMContentLoaded", loadUsers);
+        const userForm = document.getElementById('modify-user-form');
+        if (userForm) {
+          userForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            addUser();
+          });
+        } else {
+          console.error("modify-user-form not found.");
+        }
+        loadUsers();
       }
 
       // Update navigation active state
@@ -297,28 +295,109 @@ showTime();
   const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
   updateContent(lastVisitedPage);
 });
-/*
-function addUser(username, email, password) {
-  var params = {
-    UserPoolId: "us-east-2_WXPh0LHEc",  // Your User Pool ID
-    Username: username,
-    TemporaryPassword: password,         // This is a temporary password that the user must change
-    UserAttributes: [
-      { Name: "email", Value: email },
-      { Name: "email_verified", Value: "true" }
-    ],
-    MessageAction: "SUPPRESS"            // Do not send the automatic invitation email
+
+async function addUser() {
+  // Get the values from form inputs
+  const username = document.getElementById('modify-username').value;
+  const phone = document.getElementById('modify-phone-number').value;
+  const email = document.getElementById('modify-email').value;
+  const password = document.getElementById('modify-password').value;
+  const confirmPassword = document.getElementById('modify-password-verify').value;
+  const role = document.getElementById('modify-role').value;
+  
+  // Build the payload
+  const payload = {
+    username,
+    phone,
+    email,
+    password,
+    confirmPassword,
+    role
   };
-  cognitoISP.adminCreateUser(params, function(err, data) {
-    if (err) {
-      console.error("Error creating user:", err);
-      alert("Error creating user: " + err.message);
+  
+  // The API endpoint includes the '/user' route.
+  const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/user';
+
+  try {
+    const response = await fetch(apiEndpoint, { // ERROR OCCURS WHEN FETCHING HERE
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    const data = await response.json();
+    if (response.ok) {
+      alert('User created successfully!');
+      // Optionally, refresh the user list after adding a user.
+      loadUsers();
     } else {
-      console.log("User created successfully:", data);
-      alert("User created successfully!");
-      loadUsers();  // Refresh the user list
+      alert('Error: ' + (data.error || 'Unknown error'));
+      console.error('API error:', data);
     }
-  });
+  } catch (error) {
+    console.error('Error calling API:', error);
+    alert('An error occurred while creating the user.');
+  }
 }
-*/
+
+async function deleteUser(username) {
+  // Confirm before deletion
+  if (!confirm(`Are you sure you want to delete user "${user.username}"?`)) return;
+
+  // Same endpoint but with DELETE method.
+  const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/user';
+  
+  try {
+    const response = await fetch(apiEndpoint, { // ERROR OCCURS WHEN FETCHING HERE
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username })
+    });
+    
+    const data = await response.json();
+    if (response.ok) {
+      alert('User deleted successfully!');
+      // Refresh the users list after deletion.
+      loadUsers();
+    } else {
+      alert('Error: ' + (data.error || 'Unknown error'));
+      console.error('API error:', data);
+    }
+  } catch (error) {
+    console.error('Error calling delete API:', error);
+    alert('An error occurred while deleting the user.');
+  }
+}
+
+
+async function loadUsers() {
+  try {
+    const response = await fetch('/api/users');
+    const data = await response.json();
+    if (data.success) {
+      // Process and display data.users as needed
+      console.log("Users loaded:", data.users);
+      // For example, update the user table:
+      const userList = document.getElementById("user-list");
+      userList.innerHTML = "";
+      data.users.forEach(user => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${user.username || 'N/A'}</td>
+          <td>${user.email || 'N/A'}</td>
+          <td>${user.role || 'N/A'}</td>
+          <td><button onclick="deleteUser('${user.id}')">Delete</button></td>
+        `;
+        userList.appendChild(row);
+      });
+    } else {
+      console.error("Error loading users:", data.error);
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+}
+
+
+
 
