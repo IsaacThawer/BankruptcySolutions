@@ -405,4 +405,21 @@ body {
 .details-panel .field textarea:disabled {
   background-color: #e9e9e9;
 }
+.db-status {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 20px;
+}
+.db-status.connected {
+  color: green;
+}
+.db-status.disconnected {
+  color: red;
+}
+
 
