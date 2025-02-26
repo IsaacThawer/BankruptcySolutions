@@ -5,12 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById("menuToggle");
+    const navbar = document.getElementById("navbar");
+
+    // Toggle the 'active' class on the navbar when the menu button is clicked
+    menuToggle.addEventListener("click", function () {
+      navbar.classList.toggle("active");
+    });
+  });
+  </script>
 </head>
 <body>
 
   <!-- Header/Navigation -->
 <header class="about-header">
   <nav class="navbar" id="navbar">
+    <button class="menu-toggle" id="menuToggle">☰</button>
       <ul>
           <li><a href="index.html">HOME</a></li>
           <li><a href="about-us.html">ABOUT US</a></li>
