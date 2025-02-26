@@ -5,36 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="css/dashboard-styles.css"> <!-- Link CSS file -->
-  
-  <!-- Include AWS SDK for JavaScript --> <!--
-  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1234.0.min.js"></script> -->
-  <!--
-  <script>
-    // Set AWS region
-    AWS.config.region = "us-east-2";
-    
-    // The credentials here must have permission to call admin functions on your user pool.
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: "us-east-2:a449733c-41bb-4368-afa5-456c0b390d80"
-    });
-    
-    // Initialize the Cognito Identity Provider service object
-    var cognitoISP = new AWS.CognitoIdentityServiceProvider();
-    </script>
-  -->
   <script src="js/write-script.js"defer></script>
   <script src="js/read-script.js"defer></script>
   <script src="js/dashboard.js" defer></script>
+  <script src="js/upload-image.js"></script>
   
 </head>
 <body>
+  
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="profile-container">
       <div class="avatar">
         <img src="images/client-photo.png" alt="Client Photo">
       </div>
-    <h2>Hello, Eric!</h2>
+      <h2>Hello, Eric!</h2>
     </div>
 
     <nav>
@@ -43,7 +28,7 @@
       <a href="#about-us" id="about-us-link"> <img src="/admin/images/Piechart.png" alt="About Icon" class="nav-icon"> About Us Page </a>
       <a href="#reviews" id="reviews-link"> <img src="/admin/images/Star.png" alt="Reviews Icon" class="nav-icon"> Reviews Page </a>
       <a href="client_submissions.html" id="database-link"><img src="/admin/images/Database.png" alt="Database Icon" class="nav-icon"> Database</a>
-      <a href="#modify" id="modify-users-link"> <img src="/admin/images/Folder.png" alt="Modify Icon" class="nav-icon"> Edit Users</a> 
+      <a href="#modify" id="modify-users-link"> <img src="/admin/images/Folder.png" alt="Modify Icon" class="nav-icon"> Edit Users</a>
     </nav>
   </aside>
 
@@ -58,7 +43,21 @@
       <div class="time-box"> Time</div>
     </div>
     <section id="dynamic-content"></section>
-  </main>
 
+    <div class="page-section">
+      <label for="home-page-banner-image">Home Page Banner Image</label>
+      <br>
+      <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="index-banner.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
+
+  </main>
 </body>
 </html>

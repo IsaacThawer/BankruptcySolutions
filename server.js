@@ -5,14 +5,26 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, PutCommand, ScanCommand } = require('@aws-sdk/lib-dynamodb');
+const AWS = require('aws-sdk');
+const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 const cors = require('cors');
+const multer = require('multer');
+const cognito = new AWS.CognitoIdentityServiceProvider();
 
 
 const { UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
 
 const app = express();
 const port = 8000;
+const imgStorage = multer.diskStorage({
+    destination: './admin/content/images',
+    filename: function (req, file, cb) {
+        const newName = req.params.fileName;
+        cb(null, newName);
+    }
+});
+const upload = multer({ storage: imgStorage });
 
 //**************remove these after testing */
 // Check if AWS credentials are loaded
@@ -47,19 +59,22 @@ const client = new DynamoDBClient({
 
 const docClient = DynamoDBDocumentClient.from(client);
 
-/*
-app.use(cors({
-    origin: 'http://localhost:8000' // Implemented to address the issue with the login page
-}));
-*/
+// Helper function to generate the secret hash
+function generateSecretHash(username, clientId, clientSecret) {
+    return crypto
+      .createHmac('sha256', clientSecret)
+      .update(username + clientId)
+      .digest('base64');
+  }
+ 
 
-/*Enable CORS globally */
-app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));;
 app.use('/admin', express.static(path.join(__dirname, 'admin'))); // when implementing the login auth this might interfere
+
+
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -95,6 +110,25 @@ app.post('/admin/content/:filename', (req, res) => {
         }
     });
 });
+
+app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    console.log('File uploaded successfully: ' + req.file.originalname);
+    res.send(`File uploaded successfully: ${req.file.originalname}`);
+});
+
+app.get('/images/:fileName', (req, res) => {
+    const filePath = path.join(__dirname, 'admin', 'content', 'images', req.params.fileName);
+
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).send('Image not found');
+    }
+});
+    
 
 // New endpoint for form submission to DynamoDB
 app.post('/submit-form', async (req, res) => {
@@ -154,18 +188,32 @@ app.get('/admin/dashboard.html', requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
 });
 
-// Handles login for later
+// Handles login from AWS Cognito
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
+    const clientId = process.env.COGNITO_CLIENT_ID;
+    const clientSecret = process.env.COGNITO_CLIENT_SECRET;
+    const secretHash = generateSecretHash(username, clientId, clientSecret);
 
-    // Dummy values will replace with real auth later
-    if (username === 'admin' && password === 'password123') {
-        res.redirect('/admin/dashboard.html?auth=true');
-    } else {
-        res.send('Invalid credentials!');
-        console.log("ERROR with admin auth");
-    }
+    const params = {
+        AuthFlow: 'USER_PASSWORD_AUTH',
+        ClientId: clientId,
+        AuthParameters: {
+            USERNAME: username,
+            PASSWORD: password,
+            SECRET_HASH: secretHash
+        }
+    };
+
+    cognito.initiateAuth(params, (err, data) => {
+        if (err) {
+            console.error("Authentication error:", err);
+            return res.status(400).json({ error: err.message });
+        }
+        res.json(data);
+    });
 });
+
 
 // Test endpoint to verify DynamoDB connection
 app.get('/test-db', async (req, res) => {
@@ -284,7 +332,7 @@ app.delete('/api/clients', async (req, res) => {
     }
 });
 
+
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
-    console.log(__dirname);
 });
