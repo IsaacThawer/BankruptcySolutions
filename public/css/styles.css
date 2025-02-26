@@ -305,8 +305,18 @@ input[type="submit"] {
   box-sizing: border-box;
   float: right;
   margin-right: 0;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: #d3d3d3;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
+input[type="submit"]:hover {
+  background-color: #dcdcdc;
+}
                   /* Style for First Name and Last Name in the same row */
 .name-row {
   width: 100%;
