@@ -5,12 +5,24 @@
       <title>Eric Schwab, Attorney at Law</title>
         <link rel="stylesheet" href="css/styles.css">
         <script src="js/read-script.js"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+          const menuToggle = document.getElementById("menuToggle");
+          const navbar = document.getElementById("navbar");
+
+          // Toggle the 'active' class on the navbar when the menu button is clicked
+          menuToggle.addEventListener("click", function () {
+            navbar.classList.toggle("active");
+          });
+        });
+        </script>
   </head>
   <body>
     <!-- Use the following semantic elements when defining the upper-level element instead of <div> or <span>, to improve clarity and readability.
        <article> <aside> <details> <figcaption> <figure> <footer> <header> <main> <mark> <nav> <section> <summary> <time> -->
     <header>
       <nav class="navbar" id="navbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
         <ul>
           <li><a href="index.html">HOME</a></li>
           <li><a href="about-us.html">ABOUT US</a></li>

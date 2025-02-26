@@ -5,9 +5,21 @@
     <title>Services - Sacramento Bankruptcy Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Marcellus&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menuToggle");
+        const navbar = document.getElementById("navbar");
+
+        // Toggle the 'active' class on the navbar when the menu button is clicked
+        menuToggle.addEventListener("click", function () {
+          navbar.classList.toggle("active");
+        });
+      });
+      </script>
 </head>
 <body>
     <nav class="navbar" id="navbar">
+        <button class="menu-toggle" id="menuToggle">☰</button>
         <ul>
             <li><a href="index.html">HOME</a></li>
             <li><a href="about-us.html">ABOUT US</a></li>
