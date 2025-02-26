@@ -17,6 +17,33 @@
         });
        });
      </script>
+     <script>
+      // function to dynamically load text from a file and update the corresponding h3
+      async function loadChapterTitle(chapterNumber) {
+          const filename = `chapter-Title${chapterNumber}.txt`;
+
+          try {
+              const response = await fetch(`/admin/content/${filename}`); // adjust the path if necessary
+              if (!response.ok) throw new Error(`Error loading ${filename}`);
+              
+              const text = await response.text();
+              const chapterElement = document.getElementById(`chapter-Title${chapterNumber}`);
+
+              if (chapterElement) {
+                  chapterElement.innerText = text; // update the h3 content
+              }
+          } catch (error) {
+              console.error(`Failed to load ${filename}:`, error);
+          }
+      }
+
+      // load all chapter titles on page load
+      document.addEventListener("DOMContentLoaded", function () {
+          for (let i = 1; i <= 4; i++) { // adjust if you have more chapter titles
+              loadChapterTitle(i);
+          }
+      });
+     </script>
   </head>
 
   <body>
@@ -58,26 +85,26 @@
       <div class="services-grid">
         <!-- Chapter 7 -->
         <article class="service-card">
-          <h3>Chapter 7<br>Bankruptcy</h3>
-          <p id="services1"></p>
+          <h3 id="chapter-Title1"></h3>
+          <p id="services-Chapter7"></p>
         </article>
 
         <!-- Chapter 11 -->
         <article class="service-card">
-          <h3>Chapter 11<br>Bankruptcy</h3>
-          <p>Our Chapter 11 bankruptcy service helps businesses reorganize and restructure their debts while continuing operations. This option allows companies to negotiate with creditors, modify payment terms, and develop a plan for financial recovery while maintaining operations.</p>
+          <h3 id="chapter-Title2"></h3>
+          <p id="services-Chapter11"></p>
         </article>
 
         <!-- Chapter 12 -->
         <article class="service-card">
-          <h3>Chapter 12<br>Bankruptcy</h3>
-          <p>Our Chapter 12 bankruptcy service is specifically designed for family farmers and fishermen, offering a streamlined path to reorganize their debts. This specialized bankruptcy option allows agricultural operations to create a manageable repayment plan while keeping their business running.</p>
+          <h3 id="chapter-Title3"></h3>
+          <p id="services-Chapter12"></p>
         </article>
 
         <!-- Chapter 13 -->
         <article class="service-card">
-          <h3>Chapter 13<br>Bankruptcy</h3>
-          <p>Our Chapter 13 bankruptcy service helps individuals with regular income create a 3-5 year repayment plan to manage debts, stop foreclosure, and reschedule certain payments. You'll make payments through a trustee, avoiding direct contact with creditors.</p>
+          <h3 id="chapter-Title4"></h3>
+          <p id="services-Chapter13"></p>
         </article>
       </div>
     </section>
@@ -108,8 +135,8 @@
         </div>
         <div class="google">
           <img src="images/guy-avatar.png" alt="Client 2 Avatar" class="client-avatar">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+          
+          <p id="g-review1">
           </p>
           <a href="https://www.google.com/search?q=Eric+Schwab+Bankruptcy&newwindow=1&client=opera-gx&hs=ii9&sca_esv=9ea83b4b79de5e32&sxsrf=ADLYWILFJdYPftiCJEELlcQoXSzyVODh3Q%3A1731790303358&ei=3wU5Z_jMFbqG0PEP9MjTuAk&ved=0ahUKEwi4uO3O3eGJAxU6AzQIHXTkFJcQ4dUDCA8&oq=Eric+Schwab+Bankruptcy&gs_lp=Egxnd3Mtd2l6LXNlcnAiFkVyaWMgU2Nod2FiIEJhbmtydXB0Y3lIpiJQAFiVGnAAeACQAQCYAWWgAewCqgEDNC4xuAEMyAEA-AEBmAIAoAIAmAMAkgcAoAfhAQ&sclient=gws-wiz-serp#lrd=0x809ada03e7b7ba91:0xdd1ac700ccb726f9,1,,,," target="">
 
@@ -167,6 +194,7 @@
     <footer>
       <div class="disclaimer">
         <p>We are a debt relief agency. We help people file for bankruptcy relief under the bankruptcy code.</p>
+        <p>Copyright @ 2025 Eric Schwab Law | All Rights Reserved</p>
       </div>
     </footer>
    
