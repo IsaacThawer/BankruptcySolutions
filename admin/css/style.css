@@ -423,3 +423,128 @@ body {
 }
 
 
+/* Login Page Styles */
+.login-container {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.login-card {
+  display: flex;
+  width: 885px;
+  height: 443px;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: 20px solid #4f9dde;
+  margin: 16px;  /* This adds the inch-like spacing around the border */
+}
+
+.welcome-side {
+  width: 40%;
+  background-color: #4086f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-side h1 {
+  color: white;
+  font-size: 48px;
+  font-family: 'Marcellus', serif;
+  font-weight: normal;
+  margin: 0;
+}
+
+.login-side {
+  width: 60%;
+  padding: 40px 60px;
+}
+
+.login-side h2 {
+  font-size: 36px;
+  color: black;
+  font-family: 'Marcellus', serif;
+  font-weight: normal;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.login-form-group {
+  margin-bottom: 20px;
+}
+
+.login-form-group label {
+  display: block;
+  font-family: 'Marcellus', serif;
+  font-size: 18px;
+  color: black;
+  margin-bottom: 8px;
+}
+
+.login-form-group input {
+  width: 100%;
+  height: 40px;
+  background-color: #e8e8e8;
+  border: none;
+  border-radius: 4px;
+  padding: 0 12px;
+  font-family: 'Marcellus', serif;
+  font-size: 20px;
+}
+
+.login-button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.login-button {
+  padding: 12px 32px;
+  border-radius: 50px;
+  border: none;
+  background-color: #93c5fd;
+  color: black;
+  font-family: 'Marcellus', serif;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Responsive styles for login */
+@media (max-width: 768px) {
+  .login-card {
+      flex-direction: column;
+      height: auto;
+      margin: 16px;
+  }
+
+  .welcome-side, .login-side {
+      width: 100%;
+      padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Slightly smaller base font size for mobile */
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .contactInfo {
+    flex-basis: 100%;
+  }
+
+  #GMap {
+    height: 250px;
+  }
+}
