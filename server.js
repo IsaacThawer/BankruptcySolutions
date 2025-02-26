@@ -33,14 +33,7 @@ console.log("AWS_SECRET_ACCESS_KEY:", process.env.AWS_SECRET_ACCESS_KEY ? "Loade
 console.log("AWS_REGION:", process.env.AWS_REGION ? process.env.AWS_REGION : "Not Found");
 //******************************************** */
 
-// Initialize the DynamoDB client
-/*const client = new DynamoDBClient({
-    region: "us-east-2",
-    credentials: {
-        accessKeyId: "YOUR-ACCESS-KEY-ID",
-        secretAccessKey: "YOUR-SECRET-ACCESS-KEY"
-    }
-});*/
+
 
 // Initialize the AWS DynamoDB client with region and credentials
 const client = new DynamoDBClient({
@@ -251,6 +244,21 @@ app.get('/api/clients', async (req, res) => {
         res.status(500).json({ error: "Could not fetch data" });
     }
 });
+
+// Get the Cognito Users from the DynamoDB Table
+app.get('/api/users', async (req, res) => {
+    const params = {
+      TableName: process.env.USERS_TABLE_NAME   
+    };
+  
+    try {
+      const data = await docClient.send(new ScanCommand(params));
+      res.json({ success: true, users: data.Items });
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  });
 
 /*POST /api/clients/notes endpoint to update follow-up notes using submissionId as the primary key */
 app.post('/api/clients/notes', async (req, res) => {
