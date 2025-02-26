@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-reviews" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
         </div>
+        
       </section>
     `,
     "services": `
@@ -161,14 +162,18 @@ document.addEventListener("DOMContentLoaded", function () {
           <form id="modify-user-form">
             <label for="modify-username">Username</label>
             <input type="text" id="modify-username" placeholder="Enter Username" required />
+            <label for="modify-phone-number">Phone Number</label>
+            <input type="phone-number" id="modify-phone-number" placeholder="Enter Phone Number" required />
             <label for="modify-email">Email</label>
             <input type="email" id="modify-email" placeholder="Enter Email" required />
             <label for="modify-password">Password</label>
             <input type="password" id="modify-password" placeholder="Enter Password" required />
+            <label for="modify-password-verify">Confirm Password</label>
+            <input type="password" id="modify-password-verify" placeholder="Re-enter Password" required />
             <label for="modify-role">Role</label>
             <select id="modify-role" required>
-            <option value="editor">Editor</option>
-            <option value="viewer">Viewer</option>
+            <option value="Admin">Admin</option>
+            <option value="Editor">Editor</option>
             </select>
             <button type="submit" class="button">Submit</button>
           </form>

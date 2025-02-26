@@ -1,10 +1,10 @@
 1. Install Node.js (if you don't already have it)
 
 2. In terminal, open the directory where server.js is located and type the following:
-	npm init -y		// this will create a package.json
-	npm install express	// express install
-	npm install cors // for AWS on the login
-	node server.js		// run virtual server
+	npm init -y				// this will create a package.json
+	npm install express multer cors 	// install dependencies
+	npm install --save dotenv 		// install dependencies
+	node server.js				// run virtual server
 
 3. Make sure you have a .env file in the root folder with the required key. The .env file must be excluded from your .gitignore and should not be uploaded into GitHub.	
 

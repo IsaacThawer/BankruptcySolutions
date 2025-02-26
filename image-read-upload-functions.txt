@@ -1,0 +1,12 @@
+read-image.js
+
+readImage(contID, filename) - input the container ID where the image needs to go, and the filename of the image file you're trying to read.
+
+readImageBackground(contID, filename) - same as above, but this one sets the image as the container's background-image style.
+
+*note: more functions may need to be made if images elsewhere use other style implementations
+
+
+upload-image.js
+
+uploadImage(e) - this function must first be added to a container as an EventListener (see top of upload-image.js for an example of this). The container it's added to must include an upload form where the user may upload a file and submit it (see dashboard.js for an example of this.) The container must also contain a "name" variable which has the filename the image is to be saved as.
