@@ -305,7 +305,7 @@ footer {
 
 
 .yelp, .google {
-  width: 200px; /* Makes each div take up 45% of the parent width */
+  width: 400px; /* Makes each div take up 45% of the parent width */
   padding: 10px; /* Adds some padding */
 
   margin: 0 auto; /* Centers the text horizontally */

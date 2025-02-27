@@ -32,17 +32,39 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-contactInfo" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.txt')">Update</button>
         </div>
-  
+
         <div class="page-section">
-          <label for="home-page-services">Home Page Services</label>
+          <label for="home-page-chapter-selection">Select Chapter for Home Page</label>
+          <select id="home-page-chapter-selection">
+            <option value="1">Chapter 7 Bankruptcy</option>
+            <option value="2">Chapter 11 Bankruptcy</option>
+            <option value="3">Chapter 12 Bankruptcy</option>
+            <option value="4">Chapter 13 Bankruptcy</option>
+          </select>
+          <textarea id="home-page-chapter" rows="4"></textarea>
+          <button id="update-chapter-button" class="button" onclick="saveText('home-page-chapter', 'index-chapter.txt')">Update</button>
+        </div>
+        
+        <div class="page-section">
+          <label for="home-page-services-selection">Select Service for Home Page</label>
+          <select id="home-page-services-selection">
+            <option value="Chapter7">Chapter 7 Description</option>
+            <option value="Chapter11">Chapter 11 Description</option>
+            <option value="Chapter12">Chapter 12 Description</option>
+            <option value="Chapter13">Chapter 13 Description</option>
+          </select>
           <textarea id="home-page-services" rows="4"></textarea>
-          <button class="button" onclick="saveText('home-page-services', 'index-services.txt')">Update</button>
+          <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.txt')">Update</button>
         </div>
   
         <div class="page-section">
-          <label for="home-page-reviews">Home Page Reviews</label>
+          <label for="home-page-reviews-selection">Select Reviews for Home Page</label>
+          <select id="home-page-reviews-selection">
+            <option value="Yelp">Yelp Description</option>
+            <option value="Google">Google Description</option>
+          </select>
           <textarea id="home-page-reviews" rows="4"></textarea>
-          <button class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
+          <button id="update-reviews-button" class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
         </div>
         
       </section>
@@ -229,8 +251,14 @@ showTime();
         loadText('home-page-title', 'index-title.txt');
         loadText('home-page-description', 'index-description.txt');
         loadText('home-page-contactInfo', 'index-contact.txt');
+        loadText('home-page-chapter', 'index-chapter.txt');
         loadText('home-page-services', 'index-services.txt');
         loadText('home-page-reviews', 'index-reviews.txt');
+
+        loadText('chapter-Title1', 'chapter-Title1.txt');
+        loadText('chapter-Title2', 'chapter-Title2.txt');
+        loadText('chapter-Title3', 'chapter-Title3.txt');
+        loadText('chapter-Title4', 'chapter-Title4.txt');
       } else if (page === "reviews") {
         loadText('reviews-header', 'reviews-header.txt');
         loadText('review1', 'review1.txt');
