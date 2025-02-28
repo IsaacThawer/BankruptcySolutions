@@ -225,3 +225,43 @@ function searchClients() {
     // Implementation for searching/filtering clients can be added here
     alert('Search functionality not implemented.');
 }
+
+function formatTimestamp(isoString) {
+    const date = new Date(isoString);
+    
+    // Format date as MM/DD/YYYY
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    
+    // Format time as HH:MM AM/PM
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Convert 0 to 12 for 12 AM
+    
+    return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
+}
+
+function populateClients() {
+    const clientList = document.getElementById('client-list');
+    clientList.innerHTML = '';
+
+    clients.forEach(client => {
+        // Create a new element for each client
+        const clientItem = document.createElement('div');
+        clientItem.className = 'client-item';
+        // Set a data attribute so we can identify the client item later
+        clientItem.setAttribute('data-email', client.email);
+        // Add click event listener to select this client when clicked
+        clientItem.addEventListener('click', () => selectClient(client.email));
+        // Populate inner HTML with formatted timestamp
+        clientItem.innerHTML = `
+            <span>${client.firstName} ${client.lastName}</span>
+            ${client.flagged ? '<span class="flagged">⚑</span>' : ''}
+            <span class="time">${formatTimestamp(client.submissionDate)}</span>`;
+        clientList.appendChild(clientItem);
+    });
+}
