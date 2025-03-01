@@ -1,3 +1,4 @@
+const dns = require('dns');// importing dns module for email vrification
 require('dotenv').config(); // Load environment variables from .env
 const express = require('express');
 const fs = require('fs');
@@ -126,6 +127,38 @@ app.get('/images/:fileName', (req, res) => {
         res.sendFile(filePath);
     } else {
         res.status(404).send('Image not found');
+    }
+});
+
+// This endpoint performs a simple check to see if the email contains "@" and "."
+// Replace this logic with a proper verification service in production.
+app.get('/verify-email', async (req, res) => {
+    const email = req.query.email;
+    if (!email) {
+        return res.json({ valid: false });
+    }
+
+    // Basic email syntax check (not bulletproof, but better than just "@" and ".")
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.json({ valid: false });
+    }
+
+    // Extract domain
+    const domain = email.split('@')[1];
+    try {
+        // Attempt to resolve MX records for the domain
+        const addresses = await dns.promises.resolveMx(domain);
+        // If no MX records found, domain is likely invalid
+        if (!addresses || addresses.length === 0) {
+            return res.json({ valid: false });
+        }
+        // If we get here, domain has MX records => domain is valid
+        return res.json({ valid: true });
+    } catch (error) {
+        console.error("DNS lookup error:", error);
+        // DNS query failed => domain likely invalid or unreachable
+        return res.json({ valid: false });
     }
 });
     
