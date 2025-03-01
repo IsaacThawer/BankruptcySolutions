@@ -120,31 +120,40 @@
     </section>
 
     <section class="pastCLients">
-      <!-- "CL"... typo? -->
       <h2 class="pastClientsHeader">Past Clients</h2>
       <div class="reviews-grid">
-        <div class="yelp">
-          <img src="images/girl-avatar.png" alt="Client 1 Avatar" class="client-avatar">
-
-          <p id="review1">
-          </p>
-          <a href="https://www.yelp.com/biz/eric-j-schwab-sacramento-2?osq=Eric+Schwab" target="">
-
-            <img src="images/other-yelp-logo.webp" alt="yelp Logo" class="yelp-logo">
-          </a>
-        </div>
+        <!-- Google Reviews Box -->
         <div class="google">
-          <img src="images/guy-avatar.png" alt="Client 2 Avatar" class="client-avatar">
-          
-          <p id="g-review1">
-          </p>
-          <a href="https://www.google.com/search?q=Eric+Schwab+Bankruptcy&newwindow=1&client=opera-gx&hs=ii9&sca_esv=9ea83b4b79de5e32&sxsrf=ADLYWILFJdYPftiCJEELlcQoXSzyVODh3Q%3A1731790303358&ei=3wU5Z_jMFbqG0PEP9MjTuAk&ved=0ahUKEwi4uO3O3eGJAxU6AzQIHXTkFJcQ4dUDCA8&oq=Eric+Schwab+Bankruptcy&gs_lp=Egxnd3Mtd2l6LXNlcnAiFkVyaWMgU2Nod2FiIEJhbmtydXB0Y3lIpiJQAFiVGnAAeACQAQCYAWWgAewCqgEDNC4xuAEMyAEA-AEBmAIAoAIAmAMAkgcAoAfhAQ&sclient=gws-wiz-serp#lrd=0x809ada03e7b7ba91:0xdd1ac700ccb726f9,1,,,," target="">
-
-            <img src="images/google-logo.png" alt="Google Logo" class="google-logo">
-          </a>
+          <!-- Google Review Container -->
+          <div class="google-review-container">
+            <img src="images/google-logo.png" alt="Google Logo" class="site-logo">
+            <div class="stars-container">
+              <!-- Stars will be dynamically inserted here -->
+            </div>
+            <p class="review-text">Loading review...</p>
+          </div>
+          <!-- This invisible link covers the entire card and makes it clickable -->
+          <a href="https://g.co/kgs/QQ3jM43" target="_blank" class="card-link"></a>
+        </div>
+        
+        <!-- Yelp Reviews Box -->
+        <div class="yelp">
+          <!-- Yelp Review Container -->
+          <div class="yelp-review-container">
+            <img src="images/yelp-logo.png" alt="Yelp Logo" class="site-logo">
+            <div class="stars-container">
+              <!-- Stars will be dynamically inserted here -->
+            </div>
+            <p class="review-text">Loading review...</p>
+          </div>
+          <!-- This invisible link covers the entire card and makes it clickable -->
+          <a href="https://www.yelp.com/biz/eric-j-schwab-sacramento-2?osq=Eric+Schwab" target="_blank" class="card-link"></a>
         </div>
       </div>
     </section>
+    
+    <script src="js/google-reviews.js"></script>
+    <script src="js/yelp-reviews.js"></script>
 
     <section class="Send Text">
       <p style="font-size: 32px; text-align: center; font-weight: bold; text-decoration: underline; border-top: 1px solid #e5e5e5" ;>
