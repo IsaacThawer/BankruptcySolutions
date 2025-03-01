@@ -4,6 +4,7 @@
 	npm init -y				// this will create a package.json
 	npm install express multer aws-sdk 	// install dependencies
 	npm install --save dotenv 		// install dependencies
+	npm install axios cheerio node-cache --save // install for yelp/google review star dependencies
 	node server.js				// run virtual server
 
 3. Make sure you have a .env file in the root folder with the required key. The .env file must be excluded from your .gitignore and should not be uploaded into GitHub.	
