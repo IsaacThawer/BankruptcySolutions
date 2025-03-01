@@ -20,17 +20,17 @@
      <script>
       // function to dynamically load text from a file and update the corresponding h3
       async function loadChapterTitle(chapterNumber) {
-          const filename = `chapter-Title${chapterNumber}.txt`;
+          const filename = `chapter-Title${chapterNumber}.json`;
 
           try {
               const response = await fetch(`/admin/content/${filename}`); // adjust the path if necessary
               if (!response.ok) throw new Error(`Error loading ${filename}`);
               
-              const text = await response.text();
+              const dataText = await response.json();
               const chapterElement = document.getElementById(`chapter-Title${chapterNumber}`);
 
               if (chapterElement) {
-                  chapterElement.innerText = text; // update the h3 content
+                  chapterElement.innerText = dataText.text; // update the h3 content
               }
           } catch (error) {
               console.error(`Failed to load ${filename}:`, error);

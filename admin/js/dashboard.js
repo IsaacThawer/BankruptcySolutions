@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Define content for each section
+  // Define content for each section now updated JSON files
   const pages = {
     "home": `
       <section id="rectangle-24">
@@ -18,19 +18,19 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="page-section">
           <label for="home-page-title">Home Page Title</label>
           <textarea id="home-page-title" rows="1"></textarea>
-          <button class="button" onclick="saveText('home-page-title', 'index-title.txt')">Update</button>
+          <button class="button" onclick="saveText('home-page-title', 'index-title.json')">Update</button>
         </div>
   
         <div class="page-section">
           <label for="home-page-description">Home Page Description</label>
           <textarea id="home-page-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('home-page-description', 'index-description.txt')">Update</button>
+          <button class="button" onclick="saveText('home-page-description', 'index-description.json')">Update</button>
         </div>
   
         <div class="page-section">
           <label for="home-page-contactInfo">Home Page Contact Information</label>
           <textarea id="home-page-contactInfo" rows="4"></textarea>
-          <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.txt')">Update</button>
+          <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.json')">Update</button>
         </div>
 
         <div class="page-section">
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <option value="4">Chapter 13 Bankruptcy</option>
           </select>
           <textarea id="home-page-chapter" rows="4"></textarea>
-          <button id="update-chapter-button" class="button" onclick="saveText('home-page-chapter', 'index-chapter.txt')">Update</button>
+          <button id="update-chapter-button" class="button" onclick="saveText('home-page-chapter', 'index-chapter.json')">Update</button>
         </div>
         
         <div class="page-section">
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <option value="Chapter13">Chapter 13 Description</option>
           </select>
           <textarea id="home-page-services" rows="4"></textarea>
-          <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.txt')">Update</button>
+          <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.json')">Update</button>
         </div>
   
         <div class="page-section">
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <option value="Google">Google Description</option>
           </select>
           <textarea id="home-page-reviews" rows="4"></textarea>
-          <button id="update-reviews-button" class="button" onclick="saveText('home-page-reviews', 'index-reviews.txt')">Update</button>
+          <button id="update-reviews-button" class="button" onclick="saveText('home-page-reviews', 'index-reviews.json')">Update</button>
         </div>
         
       </section>
@@ -75,32 +75,32 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="page-section">
           <label for="services-Chapter7">Chapter 7 Description</label>
           <textarea id="services-Chapter7" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter7', 'services-Chapter7.txt')">Update</button>
+          <button class="button" onclick="saveText('services-Chapter7', 'services-Chapter7.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="services-Chapter11">Chapter 11 Description</label>
           <textarea id="services-Chapter11" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter11', 'services-Chapter11.txt')">Update</button>
+          <button class="button" onclick="saveText('services-Chapter11', 'services-Chapter11.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="services-Chapter12">Chapter 12 Description</label>
           <textarea id="services-Chapter12" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter12', 'services-Chapter12.txt')">Update</button>
+          <button class="button" onclick="saveText('services-Chapter12', 'services-Chapter12.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="services-Chapter13">Chapter 13 Description</label>
           <textarea id="services-Chapter13" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter13', 'services-Chapter13.txt')">Update</button>
+          <button class="button" onclick="saveText('services-Chapter13', 'services-Chapter13.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="service-benefits">Service Benefits Description</label>
           <textarea id="service-benefits" rows="4"></textarea>
-          <button class="button" onclick="saveText('service-benefits', 'service-benefits.txt')">Update</button>
+          <button class="button" onclick="saveText('service-benefits', 'service-benefits.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="why-choose-us">Why Choose Us Description</label>
           <textarea id="why-choose-us" rows="4"></textarea>
-          <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.txt')">Update</button>
+          <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.json')">Update</button>
         </div>
       </section>  
     `,
@@ -110,27 +110,27 @@ document.addEventListener("DOMContentLoaded", function () {
          <div class="page-section">
           <label for="about-us">About Us Description</label>
           <textarea id="about-us" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-us', 'about-us.txt')">Update</button>
+          <button class="button" onclick="saveText('about-us', 'about-us.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="about-meet-eric">Meet Eric Description</label>
           <textarea id="about-meet-eric" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-meet-eric', 'about-meet-eric.txt')">Update</button>
+          <button class="button" onclick="saveText('about-meet-eric', 'about-meet-eric.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="about-erics-role">Eric's Role Description</label>
           <textarea id="about-erics-role" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-erics-role', 'about-erics-role.txt')">Update</button>
+          <button class="button" onclick="saveText('about-erics-role', 'about-erics-role.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="about-education">Education Description</label>
           <textarea id="about-education" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-education', 'about-education.txt')">Update</button>
+          <button class="button" onclick="saveText('about-education', 'about-education.json')">Update</button>
         </div>
         <div class="page-section">
           <label for="about-client-commitment">Client Commitment Description</label>
           <textarea id="about-client-commitment" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.txt')">Update</button>
+          <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.json')">Update</button>
         </div>
       </section>
     `,
@@ -140,25 +140,25 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="page-section">
           <label for="reviews-header">Reviews Page Header</label>
           <textarea id="reviews-header" rows="2"></textarea>
-          <button class="button" onclick="saveText('reviews-header', 'reviews-header.txt')">Update</button>
+          <button class="button" onclick="saveText('reviews-header', 'reviews-header.json')">Update</button>
         </div>
         
         <div class="page-section">
           <label for="review1">Featured Review 1</label>
           <textarea id="review1" rows="4"></textarea>
-          <button class="button" onclick="saveText('review1', 'review1.txt')">Update</button>
+          <button class="button" onclick="saveText('review1', 'review1.json')">Update</button>
         </div>
         
         <div class="page-section">
           <label for="review2">Featured Review 2</label>
           <textarea id="review2" rows="4"></textarea>
-          <button class="button" onclick="saveText('review2', 'review2.txt')">Update</button>
+          <button class="button" onclick="saveText('review2', 'review2.json')">Update</button>
         </div>
         
         <div class="page-section">
           <label for="review3">Featured Review 3</label>
           <textarea id="review3" rows="4"></textarea>
-          <button class="button" onclick="saveText('review3', 'review3.txt')">Update</button>
+          <button class="button" onclick="saveText('review3', 'review3.json')">Update</button>
         </div>
       </section>
     `,
@@ -248,35 +248,35 @@ showTime();
       
       // Load specific content based on the page
       if (page === "home") {
-        loadText('home-page-title', 'index-title.txt');
-        loadText('home-page-description', 'index-description.txt');
-        loadText('home-page-contactInfo', 'index-contact.txt');
-        loadText('home-page-chapter', 'index-chapter.txt');
-        loadText('home-page-services', 'index-services.txt');
-        loadText('home-page-reviews', 'index-reviews.txt');
+        loadText('home-page-title', 'index-title.json');
+        loadText('home-page-description', 'index-description.json');
+        loadText('home-page-contactInfo', 'index-contact.json');
+        loadText('home-page-chapter', 'index-chapter.json');
+        loadText('home-page-services', 'index-services.json');
+        loadText('home-page-reviews', 'index-reviews.json');
 
-        loadText('chapter-Title1', 'chapter-Title1.txt');
-        loadText('chapter-Title2', 'chapter-Title2.txt');
-        loadText('chapter-Title3', 'chapter-Title3.txt');
-        loadText('chapter-Title4', 'chapter-Title4.txt');
+        loadText('chapter-Title1', 'chapter-Title1.json');
+        loadText('chapter-Title2', 'chapter-Title2.json');
+        loadText('chapter-Title3', 'chapter-Title3.json');
+        loadText('chapter-Title4', 'chapter-Title4.json');
       } else if (page === "reviews") {
-        loadText('reviews-header', 'reviews-header.txt');
-        loadText('review1', 'review1.txt');
-        loadText('review2', 'review2.txt');
-        loadText('review3', 'review3.txt');
+        loadText('reviews-header', 'reviews-header.json');
+        loadText('review1', 'review1.json');
+        loadText('review2', 'review2.json');
+        loadText('review3', 'review3.json');
       } else if (page === "services") {
-        loadText('services-Chapter7', 'services-Chapter7.txt');
-        loadText('services-Chapter11', 'services-Chapter11.txt');
-        loadText('services-Chapter12', 'services-Chapter12.txt');
-        loadText('services-Chapter13', 'services-Chapter13.txt');
-        loadText('services-benefits', 'services-benefits.txt');
-        loadText('why-choose-us', 'why-choose-us.txt');
+        loadText('services-Chapter7', 'services-Chapter7.json');
+        loadText('services-Chapter11', 'services-Chapter11.json');
+        loadText('services-Chapter12', 'services-Chapter12.json');
+        loadText('services-Chapter13', 'services-Chapter13.json');
+        loadText('services-benefits', 'services-benefits.json');
+        loadText('why-choose-us', 'why-choose-us.json');
       } else if (page === "about-us") {
-        loadText('about-us', 'about-us.txt');
-        loadText('about-meet-eric', 'about-meet-eric.txt');
-        loadText('about-erics-role', 'about-erics-role.txt');
-        loadText('about-education', 'about-education.txt');
-        loadText('about-client-commitment', 'about-client-commitment.txt');
+        loadText('about-us', 'about-us.json');
+        loadText('about-meet-eric', 'about-meet-eric.json');
+        loadText('about-erics-role', 'about-erics-role.json');
+        loadText('about-education', 'about-education.json');
+        loadText('about-client-commitment', 'about-client-commitment.json');
       } else if (page === "modify-users") {
         // Example: Call loadUsers on page load or when needed
         document.addEventListener("DOMContentLoaded", loadUsers);
