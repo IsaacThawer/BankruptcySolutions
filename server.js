@@ -60,14 +60,10 @@ function generateSecretHash(username, clientId, clientSecret) {
       .digest('base64');
   }
  
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));;
 app.use('/admin', express.static(path.join(__dirname, 'admin'))); // when implementing the login auth this might interfere
-
-
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -77,30 +73,37 @@ app.get('/dashboard.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
 });
 
+// GET endpoint: Read JSON file and send the "text" property
 app.get('/admin/content/:filename', (req, res) => {
     const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
-
     fs.readFile(filepath, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
-            res.status(500).send('Error reading file: ' + filepath);
-        } else {
-            res.send(data);
+            return res.status(500).send('Error reading file: ' + filepath);
         }
+        try {
+            const jsonData = JSON.parse(data);
+            res.send(jsonData.text || ""); // Return the text content
+        } catch (parseError) {
+            console.error("JSON parse error:", parseError);
+            return res.status(500).send('Error parsing JSON file: ' + filepath);
+        } 
     });
 });
 
+// POST endpoint: Write new text into a JSON file (as { "text": newText })
 app.post('/admin/content/:filename', (req, res) => {
     const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
     const newText = req.body.text;
-
-    fs.writeFile(filepath, newText, (err) => {
+    // Create a JSON object with the updated text
+    const jsonContent = JSON.stringify({ text: newText }, null, 2); // print JSON with 2 spaces
+    fs.writeFile(filepath, jsonContent, (err) => {
         if (err) {
             console.error(err);
-            res.status(500).send('Error writing file ' + req.params.filename);
-        } else {
-            res.send('File ' + req.params.filename + ' saved successfully!');
-        }
+            return res.status(500).send('Error writing file ' + req.params.filename);
+        } 
+        res.send('File ' + req.params.filename + ' saved successfully!');
+
     });
 });
 
@@ -123,7 +126,7 @@ app.get('/images/:fileName', (req, res) => {
 });
     
 
-// New endpoint for form submission to DynamoDB
+// endpoint for form submission to DynamoDB
 app.post('/submit-form', async (req, res) => {
     const { firstname, lastname, email, phone, message } = req.body;
     
@@ -314,7 +317,6 @@ app.post('/api/clients/flag', async (req, res) => {
         res.status(500).json({ error: "Failed to update flag", details: error });
     }
 });
-
 
 /* DELETE /api/clients endpoint updated to use submissionId as primary key */
 app.delete('/api/clients', async (req, res) => {
