@@ -78,38 +78,57 @@ app.get('/dashboard.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
 });
 
-// GET endpoint: Read JSON file and send the "text" property
 app.get('/admin/content/:filename', (req, res) => {
-    const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
-    fs.readFile(filepath, 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Error reading file: ' + filepath);
-        }
-        try {
-            const jsonData = JSON.parse(data);
-            res.send(jsonData.text || ""); // Return the text content
-        } catch (parseError) {
-            console.error("JSON parse error:", parseError);
-            return res.status(500).send('Error parsing JSON file: ' + filepath);
-        } 
-    });
+  const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
+  fs.readFile(filepath, 'utf8', (err, data) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).send('Error reading file: ' + filepath);
+      }
+      try {
+          const jsonData = JSON.parse(data);
+          
+          // For reviews JSON files, return the entire object
+          if (req.params.filename === 'google-reviews.json' || req.params.filename === 'yelp-reviews.json') {
+              res.json(jsonData);
+          } else {
+              // For normal content files, just return the text property
+              res.send(jsonData.text || "");
+          }
+      } catch (parseError) {
+          console.error("JSON parse error:", parseError);
+          return res.status(500).send('Error parsing JSON file: ' + filepath);
+      }
+  });
 });
 
-// POST endpoint: Write new text into a JSON file (as { "text": newText })
+// POST endpoint for content files
 app.post('/admin/content/:filename', (req, res) => {
-    const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
-    const newText = req.body.text;
-    // Create a JSON object with the updated text
-    const jsonContent = JSON.stringify({ text: newText }, null, 2); // print JSON with 2 spaces
-    fs.writeFile(filepath, jsonContent, (err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Error writing file ' + req.params.filename);
-        } 
-        res.send('File ' + req.params.filename + ' saved successfully!');
-
-    });
+  const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
+  
+  // Check if it's a reviews JSON file
+  if (req.params.filename === 'google-reviews.json' || req.params.filename === 'yelp-reviews.json') {
+      // For reviews, we expect the full JSON object in the body
+      const jsonContent = JSON.stringify(req.body, null, 2);
+      fs.writeFile(filepath, jsonContent, (err) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error writing file ' + req.params.filename);
+          }
+          res.send('File ' + req.params.filename + ' saved successfully!');
+      });
+  } else {
+      // For regular content files with text property
+      const newText = req.body.text;
+      const jsonContent = JSON.stringify({ text: newText }, null, 2);
+      fs.writeFile(filepath, jsonContent, (err) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error writing file ' + req.params.filename);
+          }
+          res.send('File ' + req.params.filename + ' saved successfully!');
+      });
+  }
 });
 
 app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {

@@ -136,29 +136,23 @@ document.addEventListener("DOMContentLoaded", function () {
     `,
     "reviews": `
       <section id="rectangle-24">
-        <h1>Edit Reviews Page</h1>
-        <div class="page-section">
-          <label for="reviews-header">Reviews Page Header</label>
-          <textarea id="reviews-header" rows="2"></textarea>
-          <button class="button" onclick="saveText('reviews-header', 'reviews-header.json')">Update</button>
+        <div class="platform-tabs">
+          <button class="tab-button active" onclick="showReviewTab('google')">Google Reviews</button>
+          <button class="tab-button" onclick="showReviewTab('yelp')">Yelp Reviews</button>
         </div>
         
-        <div class="page-section">
-          <label for="review1">Featured Review 1</label>
-          <textarea id="review1" rows="4"></textarea>
-          <button class="button" onclick="saveText('review1', 'review1.json')">Update</button>
+        <div id="google-reviews-tab" class="review-tab active">
+          <h2>Google Reviews</h2>
+          <div class="reviews-grid" id="google-reviews-grid">
+            <div class="loading">Loading reviews...</div>
+          </div>
         </div>
         
-        <div class="page-section">
-          <label for="review2">Featured Review 2</label>
-          <textarea id="review2" rows="4"></textarea>
-          <button class="button" onclick="saveText('review2', 'review2.json')">Update</button>
-        </div>
-        
-        <div class="page-section">
-          <label for="review3">Featured Review 3</label>
-          <textarea id="review3" rows="4"></textarea>
-          <button class="button" onclick="saveText('review3', 'review3.json')">Update</button>
+        <div id="yelp-reviews-tab" class="review-tab">
+          <h2>Yelp Reviews</h2>
+          <div class="reviews-grid" id="yelp-reviews-grid">
+            <div class="loading">Loading reviews...</div>
+          </div>
         </div>
       </section>
     `,
@@ -260,10 +254,8 @@ showTime();
         loadText('chapter-Title3', 'chapter-Title3.json');
         loadText('chapter-Title4', 'chapter-Title4.json');
       } else if (page === "reviews") {
-        loadText('reviews-header', 'reviews-header.json');
-        loadText('review1', 'review1.json');
-        loadText('review2', 'review2.json');
-        loadText('review3', 'review3.json');
+        // Initialize the reviews management interface
+        initReviewsManagement();
       } else if (page === "services") {
         loadText('services-Chapter7', 'services-Chapter7.json');
         loadText('services-Chapter11', 'services-Chapter11.json');
@@ -323,6 +315,16 @@ showTime();
   const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
   updateContent(lastVisitedPage);
 });
+
+// Function to initialize reviews management
+function initReviewsManagement() {
+  if (typeof loadGoogleReviewsAdmin === 'function') {
+    loadGoogleReviewsAdmin();
+    loadYelpReviewsAdmin();
+  } else {
+    console.error('Reviews management functions not loaded');
+  }
+}
 
 async function addUser() {
   // Get the values from form inputs
