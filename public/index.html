@@ -1,50 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eric Schwab, Attorney at Law</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/read-script.js"></script>
     <script src="js/read-image.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="/js/form-handler.js"></script>
-    <script>
-       document.addEventListener("DOMContentLoaded", function () {
-       const menuToggle = document.getElementById("menuToggle");
-       const navbar = document.getElementById("navbar");
-       // Toggle the 'active' class on the navbar when the menu button is clicked
-        menuToggle.addEventListener("click", function () {
-          navbar.classList.toggle("active");
-        });
-       });
-     </script>
-     <script>
-      // function to dynamically load text from a file and update the corresponding h3
-      async function loadChapterTitle(chapterNumber) {
-          const filename = `chapter-Title${chapterNumber}.json`;
-
-          try {
-              const response = await fetch(`/admin/content/${filename}`); // adjust the path if necessary
-              if (!response.ok) throw new Error(`Error loading ${filename}`);
-              
-              const dataText = await response.json();
-              const chapterElement = document.getElementById(`chapter-Title${chapterNumber}`);
-
-              if (chapterElement) {
-                  chapterElement.innerText = dataText.text; // update the h3 content
-              }
-          } catch (error) {
-              console.error(`Failed to load ${filename}:`, error);
-          }
-      }
-
-      // load all chapter titles on page load
-      document.addEventListener("DOMContentLoaded", function () {
-          for (let i = 1; i <= 4; i++) { // adjust if you have more chapter titles
-              loadChapterTitle(i);
-          }
-      });
-     </script>
+    <script src="js/menu-toggle.js"></script>
   </head>
 
   <body>
@@ -156,11 +121,9 @@
     <script src="js/google-reviews.js"></script>
     <script src="js/yelp-reviews.js"></script>
 
-    <section class="Send Text">
-      <p style="font-size: 32px; text-align: center; font-weight: bold; text-decoration: underline; border-top: 1px solid #e5e5e5" ;>
-        <!-- this should be moved to styles.css -->
-        Free Consultation
-      </p>
+    <section class="send-text">
+      <p>Free Consultation</p>
+    </section>
 
       <p style="text-align: center; width: 100%; max-width: 892px; padding: 10px; margin: 0 auto;">
         Use the form below to contact us regarding your legal inquiry. Please be as detailed as possible. However, please do not include any confidential or sensitive information. To help us best service your inquiry, we recommend that you describe the debt issues you’re facing and tell us what you want to achieve. You may also email or call us to make an appointment.
@@ -185,7 +148,7 @@
 
         <!-- Phone Number -->
         <label for="phone">Phone Number:</label><small>   Example: (123)-456-7890</small><br>
-        <input type="tel" id="phone" name="phone" pattern="\(\d{3}\)-\d{3}-\d{4}" required><br><br>
+        <input type="tel" id="phone" name="phone" pattern="^(?:\(\d{3}\)|\d{3})-?\d{3}-?\d{4}$" required><br><br>
 
         <!-- Message Text Box -->
         <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.</small></label><br>
