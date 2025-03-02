@@ -60,7 +60,7 @@ header::before {
 }
 
 .navbar li a:hover {
-  background-color: #aba7a7;
+  background-color: #83b9e4;
   border-radius: 5px;
 }
 
@@ -95,6 +95,7 @@ nav ul li a {
   font-weight: bold;
   font-size: 0.9rem;
   font-family: 'Marcellus', serif;
+  padding: 2px;
 }
 
 .menu-toggle {
@@ -462,14 +463,14 @@ input[type="submit"] {
   border: none;
   padding: 10px 15px;
   border-radius: 8px;
-  background-color: #d3d3d3;
+  background-color: #83b9e4;
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
-  background-color: #dcdcdc;
+  background-color: #9cccee;
 }
                   /* Style for First Name and Last Name in the same row */
 .name-row {
