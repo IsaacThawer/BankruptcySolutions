@@ -114,29 +114,24 @@ document.addEventListener("DOMContentLoaded", function () {
     `,
     "reviews": `
       <section id="rectangle-24">
-        <h1>Edit Reviews Page</h1>
-        <div class="page-section">
-          <label for="reviews-header">Title</label>
-          <textarea id="reviews-header" rows="2"></textarea>
-          <button class="button" onclick="saveText('reviews-header', 'reviews-header.json')">Update</button>
+
+        <div class="platform-tabs">
+          <button class="tab-button active" onclick="showReviewTab('google')">Google Reviews</button>
+          <button class="tab-button" onclick="showReviewTab('yelp')">Yelp Reviews</button>
         </div>
         
-        <div class="page-section">
-          <label for="review1">Review 1</label>
-          <textarea id="review1" rows="4"></textarea>
-          <button class="button" onclick="saveText('review1', 'review1.json')">Update</button>
+        <div id="google-reviews-tab" class="review-tab active">
+          <h2>Google Reviews</h2>
+          <div class="reviews-grid" id="google-reviews-grid">
+            <div class="loading">Loading reviews...</div>
+          </div>
         </div>
         
-        <div class="page-section">
-          <label for="review2">Review 2</label>
-          <textarea id="review2" rows="4"></textarea>
-          <button class="button" onclick="saveText('review2', 'review2.json')">Update</button>
-        </div>
-        
-        <div class="page-section">
-          <label for="review3">Review 3</label>
-          <textarea id="review3" rows="4"></textarea>
-          <button class="button" onclick="saveText('review3', 'review3.json')">Update</button>
+        <div id="yelp-reviews-tab" class="review-tab">
+          <h2>Yelp Reviews</h2>
+          <div class="reviews-grid" id="yelp-reviews-grid">
+            <div class="loading">Loading reviews...</div>
+          </div>
         </div>
       </section>
     `,
@@ -232,10 +227,8 @@ showTime();
         loadText('home-page-services', 'index-services.json');
         loadText('home-page-reviews', 'index-reviews.json');
       } else if (page === "reviews") {
-        loadText('reviews-header', 'reviews-header.json');
-        loadText('review1', 'review1.json');
-        loadText('review2', 'review2.json');
-        loadText('review3', 'review3.json');
+        // Initialize the reviews management interface
+        initReviewsManagement();
       } else if (page === "services") {
         loadText('services-Chapter7', 'services-Chapter7.json');
         loadText('services-Chapter11', 'services-Chapter11.json');
@@ -296,6 +289,16 @@ showTime();
   updateContent(lastVisitedPage);
 });
 
+// Function to initialize reviews management
+function initReviewsManagement() {
+  if (typeof loadGoogleReviewsAdmin === 'function') {
+    loadGoogleReviewsAdmin();
+    loadYelpReviewsAdmin();
+  } else {
+    console.error('Reviews management functions not loaded');
+  }
+}
+
 async function addUser() {
   // Get the values from form inputs
   const username = document.getElementById('modify-username').value;
@@ -327,7 +330,7 @@ async function addUser() {
     
     const data = await response.json();
     if (response.ok) {
-      alert('User created successfully!');
+      console.log('User created successfully!');
       // Optionally, refresh the user list after adding a user.
       loadUsers();
     } else {
@@ -356,7 +359,7 @@ async function deleteUser(username) {
     
     const data = await response.json();
     if (response.ok) {
-      alert('User deleted successfully!');
+      console.log('User deleted successfully!');
       // Refresh the users list after deletion.
       loadUsers();
     } else {

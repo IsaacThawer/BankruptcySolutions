@@ -1,0 +1,76 @@
+{
+  "reviews": [
+    {
+      "id": "y1",
+      "name": "Nicole S.",
+      "location": "San Francisco, CA",
+      "rating": 5,
+      "date": "Feb 8, 2025",
+      "content": "Mr. Schwab was referred to me by three other attorneys for a Chapter 13. I am so thankful that they directed me to him. I would absolutely recommend him and not just to the public but to my family and friends as well.",
+      "active": true
+    },
+    {
+      "id": "y2",
+      "name": "Glen S.",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "Oct 15, 2020",
+      "content": "My Wife and I had an awesome experience with Mr. Schwab. We found ourselves in a very unique situation and Mr Schwab bailed us out of a tough situation.",
+      "active": true
+    },
+    {
+      "id": "y3",
+      "name": "Janell W.",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "Jan 6, 2014",
+      "content": "They were awesome!! Very helpful amazing!!!",
+      "active": true
+    },
+    {
+      "id": "y4",
+      "name": "Mary-Jo M.",
+      "location": "Rocklin, CA",
+      "rating": 5,
+      "date": "May 30, 2012",
+      "content": "If you are looking for an attorney who will thoroughly educate you as to your options, whether they include filing bankruptcy or not, Eric Schwab is a great choice.",
+      "active": true
+    },
+    {
+      "id": "y5",
+      "name": "Robert K.",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "Apr 10, 2012",
+      "content": "Eric and Tom are phenomenal. I was referred to him by a former bankruptcy attorney here in Sacramento. His exact words were: \"If I were to have to go through bankruptcy and had a choice to use any attorney in Sacramento, I would definitely choose Eric.\"",
+      "active": true
+    },
+    {
+      "id": "y6",
+      "name": "Nichole P.",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "Jul 29, 2014",
+      "content": "Quick update to my previous review of N&S: The attorney that I worked with, Tom Amberg, now has his own firm (called Amberg Harvey). Eric is awesome, but I worked with Tom, so I wanted everyone to be aware that he is no longer at N&S.",
+      "active": true
+    },
+    {
+      "id": "y7",
+      "name": "Scott B.",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "Oct 12, 2012",
+      "content": "My experience was with Tom Amberg. From the minute I talked to him on the phone I felt at ease and I didn't feel like he was trying to take advantage of my situation.",
+      "active": true
+    },
+    {
+      "id": "y8",
+      "name": "N O.",
+      "location": "Citrus Heights, CA",
+      "rating": 5,
+      "date": "Feb 3, 2014",
+      "content": "Very knowledgeable. I have talked to a number of attorneys. Tom Amberg is extremely knowledgeable. Some of the questions are pretty sticky. He's also very helpful and actually cares.",
+      "active": true
+    }
+  ]
+}

@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/check-db")
+  fetch("/test-db")  // Ensure this matches the correct API route
     .then(response => response.json())
     .then(data => {
+      console.log("API Response:", data); // Debugging log
       const statusText = document.getElementById("db-status-text");
       const statusDiv = document.getElementById("db-status");
-      
-      if (data.connected) {
+
+      if (data.success) {
         statusText.textContent = "Connected ✅";
         statusDiv.classList.add("connected");
       } else {

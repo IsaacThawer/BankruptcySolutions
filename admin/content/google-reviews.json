@@ -1,0 +1,49 @@
+{
+  "reviews": [
+    {
+      "id": "g1",
+      "name": "Ben Fox",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "7 months ago",
+      "content": "From one attorney to another, Eric is top notch. Although I did not need his help personally, his immediate insight and willingness to dig through the facts was immensely helpful.",
+      "active": true
+    },
+    {
+      "id": "g2",
+      "name": "Arturo Rodriguez",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "3 years ago",
+      "content": "Thank you Eric. Eric Schwab is the real deal. He does what he says and most importantly he is always available and follows through. He successfully helped me Years ago with a great outcome.",
+      "active": true
+    },
+    {
+      "id": "g3",
+      "name": "Connie Reisenweber",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "2 years ago",
+      "content": "Professional, thorough, friendly - A+",
+      "active": true
+    },
+    {
+      "id": "g4",
+      "name": "Robin Karan",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "2 years ago",
+      "content": "Eric provided excellent service!",
+      "active": true
+    },
+    {
+      "id": "g5",
+      "name": "Sheena Smith",
+      "location": "Sacramento, CA",
+      "rating": 5,
+      "date": "5 years ago",
+      "content": "Excellent attorney!",
+      "active": true
+    }
+  ]
+}

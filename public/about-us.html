@@ -5,83 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us</title>
   <link rel="stylesheet" href="css/styles.css">
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const menuToggle = document.getElementById("menuToggle");
-    const navbar = document.getElementById("navbar");
-
-    // Toggle the 'active' class on the navbar when the menu button is clicked
-    menuToggle.addEventListener("click", function () {
-      navbar.classList.toggle("active");
-    });
-  });
-  </script>
+  <script src="js/menu-toggle.js"></script>
 </head>
 <body>
 
   <!-- Header/Navigation -->
-<header class="about-header">
-  <nav class="navbar" id="navbar">
-    <button class="menu-toggle" id="menuToggle">☰</button>
+  <header class="about-header" id="about-banner">
+    <nav class="navbar" id="navbar">
+      <button class="menu-toggle" id="menuToggle">☰</button>
       <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="about-us.html">ABOUT US</a></li>
-          <li><a href="services.html">SERVICES</a></li>
-          <li><a href="reviews.html">REVIEWS</a></li>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about-us.html">ABOUT US</a></li>
+        <li><a href="services.html">SERVICES</a></li>
+        <li><a href="reviews.html">REVIEWS</a></li>
       </ul>
-  </nav>
-  <div class="hero-text">
+    </nav>
+    <div class="hero-text">
       <h1>About Us</h1>
-  </div>
-</header>
+    </div>
+  </header>
 
-<main role="main">
-  <div class="content-wrapper">
+  <main role="main">
+    <div class="content-wrapper">
       <!-- Left column -->
       <div class="introduction">
-          <section>
-              <h2>About Us</h2>
-              <p id="about-us"></p>
-          </section>
-          
-          <section>
-              <h2>Meet Eric</h2>
-              <p id="about-meet-eric"></p>
+        <section>
+          <h2>About Us</h2>
+          <p id="about-us"></p>
+        </section>
 
-              <h2>Eric's Role</h2>
-              <p id="about-erics-role"></p>
-          </section>
+        <section>
+          <h2>Meet Eric</h2>
+          <p id="about-meet-eric"></p>
+
+          <h2>Eric's Role</h2>
+          <p id="about-erics-role"></p>
+        </section>
       </div>
 
       <!-- Right column -->
       <div class="contactInfo">
-          <h2>Attorney at Law</h2>
-          <h3>Eric Schwab</h3>
-          <div class="Client-photo">
-              <img src="images/client-photo.png" alt="Photo of Eric">
-          </div>
+        <h2>Attorney at Law</h2>
+        <h3>Eric Schwab</h3>
+        <div class="Client-photo">
+          <img id="portrait" alt="Photo of Eric">
+        </div>
       </div>
-  </div>
+    </div>
 
-  <!-- Bottom grid sections -->
-  <div class="education-commitment-grid">
+    <!-- Bottom grid sections -->
+    <div class="education-commitment-grid">
       <div class="grid-item">
-          <h2>Education</h2>
-          <p id="about-education"></p>
+        <h2>Education</h2>
+        <p id="about-education"></p>
       </div>
       <div class="grid-item">
-          <h2>Client Commitment</h2>
-          <p id="about-client-commitment"></p>
+        <h2>Client Commitment</h2>
+        <p id="about-client-commitment"></p>
       </div>
-  </div>
-</main>
-<script src="/admin/js/read-script.js"></script>
-  
-<footer>
-  <div class="disclaimer">
+    </div>
+  </main>
+  <script src="/admin/js/read-script.js"></script>
+  <script src="js/read-image.js"></script>
+
+  <footer>
+    <div class="disclaimer">
       <p>We are a debt relief agency. We help people file for bankruptcy relief under the bankruptcy code.</p>
       <p>Copyright @ 2025 Eric Schwab Law | All Rights Reserved</p>
-  </div>
-</footer>
+    </div>
+  </footer>
 </body>
 </html>

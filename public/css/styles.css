@@ -29,11 +29,10 @@ header {
 
 /* Header Image (Library) for About Us Page*/
 .about-header {
-  background-image: url('../images/lib.png');
   background-size: cover;
   background-position: center;
   height: 20vh;
-  margin: 20px auto;
+  margin: 60px auto;
   border-radius:20px;
   width: 90%;
   overflow: hidden;
@@ -60,7 +59,7 @@ header::before {
 }
 
 .navbar li a:hover {
-  background-color: #aba7a7;
+  background-color: #83b9e4;
   border-radius: 5px;
 }
 
@@ -95,6 +94,7 @@ nav ul li a {
   font-weight: bold;
   font-size: 0.9rem;
   font-family: 'Marcellus', serif;
+  padding: 2px;
 }
 
 .menu-toggle {
@@ -104,6 +104,179 @@ nav ul li a {
   font-size: 30px;
   color: black;
   cursor: pointer;
+}
+
+/* Review Cards Styling */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.google, .yelp {
+  background-color: #83b9e4;
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative; /* Important for the absolute positioning of the link */
+  cursor: pointer; /* Show a pointer cursor on hover */
+}
+
+.google:hover, .yelp:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.site-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.star {
+  width: 30px;
+  height: 30px;
+  margin: 0 2px;
+}
+
+.review-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.google-review-container, .yelp-review-container {
+  width: 100%;
+  text-align: center;
+  z-index: 1; /* Ensure the content is above the link */
+}
+
+/* This makes the entire card clickable */
+.card-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2; /* Above the content */
+  opacity: 0; /* Make it invisible */
+  cursor: pointer;
+}
+
+/* Reviews Page Enhanced Styling */
+.review-platform-section {
+  margin-bottom: 3rem;
+}
+
+.platform-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.platform-header img {
+  width: 120px;
+  height: auto;
+  margin-right: 1rem;
+}
+
+.platform-header h3 {
+  margin: 0;
+  color: #147dd3;
+}
+
+.review-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.review-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.reviewer-info {
+  margin-bottom: 0.75rem;
+}
+
+.reviewer-name {
+  font-weight: bold;
+  margin: 0 0 0.25rem 0;
+  font-family: 'Marcellus', serif;
+  color: #333;
+}
+
+.reviewer-location {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.review-date {
+  color: #999;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.star-rating {
+  margin-bottom: 0.75rem;
+}
+
+.star {
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+}
+
+.review-content {
+  line-height: 1.5;
+  color: #333;
+}
+
+.review-content p {
+  margin: 0;
+}
+
+.see-more-reviews {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: #147dd3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.see-more-reviews:hover {
+  text-decoration: underline;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
 }
 
 @media (max-width: 768px) {
@@ -148,12 +321,26 @@ nav ul li a {
   .menu-toggle {
     display: block;
   }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .google, .yelp {
+    margin-bottom: 1.5rem;
+  }
+
+  .review-cards {
+    grid-template-columns: 1fr;
+  }
+
 }
 
 
 /* Sacramento Website Title */
 .hero-text {
   position: absolute;
+  color: #222;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -165,7 +352,7 @@ nav ul li a {
 .hero-text h1 {
   font-family: 'Marcellus', serif;
   font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.85);
   padding: 1rem;
   border-radius: 0.5rem;
 }
@@ -204,7 +391,7 @@ h3 {
   font-family: 'Marcellus', serif;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #147dd3
+  color: #147dd3;
 }
 
 #GMap {
@@ -274,9 +461,8 @@ footer {
 /* Testominals*/
 /* Reviews Page Header Styles */
 .reviews-page-header {
-  background-image: url('../images/book-shelf.png');
   background-size: cover;
-  background-position: bottom;
+  background-position: center;
   height: 20vh;
   margin: 60px auto;
   border-radius: 20px;
@@ -360,7 +546,16 @@ footer {
   }
 }
 
-
+/* Header for Form */
+.send-text p {
+  color: #147dd3;
+  font-size: 32px;
+  font-family: Marcellus, serif;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+  border-top: 1px solid #e5e5e5;
+}
 
 /* Consultation Area*/
 input[type="text"],
@@ -382,14 +577,14 @@ input[type="submit"] {
   border: none;
   padding: 10px 15px;
   border-radius: 8px;
-  background-color: #d3d3d3;
+  background-color: #83b9e4;
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
-  background-color: #dcdcdc;
+  background-color: #9cccee;
 }
                   /* Style for First Name and Last Name in the same row */
 .name-row {
@@ -534,7 +729,6 @@ footer {
 
 /* Services Page Header Styles */
 .services-page-header {
-  background-image: url('../images/pexels-pixabay-159711.jpg');
   background-size: cover;
   background-position: center;
   height: 20vh;
@@ -545,26 +739,6 @@ footer {
   position: relative;
   color: white;
   z-index: 1;
-}
-
-/* Update hero text positioning */
-.services-page-header .hero-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 50%;
-}
-
-/* Update title styling with transparency */
-.services-page-header .hero-text h1 {
-  font-family: 'Marcellus', serif;
-  font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  color: rgb(255, 255, 255);
 }
 
 .services-page-content {

@@ -2,20 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Sacramento Bankruptcy Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Marcellus&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        const menuToggle = document.getElementById("menuToggle");
-        const navbar = document.getElementById("navbar");
-
-        // Toggle the 'active' class on the navbar when the menu button is clicked
-        menuToggle.addEventListener("click", function () {
-          navbar.classList.toggle("active");
-        });
-      });
-      </script>
+    <script src="js/menu-toggle.js"></script>
 </head>
 <body>
     <nav class="navbar" id="navbar">
@@ -28,7 +19,7 @@
         </ul>
     </nav>
 
-    <header class="services-page-header">
+    <header class="services-page-header" id="banner-services">
         <div class="hero-text">
             <h1>Services</h1>
         </div>
@@ -70,7 +61,8 @@
 
         </div>
     </main>
-    <script src="/admin/js/read-script.js"></script>
+    <script src="js/read-script.js"></script>
+    <script src="js/read-image.js"></script>
 
     <footer>
       <div class="disclaimer">

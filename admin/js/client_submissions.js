@@ -107,7 +107,7 @@ async function saveNotes() {
         if (response.ok) {
             // Update the local client object with the newly saved follow-up notes
             selectedClient.followUpNotes = notes;
-            alert('Notes saved successfully.');
+            console.log('Notes saved successfully.');
         } else {
             alert('Failed to save notes.');
         }
@@ -146,7 +146,7 @@ function deleteClient() {
     .then(result => {
         console.log("Delete response:", result);
         if (result.success) {
-            alert('Client deleted successfully.');
+            console.log('Client deleted successfully.');
             // Remove the deleted client from the clients array
             clients = clients.filter(client => client.submissionId !== selectedClient.submissionId);
             // Clear the selected client and update UI
