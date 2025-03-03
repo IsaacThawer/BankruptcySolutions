@@ -101,7 +101,7 @@ app.use('/admin', (req, res, next) => {
   return res.redirect('/admin/login.html');
 });
 
-/ Serve static files from the admin folder (including custom login page, dashboard, etc.)
+// Serve static files from the admin folder (including custom login page, dashboard, etc.)
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
 // Root route http://localhost:8000/ will show index.html. Main landing page
