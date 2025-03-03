@@ -101,7 +101,7 @@ app.use('/admin', (req, res, next) => {
   return res.redirect('/admin/login.html');
 });
 
-// Serve static files from the admin folder (including custom login page, dashboard, etc.)
+/ Serve static files from the admin folder (including custom login page, dashboard, etc.)
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
 // Root route http://localhost:8000/ will show index.html. Main landing page
@@ -124,11 +124,17 @@ app.get('/admin/content/:filename', (req, res) => {
     }
     try {
       const jsonData = JSON.parse(data);
-      res.send(jsonData.text || "");// Return the text content
-    } catch (parseError) {
-      console.error("JSON parse error:", parseError);
-      return res.status(500).send('Error parsing JSON file: ' + filepath);
-    }
+       // For reviews JSON files, return the entire object
+          if (req.params.filename === 'google-reviews.json' || req.params.filename === 'yelp-reviews.json') {
+              res.json(jsonData);
+          } else {
+              // For normal content files, just return the text property
+              res.send(jsonData.text || ""); // This part was in the original try attempt
+          }
+      } catch (parseError) { //catching the parse error
+          console.error("JSON parse error:", parseError);
+          return res.status(500).send('Error parsing JSON file: ' + filepath);
+      }
   });
 });
 
@@ -138,14 +144,29 @@ app.post('/admin/content/:filename', (req, res) => {
   const newText = req.body.text;
   // Create a JSON object with the updated text
   const jsonContent = JSON.stringify({ text: newText }, null, 2);// print JSON with 2 spaces
-  fs.writeFile(filepath, jsonContent, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send('Error writing file ' + req.params.filename);
-    }
-    res.send('File ' + req.params.filename + ' saved successfully!');
-  });
-});
+  // Check if it's a reviews JSON file
+  if (req.params.filename === 'google-reviews.json' || req.params.filename === 'yelp-reviews.json') {
+      // For reviews, we expect the full JSON object in the body
+      const jsonContent = JSON.stringify(req.body, null, 2);
+      fs.writeFile(filepath, jsonContent, (err) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error writing file ' + req.params.filename);
+          }
+          res.send('File ' + req.params.filename + ' saved successfully!');
+      });
+  } else {
+      // For regular content files with text property
+      const newText = req.body.text;
+      const jsonContent = JSON.stringify({ text: newText }, null, 2);
+      fs.writeFile(filepath, jsonContent, (err) => { // This was the original portion before merge conflict
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error writing file ' + req.params.filename);
+          }
+          res.send('File ' + req.params.filename + ' saved successfully!');
+      });
+
 
 // Image upload for uploading an image file
 app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {

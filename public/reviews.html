@@ -7,50 +7,67 @@
     <link rel="stylesheet" href="css/styles.css">
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-      const menuToggle = document.getElementById("menuToggle");
-      const navbar = document.getElementById("navbar");
+        const menuToggle = document.getElementById("menuToggle");
+        const navbar = document.getElementById("navbar");
 
-      // Toggle the 'active' class on the navbar when the menu button is clicked
-      menuToggle.addEventListener("click", function () {
-        navbar.classList.toggle("active");
+        // Toggle the 'active' class on the navbar when the menu button is clicked
+        menuToggle.addEventListener("click", function () {
+          navbar.classList.toggle("active");
+        });
       });
-    });
     </script>
+    <script src="js/reviews-loader.js" defer></script>
   </head>
   <body>
-      <nav class="navbar" id="navbar">
-        <button class="menu-toggle" id="menuToggle">☰</button>
-        <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="about-us.html">ABOUT US</a></li>
-          <li><a href="services.html">SERVICES</a></li>
-          <li><a href="reviews.html">REVIEWS</a></li>
-        </ul>
-      </nav>
-      <header class="reviews-page-header">
-        <div class="hero-text">
+    <nav class="navbar" id="navbar">
+      <button class="menu-toggle" id="menuToggle">☰</button>
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="about-us.html">ABOUT US</a></li>
+        <li><a href="services.html">SERVICES</a></li>
+        <li><a href="reviews.html">REVIEWS</a></li>
+      </ul>
+    </nav>
+    
+    <header class="reviews-page-header">
+      <div class="hero-text">
         <h1>Reviews</h1>
-        </div>
-      </header>
+      </div>
+    </header>
+    
     <main>
       <div class="reviews">
         <h2>Client Testimonials</h2>
+        <p>Don't just take our word for it - See what our clients have to say about working with Eric Schwab for their bankruptcy needs.</p>
       </div>
 
-      <div class="testimonials">
-        <p id="review1"></p>
-        <br>
-        <p id="review2"></p>
-        <br>
-        <p id="review3"></p>
-      </div>
+      <section class="review-platform-section">
+        <div class="platform-header">
+          <img src="images/google-logo.png" alt="Google Reviews">
+          <h3>Reviews</h3>
+        </div>
+        <div class="review-cards" id="google-reviews-container">
+          <div class="loading">Loading reviews...</div>
+        </div>
+        <a href="https://g.co/kgs/QQ3jM43" target="_blank" class="see-more-reviews">See more Google reviews →</a>
+      </section>
+      
+      <section class="review-platform-section">
+        <div class="platform-header">
+          <img src="images/yelp-logo.png" alt="Yelp Reviews">
+          <h3>Reviews</h3>
+        </div>
+        <div class="review-cards" id="yelp-reviews-container">
+          <div class="loading">Loading reviews...</div>
+        </div>
+        <a href="https://www.yelp.com/biz/eric-j-schwab-sacramento-2?osq=Eric+Schwab" target="_blank" class="see-more-reviews">See more Yelp reviews →</a>
+      </section>
     </main>
-    <script src="/admin/js/read-script.js"></script>
 
     <footer>
       <div class="disclaimer">
-          <p>We are a debt relief agency. We help people file for bankruptcy relief under the bankruptcy code.</p>
-          <p>Copyright @ 2025 Eric Schwab Law | All Rights Reserved</p>
+        <p>We are a debt relief agency. We help people file for bankruptcy relief under the bankruptcy code.</p>
+        <p>Copyright @ 2025 Eric Schwab Law | All Rights Reserved</p>
       </div>
     </footer>
   </body>
