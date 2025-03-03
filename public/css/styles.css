@@ -758,10 +758,10 @@ footer {
 .services-page-header .hero-text h1 {
   font-family: 'Marcellus', serif;
   font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.85);
   padding: 1rem;
   border-radius: 0.5rem;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .services-page-content {
