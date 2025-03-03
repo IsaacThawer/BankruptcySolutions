@@ -24,13 +24,21 @@ const port = 8000;
 
 // Multer configuration
 const imgStorage = multer.diskStorage({
-  destination: './admin/content/images',
+  destination: './public/images',
   filename: function (req, file, cb) {
     const newName = req.params.fileName;
     cb(null, newName);
   }
 });
+const imgStorageAdmin = multer.diskStorage({
+    destination: './admin/content/images',
+    filename: function (req, file, cb) {
+        const newName = req.params.fileName;
+        cb(null, newName);
+    }
+});
 const upload = multer({ storage: imgStorage });
+const uploadAdmin = multer({ storage: imgStorageAdmin });
 
 
 // Initialize the AWS DynamoDB client with region and credentials
@@ -176,14 +184,33 @@ app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {
   res.send(`File uploaded successfully: ${req.file.originalname}`);
 });
 
-// Serve images from /admin/content/images
+// Image upload for uploading an image file to the admin folder
+app.post('/admin/upload/image/:fileName', uploadAdmin.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No files were uploaded.');
+    }
+    console.log('File uploaded successfully: ' + req.file.originalname);
+    res.send(`File uploaded successfully: ${req.file.originalname}`);
+});
+
+// Serve images from /public/images
 app.get('/images/:fileName', (req, res) => {
-  const filePath = path.join(__dirname, 'admin', 'content', 'images', req.params.fileName);
+  const filePath = path.join(__dirname, 'public', 'images', req.params.fileName);
   if (fs.existsSync(filePath)) {
     res.sendFile(filePath);
   } else {
     res.status(404).send('Image not found');
   }
+});
+
+// Serve images from /admin/content/images
+app.get('/admin/images/:fileName', (req, res) => {
+    const filePath = path.join(__dirname, 'admin', 'content', 'images', req.params.fileName);
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).send('Image not found');
+    }
 });
 
 // This endpoint performs a simple check to see if the email contains "@" and "."
