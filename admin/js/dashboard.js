@@ -357,7 +357,7 @@ async function addUser() {
     
     const data = await response.json();
     if (response.ok) {
-      alert('User created successfully!');
+      console.log('User created successfully!');
       // Optionally, refresh the user list after adding a user.
       loadUsers();
     } else {
@@ -386,7 +386,7 @@ async function deleteUser(username) {
     
     const data = await response.json();
     if (response.ok) {
-      alert('User deleted successfully!');
+      console.log('User deleted successfully!');
       // Refresh the users list after deletion.
       loadUsers();
     } else {

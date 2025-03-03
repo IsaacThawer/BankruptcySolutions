@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
         alert("Login failed: " + data.error);
       } else {
         console.log("Login successful:", data);
-        alert("Login successful!");
         // After successful login, redirect to the dashboard page with a query parameter (auth=true)
         // This query parameter allows the server middleware to recognize that the user is authorized.
         window.location.href = "dashboard.html?auth=true";
