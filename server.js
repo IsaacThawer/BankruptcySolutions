@@ -1,4 +1,4 @@
-const dns = require('dns');// importing dns module for email vrification
+const dns = require('dns'); // importing dns module for email verification
 require('dotenv').config(); // Load environment variables from .env
 const express = require('express');
 const fs = require('fs');
@@ -16,237 +16,288 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const NodeCache = require('node-cache');
 const reviewsCache = new NodeCache({ stdTTL: 43200 }); // Initialize cache with 12-hour TTL (time to live)
-
-
 const { UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
+const session = require('express-session');//import express-session
 
 const app = express();
 const port = 8000;
+
+// Multer configuration
 const imgStorage = multer.diskStorage({
-    destination: './admin/content/images',
-    filename: function (req, file, cb) {
-        const newName = req.params.fileName;
-        cb(null, newName);
-    }
+  destination: './admin/content/images',
+  filename: function (req, file, cb) {
+    const newName = req.params.fileName;
+    cb(null, newName);
+  }
 });
 const upload = multer({ storage: imgStorage });
-
-//**************remove these after testing */
-// Check if AWS credentials are loaded
-console.log("AWS_ACCESS_KEY_ID:", process.env.AWS_ACCESS_KEY_ID ? "Loaded" : "Not Found");
-console.log("AWS_SECRET_ACCESS_KEY:", process.env.AWS_SECRET_ACCESS_KEY ? "Loaded" : "Not Found");
-console.log("AWS_REGION:", process.env.AWS_REGION ? process.env.AWS_REGION : "Not Found");
-//******************************************** */
-
 
 
 // Initialize the AWS DynamoDB client with region and credentials
 const client = new DynamoDBClient({
-    // Set the AWS region from environment variables
-    region: process.env.AWS_REGION,
-
-    // Check if AWS credentials are available in the environment variables
-    credentials: process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY
-        ? {
-            // Use the provided AWS access key and secret key
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-        }
-        : undefined // If credentials are not set, allow AWS SDK to use default credentials (e.g., IAM roles, AWS CLI)
+  region: process.env.AWS_REGION,
+  credentials: process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY
+    ? {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      }
+    : undefined
 });
-
 const docClient = DynamoDBDocumentClient.from(client);
 
-// Helper function to generate the secret hash
+// Helper function to generate the secret hash for Cognito
 function generateSecretHash(username, clientId, clientSecret) {
-    return crypto
-      .createHmac('sha256', clientSecret)
-      .update(username + clientId)
-      .digest('base64');
-  }
- 
+  return crypto
+    .createHmac('sha256', clientSecret)
+    .update(username + clientId)
+    .digest('base64');
+}
+
+//Use express-session to store a "loggedIn" flag*
+app.use(session({
+  secret: 'CHANGE_THIS_TO_A_SECURE_RANDOM_STRING', // use a strong secret in production
+  resave: false,
+  saveUninitialized: false
+}));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));;
-app.use('/admin', express.static(path.join(__dirname, 'admin'))); // when implementing the login auth this might interfere
 
+// Serve public assets normally (e.g. /index.html)
+app.use(express.static(path.join(__dirname, 'public')));
+
+/**
+ * Disable caching for all /admin routes.*
+ * This will set HTTP headers to prevent browser caching.
+ */
+app.use('/admin', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate'); // HTTP 1.1.
+  res.setHeader('Pragma', 'no-cache'); // HTTP 1.0.
+  res.setHeader('Expires', '0'); // Proxies.
+  next();
+});
+
+/**
+ * /admin Access Control Middleware*
+ *  - If the request is for a non-HTML asset (like CSS, JS, images), allow it.
+ *  - If the request is for /admin/login.html (the custom login page), allow it.
+ *  - Otherwise, if the session shows the user is logged in, allow it.
+ *  - Else, redirect to /admin/login.html.
+ */
+app.use('/admin', (req, res, next) => {
+  // Allow requests for non-HTML assets (e.g., .css, .js, .png, etc.)
+  if (path.extname(req.path) && path.extname(req.path) !== '.html') {
+    return next();
+  }
+  // Allow the login page unconditionally
+  if (req.path === '/login.html') {
+    return next();
+  }
+  // Allow if user is logged in
+  if (req.session && req.session.loggedIn) {
+    return next();
+  }
+  // Otherwise, redirect to the custom login page
+  return res.redirect('/admin/login.html');
+});
+
+// Serve static files from the admin folder (including custom login page, dashboard, etc.)
+app.use('/admin', express.static(path.join(__dirname, 'admin')));
+
+// Root route http://localhost:8000/ will show index.html. Main landing page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get('/dashboard.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
-});
+// Route to serve a known admin page (once logged in).http://localhost:8000/dashboard.html will load .../admin/dashboard.html
+// app.get('/dashboard.html', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
+// });
 
-// GET endpoint: Read JSON file and send the "text" property
+// GET endpoint: Read JSON file from /admin/content and send the "text" property
 app.get('/admin/content/:filename', (req, res) => {
-    const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
-    fs.readFile(filepath, 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Error reading file: ' + filepath);
-        }
-        try {
-            const jsonData = JSON.parse(data);
-            res.send(jsonData.text || ""); // Return the text content
-        } catch (parseError) {
-            console.error("JSON parse error:", parseError);
-            return res.status(500).send('Error parsing JSON file: ' + filepath);
-        } 
-    });
+  const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
+  fs.readFile(filepath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Error reading file: ' + filepath);
+    }
+    try {
+      const jsonData = JSON.parse(data);
+       // For reviews JSON files, return the entire object
+          if (req.params.filename === 'google-reviews.json' || req.params.filename === 'yelp-reviews.json') {
+              res.json(jsonData);
+          } else {
+              // For normal content files, just return the text property
+              res.send(jsonData.text || ""); // This part was in the original try attempt
+          }
+      } catch (parseError) { //catching the parse error
+          console.error("JSON parse error:", parseError);
+          return res.status(500).send('Error parsing JSON file: ' + filepath);
+      }
+  });
 });
 
-// POST endpoint: Write new text into a JSON file (as { "text": newText })
+// POST endpoint: Write text to a JSON file in /admin/content (as { "text": newText })
 app.post('/admin/content/:filename', (req, res) => {
-    const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
-    const newText = req.body.text;
-    // Create a JSON object with the updated text
-    const jsonContent = JSON.stringify({ text: newText }, null, 2); // print JSON with 2 spaces
-    fs.writeFile(filepath, jsonContent, (err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Error writing file ' + req.params.filename);
-        } 
-        res.send('File ' + req.params.filename + ' saved successfully!');
+  const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
 
-    });
+  // Check if it's a reviews JSON file
+  if (req.params.filename === 'google-reviews.json' || req.params.filename === 'yelp-reviews.json') {
+      // For reviews, we expect the full JSON object in the body
+      const jsonContent = JSON.stringify(req.body, null, 2);
+      fs.writeFile(filepath, jsonContent, (err) => {
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error writing file ' + req.params.filename);
+          }
+          res.send('File ' + req.params.filename + ' saved successfully!');
+      });
+  } else {
+      // For regular content files with text property
+      const jsonContent = JSON.stringify({ text: req.body.text }, null, 2);
+      fs.writeFile(filepath, jsonContent, (err) => { // This was the original portion before merge conflict
+          if (err) {
+              console.error(err);
+              return res.status(500).send('Error writing file ' + req.params.filename);
+          }
+          res.send('File ' + req.params.filename + ' saved successfully!');
+      });
+  }
 });
 
+    
+// Image upload for uploading an image file
 app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No files were uploaded.');
-    }
-    console.log('File uploaded successfully: ' + req.file.originalname);
-    res.send(`File uploaded successfully: ${req.file.originalname}`);
+  if (!req.file) {
+    return res.status(400).send('No files were uploaded.');
+  }
+  console.log('File uploaded successfully: ' + req.file.originalname);
+  res.send(`File uploaded successfully: ${req.file.originalname}`);
 });
 
+// Serve images from /admin/content/images
 app.get('/images/:fileName', (req, res) => {
-    const filePath = path.join(__dirname, 'admin', 'content', 'images', req.params.fileName);
-
-    if (fs.existsSync(filePath)) {
-        res.sendFile(filePath);
-    } else {
-        res.status(404).send('Image not found');
-    }
+  const filePath = path.join(__dirname, 'admin', 'content', 'images', req.params.fileName);
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    res.status(404).send('Image not found');
+  }
 });
 
 // This endpoint performs a simple check to see if the email contains "@" and "."
 // Replace this logic with a proper verification service in production.
 app.get('/verify-email', async (req, res) => {
-    const email = req.query.email;
-    if (!email) {
-        return res.json({ valid: false });
-    }
+  const email = req.query.email;
+  if (!email) {
+    return res.json({ valid: false });
+  }
 
-    // Basic email syntax check (not bulletproof, but better than just "@" and ".")
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        return res.json({ valid: false });
-    }
+  // Basic email syntax check (not bulletproof, but better than just "@" and ".")
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.json({ valid: false });
+  }
 
-    // Extract domain
-    const domain = email.split('@')[1];
-    try {
-        // Attempt to resolve MX records for the domain
-        const addresses = await dns.promises.resolveMx(domain);
-        // If no MX records found, domain is likely invalid
-        if (!addresses || addresses.length === 0) {
-            return res.json({ valid: false });
-        }
-        // If we get here, domain has MX records => domain is valid
-        return res.json({ valid: true });
-    } catch (error) {
-        console.error("DNS lookup error:", error);
-        // DNS query failed => domain likely invalid or unreachable
-        return res.json({ valid: false });
-    }
+  // Extract domain
+  const domain = email.split('@')[1];
+  try {
+      // Attempt to resolve MX records for the domain
+      const addresses = await dns.promises.resolveMx(domain);
+      // If no MX records found, domain is likely invalid
+      if (!addresses || addresses.length === 0) {
+          return res.json({ valid: false });
+      }
+      // If we get here, domain has MX records => domain is valid
+      return res.json({ valid: true });
+  } catch (error) {
+      console.error("DNS lookup error:", error);
+      // DNS query failed => domain likely invalid or unreachable
+      return res.json({ valid: false });
+  }
 });
-    
 
 // endpoint for form submission to DynamoDB
 app.post('/submit-form', async (req, res) => {
-    const { firstname, lastname, email, phone, message } = req.body;
-    
-    // Validate input
-    if (!firstname || !lastname || !email || !phone || !message) {
-        return res.status(400).json({ 
-            success: false, 
-            error: 'All fields are required' 
-        });
-    }
+  const { firstname, lastname, email, phone, message } = req.body;
 
-    const params = {
-        TableName: 'ClientSubmissions',
-        Item: {
-            submissionId: uuidv4(),
-            firstName: firstname,
-            lastName: lastname,
-            email: email,
-            phoneNumber: phone,
-            message: message,
-            submissionDate: new Date().toISOString(),
-            status: 'new',
-            flagged: false
-        }
-    };
-
-    try {
-        await docClient.send(new PutCommand(params));
-        res.json({ 
-            success: true, 
-            message: 'Submission successful' 
-        });
-    } catch (error) {
-        console.error('DynamoDB Error:', error);
-        res.status(500).json({ 
-            success: false, 
-            error: 'Failed to save submission' 
-        });
-    }
-});
-
-app.get('/admin-login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
-function requireAuth(req, res, next) {
-    if (req.query.auth !== 'true') {
-        return res.send('Unauthorized access.');
-    }
-    next();
-}
-
-// Restrict access to dashboard.html
-app.get('/admin/dashboard.html', requireAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
-});
-
-// Handles login from AWS Cognito
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    const clientId = process.env.COGNITO_CLIENT_ID;
-    const clientSecret = process.env.COGNITO_CLIENT_SECRET;
-    const secretHash = generateSecretHash(username, clientId, clientSecret);
-
-    const params = {
-        AuthFlow: 'USER_PASSWORD_AUTH',
-        ClientId: clientId,
-        AuthParameters: {
-            USERNAME: username,
-            PASSWORD: password,
-            SECRET_HASH: secretHash
-        }
-    };
-
-    cognito.initiateAuth(params, (err, data) => {
-        if (err) {
-            console.error("Authentication error:", err);
-            return res.status(400).json({ error: err.message });
-        }
-        res.json(data);
+  // Validate input
+  if (!firstname || !lastname || !email || !phone || !message) {
+    return res.status(400).json({ 
+      success: false, 
+      error: 'All fields are required' 
     });
+  }
+
+  const params = {
+    TableName: 'ClientSubmissions',
+    Item: {
+      submissionId: uuidv4(),
+      firstName: firstname,
+      lastName: lastname,
+      email: email,
+      phoneNumber: phone,
+      message: message,
+      submissionDate: new Date().toISOString(),
+      status: 'new',
+      flagged: false
+    }
+  };
+
+  try {
+    await docClient.send(new PutCommand(params));
+    res.json({ success: true, message: 'Submission successful' });
+  } catch (error) {
+    console.error('DynamoDB Error:', error);
+    res.status(500).json({ success: false, error: 'Failed to save submission' });
+  }
 });
 
+// For backward compatibility: a separate route that serves a public login page
+// app.get('/admin-login', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'login.html'));
+// });
+
+// Handles login from AWS Cognito. login sets session.loggedIn = true upon success 
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const clientId = process.env.COGNITO_CLIENT_ID;
+  const clientSecret = process.env.COGNITO_CLIENT_SECRET;
+  const secretHash = generateSecretHash(username, clientId, clientSecret);
+
+  const params = {
+    AuthFlow: 'USER_PASSWORD_AUTH',
+    ClientId: clientId,
+    AuthParameters: {
+      USERNAME: username,
+      PASSWORD: password,
+      SECRET_HASH: secretHash
+    }
+  };
+
+  cognito.initiateAuth(params, (err, data) => {
+    if (err) {
+      console.error("Authentication error:", err);
+      return res.status(400).json({ error: err.message });
+    }
+    // Mark the session as logged in.login sets true upon success
+    req.session.loggedIn = true;
+    res.json(data);
+  });
+});
+
+// Logout Route 
+// When a user selects /logout, their session is destroyed and they are redirected to the login page.
+app.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.status(500).send("Error logging out.");
+    }
+    res.redirect('/admin/login.html');
+  });
+});
 
 // Test endpoint to verify DynamoDB connection
 app.get('/test-db', async (req, res) => {
@@ -355,7 +406,7 @@ app.post('/api/clients/flag', async (req, res) => {
     }
 });
 
-/* DELETE /api/clients endpoint updated to use submissionId as primary key */
+//* DELETE /api/clients endpoint updated to use submissionId as primary key */
 app.delete('/api/clients', async (req, res) => {
     const { submissionId } = req.body;
     if (!submissionId) {
@@ -661,5 +712,5 @@ app.get('/proxy-yelp-reviews', async (req, res) => {
 })();
 
 app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+  console.log(`Server listening at http://localhost:${port}`);
 });
