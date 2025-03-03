@@ -741,26 +741,6 @@ footer {
   z-index: 1;
 }
 
-/* Update hero text positioning */
-.services-page-header .hero-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 50%;
-}
-
-/* Update title styling with transparency */
-.services-page-header .hero-text h1 {
-  font-family: 'Marcellus', serif;
-  font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  color: rgb(0, 0, 0);
-}
-
 .services-page-content {
   width: 90%;
   max-width: 1200px;
