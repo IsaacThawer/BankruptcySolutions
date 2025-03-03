@@ -9,11 +9,12 @@ async function loadClients() {
     try {
         const response = await fetch('/api/clients'); 
         clients = await response.json();
-        populateClients();
+        populateClients(clients); // Ensure the full client list is displayed initially
     } catch (error) {
         console.error("Error loading clients:", error);
     }
 }
+
 
 /**
  * Populate the client list panel with data received from DynamoDB.
@@ -222,9 +223,23 @@ function toggleFlag() {
 }
 
 function searchClients() {
-    // Implementation for searching/filtering clients can be added here
-    alert('Search functionality not implemented.');
+    const searchInput = document.getElementById('search').value.toLowerCase().trim();
+
+    if (searchInput === '') {
+        // If input is empty, show all clients
+        populateClients(clients);
+        return;
+    }
+
+    const filteredClients = clients.filter(client => 
+        client.firstName.toLowerCase().includes(searchInput) ||
+        client.lastName.toLowerCase().includes(searchInput) ||
+        client.email.toLowerCase().includes(searchInput)
+    );
+
+    populateClients(filteredClients);
 }
+
 
 function formatTimestamp(isoString) {
     const date = new Date(isoString);
@@ -245,11 +260,11 @@ function formatTimestamp(isoString) {
     return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
 }
 
-function populateClients() {
+function populateClients(clientData) {
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
 
-    clients.forEach(client => {
+    clientData.forEach(client => {
         // Create a new element for each client
         const clientItem = document.createElement('div');
         clientItem.className = 'client-item';
