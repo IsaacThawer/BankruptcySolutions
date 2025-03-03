@@ -17,33 +17,6 @@
         });
        });
      </script>
-     <script>
-      // function to dynamically load text from a file and update the corresponding h3
-      async function loadChapterTitle(chapterNumber) {
-          const filename = `chapter-Title${chapterNumber}.json`;
-
-          try {
-              const response = await fetch(`/admin/content/${filename}`); // adjust the path if necessary
-              if (!response.ok) throw new Error(`Error loading ${filename}`);
-              
-              const dataText = await response.json();
-              const chapterElement = document.getElementById(`chapter-Title${chapterNumber}`);
-
-              if (chapterElement) {
-                  chapterElement.innerText = dataText.text; // update the h3 content
-              }
-          } catch (error) {
-              console.error(`Failed to load ${filename}:`, error);
-          }
-      }
-
-      // load all chapter titles on page load
-      document.addEventListener("DOMContentLoaded", function () {
-          for (let i = 1; i <= 4; i++) { // adjust if you have more chapter titles
-              loadChapterTitle(i);
-          }
-      });
-     </script>
   </head>
 
   <body>
@@ -85,25 +58,25 @@
       <div class="services-grid">
         <!-- Chapter 7 -->
         <article class="service-card">
-          <h3 id="chapter-Title1"></h3>
+          <h3> Chapter 7<br>Bankruptcy</h3>
           <p id="services-Chapter7"></p>
         </article>
 
         <!-- Chapter 11 -->
         <article class="service-card">
-          <h3 id="chapter-Title2"></h3>
+          <h3>Chapter 11<br>Bankruptcy</h3>
           <p id="services-Chapter11"></p>
         </article>
 
         <!-- Chapter 12 -->
         <article class="service-card">
-          <h3 id="chapter-Title3"></h3>
+          <h3>Chapter 12<br>Bankruptcy</h3>
           <p id="services-Chapter12"></p>
         </article>
 
         <!-- Chapter 13 -->
         <article class="service-card">
-          <h3 id="chapter-Title4"></h3>
+          <h3>Chapter 13<br>Bankruptcy</h3>
           <p id="services-Chapter13"></p>
         </article>
       </div>
