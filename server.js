@@ -141,9 +141,7 @@ app.get('/admin/content/:filename', (req, res) => {
 // POST endpoint: Write text to a JSON file in /admin/content (as { "text": newText })
 app.post('/admin/content/:filename', (req, res) => {
   const filepath = path.join(__dirname, 'admin', 'content', req.params.filename);
-  const newText = req.body.text;
-  // Create a JSON object with the updated text
-  const jsonContent = JSON.stringify({ text: newText }, null, 2);// print JSON with 2 spaces
+
   // Check if it's a reviews JSON file
   if (req.params.filename === 'google-reviews.json' || req.params.filename === 'yelp-reviews.json') {
       // For reviews, we expect the full JSON object in the body
@@ -157,8 +155,7 @@ app.post('/admin/content/:filename', (req, res) => {
       });
   } else {
       // For regular content files with text property
-      const newText = req.body.text;
-      const jsonContent = JSON.stringify({ text: newText }, null, 2);
+      const jsonContent = JSON.stringify({ text: req.body.text }, null, 2);
       fs.writeFile(filepath, jsonContent, (err) => { // This was the original portion before merge conflict
           if (err) {
               console.error(err);
@@ -166,8 +163,10 @@ app.post('/admin/content/:filename', (req, res) => {
           }
           res.send('File ' + req.params.filename + ' saved successfully!');
       });
+  }
+});
 
-
+    
 // Image upload for uploading an image file
 app.post('/upload/image/:fileName', upload.single('image'), (req, res) => {
   if (!req.file) {
