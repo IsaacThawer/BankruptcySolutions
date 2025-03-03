@@ -341,6 +341,7 @@ nav ul li a {
 /* Sacramento Website Title */
 .hero-text {
   position: absolute;
+  color: #222;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -352,7 +353,7 @@ nav ul li a {
 .hero-text h1 {
   font-family: 'Marcellus', serif;
   font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.85);
   padding: 1rem;
   border-radius: 0.5rem;
 }
@@ -391,7 +392,7 @@ h3 {
   font-family: 'Marcellus', serif;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #147dd3
+  color: #147dd3;
 }
 
 #GMap {
@@ -547,7 +548,16 @@ footer {
   }
 }
 
-
+/* Header for Form */
+.send-text p {
+  color: #147dd3;
+  font-size: 32px;
+  font-family: Marcellus, serif;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+  border-top: 1px solid #e5e5e5;
+}
 
 /* Consultation Area*/
 input[type="text"],
@@ -748,10 +758,10 @@ footer {
 .services-page-header .hero-text h1 {
   font-family: 'Marcellus', serif;
   font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.85);
   padding: 1rem;
   border-radius: 0.5rem;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .services-page-content {
