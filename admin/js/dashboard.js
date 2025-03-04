@@ -287,6 +287,37 @@ showTime();
   // Load the last visited page from localStorage or default to home
   const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
   updateContent(lastVisitedPage);
+
+  const token = localStorage.getItem("id_token");
+
+  if (token) {
+    try {
+      // Decode the token payload
+      const payload = JSON.parse(atob(token.split(".")[1]));
+
+      // Extract the username from the token
+      const username = payload["cognito:username"] || payload["username"] || "User";
+
+      // Update the greeting in the profile container (replace "Hello, Eric!" with the actual username)
+      const greetingElement = document.querySelector(".profile-container h2");
+      if (greetingElement) {
+        greetingElement.textContent = `Hello, ${username}!`;
+      }
+
+      // Hide links if the user is not an Admin
+      const groups = payload["cognito:groups"] || [];
+      if (!groups.includes("Admin")) {
+        document.getElementById("modify-users-link").style.display = "none";
+        document.getElementById("database-link").style.display = "none";
+      }
+    } catch (error) {
+      console.error("❌ Error decoding token:", error);
+    }
+  } else {
+    console.warn("⚠️ No ID token found in localStorage.");
+  }
+
+
 });
 
 // Function to initialize reviews management
@@ -400,6 +431,8 @@ async function loadUsers() {
     console.error("Fetch error:", error);
   }
 }
+
+
 
 
 
