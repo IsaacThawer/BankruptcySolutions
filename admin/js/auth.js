@@ -19,13 +19,15 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(response => response.json())
     .then(data => {
-      // Check if the response includes an error
-      if(data.error) {
+      if (data.error) {
         alert("Login failed: " + data.error);
       } else {
         console.log("Login successful:", data);
-        // After successful login, redirect to the dashboard page with a query parameter (auth=true)
-        // This query parameter allows the server middleware to recognize that the user is authorized.
+    
+        // Store the Cognito JWT Token in localStorage
+        localStorage.setItem("id_token", data.AuthenticationResult.IdToken);
+    
+        // Redirect to dashboard
         window.location.href = "dashboard.html?auth=true";
       }
     })
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.error("Fetch error:", err);
       alert("Login failed. Please try again.");
     });
+    
   });
 
   // Adding an event listener to the forgot password button

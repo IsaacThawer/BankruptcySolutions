@@ -301,13 +301,19 @@ function initReviewsManagement() {
 
 async function addUser() {
   // Get the values from form inputs
-  const username = document.getElementById('modify-username').value;
-  const phone = document.getElementById('modify-phone-number').value;
-  const email = document.getElementById('modify-email').value;
+  const username = document.getElementById('modify-username').value.trim();
+  const phone = document.getElementById('modify-phone-number').value.trim();
+  const email = document.getElementById('modify-email').value.trim();
   const password = document.getElementById('modify-password').value;
   const confirmPassword = document.getElementById('modify-password-verify').value;
-  const role = document.getElementById('modify-role').value;
-  
+  const role = document.getElementById('modify-role').value; // Ensure role is included
+
+  // Validate required fields before sending
+  if (!username || !phone || !email || !password || !confirmPassword || !role) {
+    alert("Error: All fields are required.");
+    return;
+  }
+
   // Build the payload
   const payload = {
     username,
@@ -315,24 +321,37 @@ async function addUser() {
     email,
     password,
     confirmPassword,
-    role
+    role // Ensure role is included
   };
-  
-  // The API endpoint includes the '/user' route.
+
+  console.log("Payload being sent:", payload); // Debugging output
+
+  const token = localStorage.getItem("id_token"); // Get token from local storage
+  if (!token) {
+    alert("You are not authenticated. Please log in again.");
+    window.location.href = "/admin-login"; // Redirect if no token
+  }
+
   const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/user';
 
   try {
-    const response = await fetch(apiEndpoint, { // ERROR OCCURS WHEN FETCHING HERE
+    const response = await fetch(apiEndpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(payload)
     });
-    
-    const data = await response.json();
+
+    const text = await response.text();
+    console.log("Raw API response:", text);
+    const data = JSON.parse(text);
+
     if (response.ok) {
       console.log('User created successfully!');
-      // Optionally, refresh the user list after adding a user.
-      loadUsers();
+      alert("User added successfully!");
+      loadUsers(); // Refresh the user list
     } else {
       alert('Error: ' + (data.error || 'Unknown error'));
       console.error('API error:', data);
@@ -343,34 +362,59 @@ async function addUser() {
   }
 }
 
-async function deleteUser(username) {
-  // Confirm before deletion
-  if (!confirm(`Are you sure you want to delete user "${user.username}"?`)) return;
 
-  // Same endpoint but with DELETE method.
-  const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/user';
-  
+async function deleteUser(email, role) {
+  if (!confirm(`Are you sure you want to delete user "${email}"?`)) return;
+
+  const token = localStorage.getItem("id_token"); // Get stored token
+  if (!token) {
+    alert("You are not authenticated. Please log in again.");
+    window.location.href = "/admin-login"; // Redirect if no token
+    return;
+  }
+
+  const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/Test/user';
+
   try {
-    const response = await fetch(apiEndpoint, { // ERROR OCCURS WHEN FETCHING HERE
+    // Ensure JSON format is correct 
+    const payload = { email, role };
+    console.log("🚀 Sending payload:", JSON.stringify(payload));
+
+    const response = await fetch(apiEndpoint, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username })
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(payload) // Ensure valid JSON formatting 
     });
-    
-    const data = await response.json();
-    if (response.ok) {
-      console.log('User deleted successfully!');
-      // Refresh the users list after deletion.
-      loadUsers();
-    } else {
-      alert('Error: ' + (data.error || 'Unknown error'));
-      console.error('API error:', data);
+
+    const text = await response.text();
+    console.log("🔍 Raw API response:", text);
+
+    try {
+      const data = JSON.parse(text);
+      if (response.ok) {
+        console.log('User deleted successfully!');
+        alert("User deleted successfully!");
+        loadUsers(); // Refresh user list
+      } else {
+        alert('Error: ' + (data.error || 'Unknown error'));
+        console.error('API error:', data);
+      }
+    } catch (error) {
+      console.error('Error parsing response:', text);
+      alert('An error occurred while deleting the user.');
     }
   } catch (error) {
-    console.error('Error calling delete API:', error);
+    console.error('Error calling API:', error);
     alert('An error occurred while deleting the user.');
   }
 }
+
+
+
+
 
 
 async function loadUsers() {
@@ -378,18 +422,18 @@ async function loadUsers() {
     const response = await fetch('/api/users');
     const data = await response.json();
     if (data.success) {
-      // Process and display data.users as needed
       console.log("Users loaded:", data.users);
-      // For example, update the user table:
+
       const userList = document.getElementById("user-list");
       userList.innerHTML = "";
+
       data.users.forEach(user => {
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>${user.username || 'N/A'}</td>
           <td>${user.email || 'N/A'}</td>
           <td>${user.role || 'N/A'}</td>
-          <td><button onclick="deleteUser('${user.id}')">Delete</button></td>
+          <td><button onclick="deleteUser('${user.email}', '${user.role}')">Delete</button></td>
         `;
         userList.appendChild(row);
       });
@@ -400,6 +444,7 @@ async function loadUsers() {
     console.error("Fetch error:", error);
   }
 }
+
 
 
 
