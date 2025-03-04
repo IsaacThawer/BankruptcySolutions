@@ -22,50 +22,6 @@ const session = require('express-session');//import express-session
 const app = express();
 const port = 8000;
 
-app.use(session({
-  secret: 'YOUR_SECRET_KEY', // Use a strong random string
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false, httpOnly: true } // Set `secure: true` if using HTTPS
-}));
-
-//testing username
-app.get('/api/user-info', async (req, res) => {
-  console.log("🔍 Checking session data at /api/user-info:", req.session);
-
-  if (!req.session || !req.session.loggedIn) {
-      console.error("❌ User not authenticated (Session missing)");
-      return res.status(401).json({ success: false, error: "User not authenticated" });
-  }
-
-  if (!req.session.accessToken) {
-      console.error("❌ Missing access token in session");
-      return res.status(401).json({ success: false, error: "Missing access token" });
-  }
-
-  try {
-      console.log("✅ Fetching user info from Cognito...");
-      const userData = await cognito.getUser({ AccessToken: req.session.accessToken }).promise();
-
-      console.log("🔍 Full Cognito Response:", JSON.stringify(userData, null, 2));
-
-      // Extract user attributes
-      const attributes = userData.UserAttributes.reduce((acc, attr) => {
-          acc[attr.Name] = attr.Value;
-          return acc;
-      }, {});
-
-      res.json({
-          success: true,
-          username: attributes["name"] || "Admin",
-          userPhoto: attributes["picture"] || "images/client-photo.png"
-      });
-  } catch (error) {
-      console.error("❌ Error fetching user info from Cognito:", error);
-      res.status(500).json({ success: false, error: "Failed to fetch user info" });
-  }
-});
-
 // Multer configuration
 const imgStorage = multer.diskStorage({
   destination: './public/images',
@@ -234,7 +190,7 @@ app.post('/admin/upload/image/:fileName', uploadAdmin.single('image'), (req, res
         return res.status(400).send('No files were uploaded.');
     }
     console.log('File uploaded successfully: ' + req.file.originalname);
-    res.send(`File uploaded successfully: ${req.file.originalname}`); 
+    res.send(`File uploaded successfully: ${req.file.originalname}`);
 });
 
 // Serve images from /public/images
@@ -349,56 +305,13 @@ app.post('/login', (req, res) => {
 
   cognito.initiateAuth(params, (err, data) => {
     if (err) {
-        console.error("❌ Authentication error:", err);
-        return res.status(400).json({ error: err.message });
+      console.error("Authentication error:", err);
+      return res.status(400).json({ error: err.message });
     }
-
-    // Store access token in session
+    // Mark the session as logged in.login sets true upon success
     req.session.loggedIn = true;
-    req.session.accessToken = data.AuthenticationResult.AccessToken;
-    console.log("✅ Login successful, Access Token stored in session:", req.session.accessToken);
-
-    res.json({ success: true });
+    res.json(data);
   });
-});
-
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    const clientId = process.env.COGNITO_CLIENT_ID;
-    const clientSecret = process.env.COGNITO_CLIENT_SECRET;
-    const secretHash = generateSecretHash(username, clientId, clientSecret);
-
-    const params = {
-        AuthFlow: 'USER_PASSWORD_AUTH',
-        ClientId: clientId,
-        AuthParameters: {
-            USERNAME: username,
-            PASSWORD: password,
-            SECRET_HASH: secretHash
-        }
-    };
-
-    cognito.initiateAuth(params, (err, data) => {
-        if (err) {
-            console.error("❌ Authentication error:", err);
-            return res.status(400).json({ error: err.message });
-        }
-
-        // ✅ Store Access Token & Session Data
-        req.session.loggedIn = true;
-        req.session.accessToken = data.AuthenticationResult.AccessToken;
-
-        // Explicitly save the session
-        req.session.save((err) => {
-            if (err) {
-                console.error("❌ Error saving session:", err);
-                return res.status(500).json({ error: "Failed to save session" });
-            }
-
-            console.log("✅ Login successful, Access Token stored in session:", req.session.accessToken);
-            res.json({ success: true });
-        });
-    });
 });
 
 // Logout Route 
@@ -827,41 +740,4 @@ app.get('/proxy-yelp-reviews', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
-});
-
-//testing username
-app.get('/api/user-info', async (req, res) => {
-  console.log("🔍 Checking user authentication...");
-
-  if (!req.session || !req.session.loggedIn) {
-      console.error("❌ User not authenticated (Session missing)");
-      return res.status(401).json({ success: false, error: "User not authenticated" });
-  }
-
-  if (!req.session.accessToken) {
-      console.error("❌ Missing access token in session");
-      return res.status(401).json({ success: false, error: "Missing access token" });
-  }
-
-  try {
-      console.log("✅ Fetching user info from Cognito...");
-      
-      const userData = await cognito.getUser({ AccessToken: req.session.accessToken }).promise();
-      console.log("✅ Cognito User Data:", userData);
-
-      // Extract user attributes (e.g., name, email, picture)
-      const attributes = userData.UserAttributes.reduce((acc, attr) => {
-          acc[attr.Name] = attr.Value;
-          return acc;
-      }, {});
-
-      res.json({
-          success: true,
-          username: attributes["name"] || "Admin",
-          userPhoto: attributes["picture"] || "images/client-photo.png"
-      });
-  } catch (error) {
-      console.error("❌ Error fetching user info from Cognito:", error);
-      res.status(500).json({ success: false, error: "Failed to fetch user info" });
-  }
 });
