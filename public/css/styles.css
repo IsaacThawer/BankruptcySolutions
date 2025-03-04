@@ -106,6 +106,12 @@ nav ul li a {
   cursor: pointer;
 }
 
+.index-service-header {
+  text-align: center;
+}
+
+
+
 /* Review Cards Styling */
 .reviews-grid {
   display: grid;
@@ -279,62 +285,7 @@ nav ul li a {
   color: #666;
 }
 
-@media (max-width: 768px) {
 
-  .navbar {
-    justify-content: space-between; /* Pushes toggle to the right on mobile */
-    padding: 15px;
-  }
-
-  .menu-toggle {
-    display: block;
-    position: absolute;
-    right: 20px; /* Ensures button stays on the right */
-    top: 53%;
-    transform: translateY(-50%);
-  }
-
-  .navbar ul {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background: white;
-    text-align: center;
-    padding: 10px 0;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  
-  }
-
-  .navbar.active ul {
-    display: flex;
-  }
-
-  .navbar ul li a {
-    text-align: center;
-    padding: 10px;
-    width: 100%;
-    display: block;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .reviews-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .google, .yelp {
-    margin-bottom: 1.5rem;
-  }
-
-  .review-cards {
-    grid-template-columns: 1fr;
-  }
-
-}
 
 
 /* Sacramento Website Title */
@@ -449,13 +400,8 @@ footer {
   line-height: 1.5;
 }
 
-@media (max-width: 768px) {
-  .services-grid{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
+
+
 
 
 /* Testominals*/
@@ -478,7 +424,7 @@ footer {
 }
 
 .pastClientsHeader {
-  text-align: left;
+  text-align: center;
   text-decoration: underline;
   font-size: 48px;
   font-weight: 400;
@@ -538,13 +484,7 @@ footer {
   text-decoration: underline;
 }
  
-@media (max-width: 768px) {
-  .reviews-grid {
-    display: flex;
-    flex-direction: column; /* Stack items vertically on mobile */
-    align-items: center; /* Center items horizontally */
-  }
-}
+
 
 /* Header for Form */
 .send-text p {
@@ -697,20 +637,7 @@ form {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  .education-commitment-grid {
-      grid-template-columns: 1fr;
-  }
 
-  .content-wrapper {
-      flex-direction: column;
-  }
-
-  .introduction,
-  .contactInfo {
-      flex: 0 0 100%;
-  }
-}
 
 /* About header specific styles */
 .about-header {
@@ -818,24 +745,113 @@ footer {
   text-decoration: none;
 }
 
+
 @media (max-width: 768px) {
+
+    .introduction , .service-card p , .review-text, .send-text p, .disclaimer p, .services-page-grid p{
+    font-size: 17px;
+    }
+
+    h2 , .pastClientsHeader, .index-service-header{
+      font-size: 40px;
+    }
+
+   .navbar {
+     justify-content: space-between; 
+     padding: 23px;
+   }
+ 
+   .menu-toggle {
+     display: block;
+     position: absolute;
+     right: 20px; 
+     top: 53%;
+     transform: translateY(-50%);
+   }
+ 
+   .navbar ul {
+     display: none;
+     flex-direction: column;
+     width: 100%;
+     background: white;
+     text-align: center;
+     padding: 6px 0;
+     position: absolute;
+     top: 100%;
+     left: 0;
+   
+   }
+ 
+   .navbar.active ul {
+     display: flex;
+   }
+ 
+   .navbar ul li a {
+     text-align: center;
+     padding: 10px;
+     width: 100%;
+     display: block;
+   }
+ 
+   .menu-toggle {
+     display: block;
+   }
+ 
+   .reviews-grid {
+     grid-template-columns: 1fr;
+   }
+   
+   .google, .yelp {
+     margin-bottom: 1.5rem;
+   }
+ 
+   .review-cards {
+     grid-template-columns: 1fr;
+   }
+
+   .services-grid{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .services-page-grid {
-      grid-template-columns: 1fr;
-      grid-template-areas: 
-          "chapter7"
-          "chapter11"
-          "chapter12"
-          "chapter13"
-          "why-choose"
-          "service-benefits";
-  }
-  
-  .why-choose-us {
-      max-width: 100%;
-  }
-  
-  .services-page-header {
-      height: 25vh;
-  }
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+        "chapter7"
+        "chapter11"
+        "chapter12"
+        "chapter13"
+        "why-choose"
+        "service-benefits";
 }
+
+.reviews-grid {
+  display: flex;
+  flex-direction: column; /* Stack items vertically on mobile */
+  align-items: center; /* Center items horizontally */
+}
+
+.why-choose-us {
+    max-width: 100%;
+}
+
+.services-page-header {
+    height: 25vh;
+}
+
+.education-commitment-grid {
+  grid-template-columns: 1fr;
+}
+
+.content-wrapper {
+  flex-direction: column;
+}
+
+.introduction,
+.contactInfo {
+  flex: 0 0 100%;
+}
+ 
+ }
 
