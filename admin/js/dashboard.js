@@ -400,7 +400,55 @@ async function loadUsers() {
     console.error("Fetch error:", error);
   }
 }
+      function initializeImageUpload() {
+      const uploadForm = document.getElementById("image-upload-form");
 
+      if (!uploadForm) {
+          console.error("❌ Image Upload Form Not Found - Ensure ID is correct in dashboard.html");
+          return;
+      }
+
+      uploadForm.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          const fileInput = document.getElementById("image-file");
+          if (!fileInput || !fileInput.files.length) {
+              alert("Please select a file before uploading.");
+              return;
+          }
+
+          const formData = new FormData();
+          formData.append("image", fileInput.files[0]);
+
+          fetch("/upload/image", {
+              method: "POST",
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  alert("✅ Image uploaded successfully!");
+                  console.log("📷 Uploaded Image URL:", data.imageUrl);
+              } else {
+                  alert("❌ Upload failed: " + data.error);
+              }
+          })
+          .catch(error => {
+              console.error("❌ Image Upload Error:", error);
+              alert("Upload failed. Please try again.");
+          });
+      });
+
+      console.log("✅ Image Upload Form Initialized Successfully");
+  }
+
+  // Run immediately if the form exists, otherwise delay until dynamically loaded
+  if (document.getElementById("image-upload-form")) {
+      initializeImageUpload();
+  } else {
+      console.log("⏳ Waiting for Image Upload Form to be Created...");
+      setTimeout(initializeImageUpload, 2000); // Try again after 2 seconds
+  }
 
 
 

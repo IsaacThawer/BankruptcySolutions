@@ -1,61 +1,103 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("🔍 Page Loaded - Initializing Auth.js");
 
   // Get the login form element from the DOM
   const loginForm = document.getElementById("login-form");
- 
-  // Listen for form submission
-  loginForm.addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
- 
-    // Retrieve the values entered by the user
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
- 
-    // Send a POST request to the /login endpoint with the username and password
-    fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Check if the response includes an error
-      if(data.error) {
-        alert("Login failed: " + data.error);
-      } else {
-        console.log("Login successful:", data);
-        // After successful login, redirect to the dashboard page with a query parameter (auth=true)
-        // This query parameter allows the server middleware to recognize that the user is authorized.
-        window.location.href = "dashboard.html?auth=true";
-      }
-    })
-    .catch(err => {
-      console.error("Fetch error:", err);
-      alert("Login failed. Please try again.");
-    });
-  });
 
-  // Adding an event listener to the forgot password button
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Retrieve user input
+      const username = document.getElementById("username")?.value;
+      const password = document.getElementById("password")?.value;
+
+      if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+      }
+
+      // Send a POST request to the /login endpoint with credentials
+      fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Important for session persistence
+        body: JSON.stringify({ username, password })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert("Login failed: " + data.error);
+          } else {
+            console.log("✅ Login successful:", data);
+            alert("Login successful!");
+
+            // Redirect first, then fetch user info
+            window.location.href = "dashboard.html";
+
+            // Fetch user info after redirection (only when on dashboard)
+            setTimeout(() => fetchUserInfo(), 1000);
+          }
+        })
+        .catch(err => {
+          console.error("❌ Fetch error:", err);
+          alert("Login failed. Please try again.");
+        });
+    });
+  }
+
+  // Function to fetch user info
+  function fetchUserInfo() {
+    fetch('/api/user-info', { credentials: 'include' }) // Ensures session cookie is sent
+        .then(response => response.json())
+        .then(data => {
+            console.log("🔍 User Info Response:", data);
+
+            const usernameDisplay = document.getElementById("username-display");
+            const userPhoto = document.getElementById("user-photo");
+
+            if (!usernameDisplay || !userPhoto) {
+                console.error("❌ UI Elements Not Found - Ensure IDs are correct in dashboard.html");
+                return;
+            }
+
+            if (data.success) {
+                usernameDisplay.textContent = `Hello, ${data.username}!`;
+                userPhoto.src = data.userPhoto || "images/client-photo.png";
+            } else {
+                usernameDisplay.textContent = "Hello, Admin!";
+            }
+        })
+        .catch(error => {
+            console.error("❌ Error Fetching User Info:", error);
+        });
+  }
+  fetchUserInfo();
+
+  // Call fetchUserInfo only if on the dashboard page
+  if (window.location.pathname.includes("dashboard.html")) {
+    fetchUserInfo();
+  }
+
+  // Forgot Password Button
   const forgotPasswordButton = document.getElementById("forgot-password");
-  forgotPasswordButton.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent the default link behavior
-    // Redirect to the AWS Cognito forgot password page
-    window.location.href = "https://us-east-2wxph0lhec.auth.us-east-2.amazoncognito.com/forgotPassword?client_id=12kdtjv80rbe28jua8njbfgdug&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fadmin%2Fdashboard.html&response_type=code&scope=email+openid+phone";
-  });
+  if (forgotPasswordButton) {
+    forgotPasswordButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      window.location.href =
+        "https://us-east-2wxph0lhec.auth.us-east-2.amazoncognito.com/forgotPassword?client_id=12kdtjv80rbe28jua8njbfgdug&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fadmin%2Fdashboard.html&response_type=code&scope=email+openid+phone";
+    });
+  }
 
   // Toggle password visibility
-  const toggleCheckbox = document.getElementById('checkboxInput');
-  const passwordField = document.getElementById('password');
-  const toggleText = document.querySelector('.toggleText'); // using the class toggleText
+  const toggleCheckbox = document.getElementById("checkboxInput");
+  const passwordField = document.getElementById("password");
+  const toggleText = document.querySelector(".toggleText");
 
-  // Listen for changes on the toggle checkbox to show/hide the password
-  toggleCheckbox.addEventListener('change', function() {
-    if (this.checked) {
-      passwordField.type = 'text';
-      toggleText.textContent = 'Hide Password';
-    } else {
-      passwordField.type = 'password';
-      toggleText.textContent = 'Show Password';
-    }
-  });
+  if (toggleCheckbox && passwordField && toggleText) {
+    toggleCheckbox.addEventListener("change", function () {
+      passwordField.type = this.checked ? "text" : "password";
+      toggleText.textContent = this.checked ? "Hide Password" : "Show Password";
+    });
+  }
 });

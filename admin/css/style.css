@@ -599,3 +599,15 @@ body {
     height: 250px;
   }
 }
+
+/*username, profile greeting */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
