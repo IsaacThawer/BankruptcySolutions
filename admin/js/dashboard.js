@@ -44,6 +44,16 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-services" rows="4"></textarea>
           <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.json')">Update</button>
         </div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
         
       </section>
     `,
@@ -80,6 +90,16 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="why-choose-us" rows="4"></textarea>
           <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.json')">Update</button>
         </div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
       </section>  
     `,
     "about-us": `
@@ -110,6 +130,18 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="about-client-commitment" rows="4"></textarea>
           <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.json')">Update</button>
         </div>
+        <div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
+        
       </section>
     `,
     "reviews": `
@@ -133,6 +165,18 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="loading">Loading reviews...</div>
           </div>
         </div>
+        <div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
+        
       </section>
     `,
    "modify-users": `
@@ -287,6 +331,37 @@ showTime();
   // Load the last visited page from localStorage or default to home
   const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
   updateContent(lastVisitedPage);
+
+  const token = localStorage.getItem("id_token");
+
+  if (token) {
+    try {
+      // Decode the token payload
+      const payload = JSON.parse(atob(token.split(".")[1]));
+
+      // Extract the username from the token
+      const username = payload["cognito:username"] || payload["username"] || "User";
+
+      // Update the greeting in the profile container (replace "Hello, Eric!" with the actual username)
+      const greetingElement = document.querySelector(".profile-container h2");
+      if (greetingElement) {
+        greetingElement.textContent = `Hello, ${username}!`;
+      }
+
+      // Hide links if the user is not an Admin
+      const groups = payload["cognito:groups"] || [];
+      if (!groups.includes("Admin")) {
+        document.getElementById("modify-users-link").style.display = "none";
+        document.getElementById("database-link").style.display = "none";
+      }
+    } catch (error) {
+      console.error("❌ Error decoding token:", error);
+    }
+  } else {
+    console.warn("⚠️ No ID token found in localStorage.");
+  }
+
+
 });
 
 // Function to initialize reviews management
@@ -443,37 +518,3 @@ async function loadUsers() {
   } catch (error) {
     console.error("Fetch error:", error);
   }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  initMobNab();
-});
-
-async function initMobNab() {
-  const menuToggle = document.getElementById("menuToggleAdmin");
-  const navBar = document.querySelector(".sidebar");
-
-  if (menuToggle && navBar) {
-    menuToggle.addEventListener("click", function () {
-      navBar.classList.toggle("active");
-      console.log("button is being clicked");
-    });
-  } else {
-    console.error("Menu Toggle or NavBar not found!");
-  }
-}
-
-const sidebarLinks = document.querySelectorAll('.sidebar a');
-const sidebar = document.querySelector('.sidebar');
-
-
-sidebarLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    sidebar.classList.remove('active'); 
-  });
-});
-
-
-
-
-

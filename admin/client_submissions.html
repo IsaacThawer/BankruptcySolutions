@@ -32,43 +32,43 @@
     <!-- Container where the client list will be populated by client_submissions.js -->
     <div class="clients-panel" id="client-list"></div>
     <div class="details-panel">
-      <!-- Client details are shown below. Note that the input IDs match those used in the JS file. -->
-      <div class="field">
-          <label for="first-name">First Name</label>
-          <!-- This field displays the firstName from DynamoDB -->
-          <input type="text" id="first-name" disabled>
-      </div>
-      <div class="field">
-          <label for="last-name">Last Name</label>
-          <!-- This field displays the lastName from DynamoDB -->
-          <input type="text" id="last-name" disabled>
-      </div>
-      <div class="field">
-          <label for="email">Email Address</label>
-          <!-- This field displays the email address -->
-          <input type="text" id="email" disabled>
-      </div>
-      <div class="field">
-          <label for="phone">Phone</label>
-          <!-- This field displays the phoneNumber -->
-          <input type="text" id="phone" disabled>
-      </div>
-      <div class="field">
-          <label for="help-request">How Can We Help?</label>
-          <!-- This field displays the message (help request) -->
-          <textarea id="help-request" rows="3" disabled></textarea>
-      </div>
-      <div class="field">
-          <label for="follow-up-notes">Follow-Up Notes</label>
-          <!-- Extra field to add or update follow-up notes for the client -->
-          <textarea id="follow-up-notes" rows="3" placeholder="Add notes..."></textarea>
-      </div>
-      <!-- Button to save the follow-up notes -->
-      <button onclick="saveNotes()">Save Notes</button>
-    </div>
 
+        <!-- Client details are shown below. Note that the input IDs match those used in the JS file. -->
+        <div class="field">
+            <label for="first-name">First Name</label>
+            <!-- This field displays the firstName from DynamoDB -->
+            <input type="text" id="first-name" disabled>
+        </div>
+        <div class="field">
+            <label for="last-name">Last Name</label>
+            <!-- This field displays the lastName from DynamoDB -->
+            <input type="text" id="last-name" disabled>
+        </div>
+        <div class="field">
+            <label for="email">Email Address</label>
+            <!-- This field displays the email address -->
+            <input type="text" id="email" disabled>
+        </div>
+        <div class="field">
+            <label for="phone">Phone</label>
+            <!-- This field displays the phoneNumber -->
+            <input type="text" id="phone" disabled>
+        </div>
+        <div class="field">
+            <label for="help-request">How Can We Help?</label>
+            <!-- This field displays the message (help request) -->
+            <textarea id="help-request" rows="3" disabled></textarea>
+        </div>
+        <div class="field">
+            <label for="follow-up-notes">Follow-Up Notes</label>
+            <!-- Extra field to add or update follow-up notes for the client -->
+            <textarea id="follow-up-notes" rows="3" placeholder="Add notes..."></textarea>
+        </div>
+        <!-- Button to save the follow-up notes -->
+        <button onclick="saveNotes()">Save Notes</button>
     <div class="footer">
       &copy; 2024 Eric Schwab, Attorney at Law. All Rights Reserved.
+    </div>
     </div>
     
   </div>
