@@ -75,6 +75,12 @@ body {
   margin-right: 10px;
 }
 
+.menu-toggle{
+  display: none;
+}
+
+
+
 /* Main Content Area */
 main {
   flex: 1;
@@ -175,12 +181,14 @@ main {
 /* Dynamic content section */
 #dynamic-content {
   width: 100%;
-  max-width: 800px; /* Adjust width as needed */
+  /*max-width: 800px; /* Adjust width as needed */
+  max-width: 100%;
   padding: 20px;
   border-radius: 10px;
   overflow-y:auto;/* enable scrolling if needed*/
   margin-top: 20px;
   display: block;/* stay always visible*/
+  box-sizing: border-box;
 }
 
 /* Edit Home Page Section */
@@ -204,7 +212,7 @@ main {
 
 /* Content Section */
 .page-section {
-  margin-bottom: 20px; /* Increased spacing */
+  margin-bottom: 20px;
 }
 
 .page-section label {
@@ -434,27 +442,75 @@ input:checked + .slider:before {
 }
 
 
-/* Responsive Styles */
 @media (max-width: 768px) {
+  main{
+    width: 100%;
+  }
 
-    /* Allow scrolling on mobile */
-    html, body {
-      overflow-x: auto;
-    }
-  
-    /* Ensure dynamic content adjusts to screen */
-    #dynamic-content {
-      width: 95%;
-      padding: 15px;
-      max-height: calc(100vh - 120px); /* Prevent content from getting cut off */
-      overflow-x: auto;
-    }
-  
-    .dynamic-section {
-      padding: 15px;
-      width: 100%;
-      overflow-x: auto; /* Allow scrolling if needed */
-    }
+  .menu-toggle {
+    display: block;
+    height: 50px;
+    position: absolute;
+  }
+
+  .material-symbols-outlined {
+    font-size: 48px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar.active {
+    display: block;
+  }
+
+  .date-time-container {
+    margin-top: 35px; /* Adjust this value to move it lower */
+  }
+
+  .logout {
+    left: auto;
+  }
+
+  .body, .main {
+    font-size: 16px;
+  }
+
+  .header {
+    font-size: 30px;
+  }
+
+  /* Allow scrolling on mobile */
+  html, body {
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    overflow-y: auto;
+  }
+
+  .reviews-grid{
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+   /*Ensure dynamic content adjusts to screen */
+  #dynamic-content {
+    width: 100%; 
+    padding: 15px;
+    max-width: 100%; 
+    overflow-x: auto;
+    margin: 0 auto;
+   
+  }
+
+  .dynamic-section {
+    padding: 15px;
+    width: 100%;
+    overflow-x: auto; /* Allow scrolling if needed */
+    box-sizing: border-box;
+  }
+
+ 
+
   /* Sidebar Fix */
   .sidebar {
     width: 100%;
@@ -494,15 +550,15 @@ input:checked + .slider:before {
     font-size: 18px;
   }
 
-  /* Fix Dynamic Content for Mobile */
-  #dynamic-content {
-    width: 95%;
-    padding: 15px;
+  .page-section{
+    width: 100%;
   }
 
-  .dynamic-section {
-    padding: 15px;
-    width: 100%;
+  #modify-role{
+    width: 70px;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 10px;
   }
 
   /* Ensure Labels and Fields Fit */
@@ -520,6 +576,7 @@ input:checked + .slider:before {
     width: 100%;
     text-align: center;
   }
+
   .db-status {
     font-size: 18px;
     font-weight: bold;
@@ -531,12 +588,12 @@ input:checked + .slider:before {
     margin-top: 20px;
     display: none;
   }
+
   .db-status.connected {
     color: green;
   }
+
   .db-status.disconnected {
     color: red;
-  }
-  
-
+  }  
 }
