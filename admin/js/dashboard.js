@@ -44,6 +44,16 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-services" rows="4"></textarea>
           <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.json')">Update</button>
         </div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
         
       </section>
     `,
@@ -80,6 +90,16 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="why-choose-us" rows="4"></textarea>
           <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.json')">Update</button>
         </div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
       </section>  
     `,
     "about-us": `
@@ -110,6 +130,18 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="about-client-commitment" rows="4"></textarea>
           <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.json')">Update</button>
         </div>
+        <div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
+        
       </section>
     `,
     "reviews": `
@@ -133,6 +165,18 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="loading">Loading reviews...</div>
           </div>
         </div>
+        <div>
+        <form id="uploadForm1">
+        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+        <br><br>
+        <button type="submit">Upload</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
+    </script>
+        
       </section>
     `,
    "modify-users": `
@@ -431,9 +475,3 @@ async function loadUsers() {
     console.error("Fetch error:", error);
   }
 }
-
-
-
-
-
-
