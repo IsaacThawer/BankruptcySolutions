@@ -20,6 +20,7 @@ async function loadClients() {
  * Populate the client list panel with data received from DynamoDB.
  * Adjusted to use the correct DynamoDB attributes: firstName, lastName, and submissionDate.
  */
+/*
 function populateClients() {
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
@@ -40,6 +41,7 @@ function populateClients() {
       clientList.appendChild(clientItem);
   });
 }
+  */
 
 /**
  * When a client is selected:
@@ -151,7 +153,7 @@ function deleteClient() {
             clients = clients.filter(client => client.submissionId !== selectedClient.submissionId);
             // Clear the selected client and update UI
             selectedClient = null;
-            populateClients();
+            populateClients(clients);
             // Clear details panel fields
             document.getElementById('first-name').value = '';
             document.getElementById('last-name').value = '';
@@ -211,7 +213,9 @@ function toggleFlag() {
         console.log("Flag update response:", result);
         if (result.success) {
             selectedClient.flagged = newFlag;
-            populateClients();
+            populateClients(clients);
+            // Reselect the same client to maintain highlighting
+            selectClient(selectedClient.email);
         } else {
             alert('Failed to update flag.');
         }

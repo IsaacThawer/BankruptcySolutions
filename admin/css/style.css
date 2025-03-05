@@ -570,21 +570,86 @@ body {
 
 /* Responsive styles for login */
 @media (max-width: 768px) {
-  .login-card {
-      flex-direction: column;
-      height: auto;
-      margin: 16px;
+.login-container{
+  width: 100%;
+}
+
+.login-card{
+  flex-direction: column;
+  height: auto;
+  margin: 16px;
+  width: 110%;
+}
+
+  .login-button-group {
+    justify-content: flex-start; 
+    gap: 10px;
+}
+
+
+
+  .login-side{
+    width: 100%;
   }
+  
+  .login-side input{
+    width: 83%;
+  }
+
+  .login-side h2 {
+    text-align: center;
+  }
+
 
   .welcome-side, .login-side {
       width: 100%;
-      padding: 2rem;
+      padding: 1rem;
   }
-}
 
-@media (max-width: 768px) {
+  .welcome-side{
+    height: 100px;
+  }
+
+  .welcome-side h2 {
+    text-align: center;
+  }
+
+  .container {
+    width: 100%;
+    grid-template-columns: 1fr;
+    
+  }
+
+  .header-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .top-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .top-actions button{
+    width: 70px;
+    height: 30px;
+  }
+
+  .details-panel button{
+    width: 90px;
+    height: 40px;
+  }
+
+  .top-actions input[type="text"] {
+    width: 100%;
+  }
+
+  .header-buttons, .top-actions{
+    flex-direction: row;
+  }
+
   html {
-    font-size: 14px; /* Slightly smaller base font size for mobile */
+    font-size: 15px; 
   }
 
   .content-wrapper {
@@ -598,4 +663,7 @@ body {
   #GMap {
     height: 250px;
   }
+
 }
+
+
