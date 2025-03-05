@@ -153,7 +153,7 @@ function deleteClient() {
             clients = clients.filter(client => client.submissionId !== selectedClient.submissionId);
             // Clear the selected client and update UI
             selectedClient = null;
-            populateClients();
+            populateClients(clients);
             // Clear details panel fields
             document.getElementById('first-name').value = '';
             document.getElementById('last-name').value = '';
@@ -213,7 +213,7 @@ function toggleFlag() {
         console.log("Flag update response:", result);
         if (result.success) {
             selectedClient.flagged = newFlag;
-            populateClients();
+            populateClients(clients);
             // Reselect the same client to maintain highlighting
             selectClient(selectedClient.email);
         } else {
@@ -264,11 +264,11 @@ function formatTimestamp(isoString) {
     return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
 }
 
-function populateClients() {
+function populateClients(clientData) {
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
 
-    clients.forEach(client => {
+    clientData.forEach(client => {
         // Create a new element for each client
         const clientItem = document.createElement('div');
         clientItem.className = 'client-item';
