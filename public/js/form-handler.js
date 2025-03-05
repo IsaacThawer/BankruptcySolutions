@@ -11,11 +11,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
   } 
+
+  // Verify Recaptcha
+  function captchaVerified(response) {
+    if (response) {
+      // Set the captcha token in the hidden input field
+      document.getElementById("captchaToken").value = response;
+      // Submit the form with the captcha token
+      submitForm();
+    }
+  }
+
+  // Display recaptcha
+  function showCaptcha() {
+    document.getElementById('recaptcha-display').style.display = 'block';
+  }
   
   // Get references to form and email elements
   const form = document.querySelector('form[action="/submit-form"]');
   const emailInput = document.getElementById("email");
   const emailErrorSpan = document.getElementById("emailError");
+  const recaptchaDisplay = document.getElementById('recaptcha-display');
+  const recaptchaExit = document.getElementById('recaptcha-exit');
+
+  // Exit button for the recaptcha display
+  if (recaptchaExit) {
+    recaptchaExit.onclick = function() {
+      recaptchaDisplay.style.display = "none";
+    };
+  }
 
    // Add blur event listener to the email input for real-time verification
    if (emailInput) {
@@ -68,38 +92,66 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const submitButton = form.querySelector('input[type="submit"]');
       submitButton.disabled = true;
+
+      recaptchaDisplay.style.display = 'block';
       
-      try {
-          const formData = {
-              firstname: form.firstname.value,
-              lastname: form.lastname.value,
-              email: form.email.value,
-              phone: form.phone.value,
-              message: form.message.value
-          };
-
-          const response = await fetch('/submit-form', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(formData)
-          });
-
-          const result = await response.json();
-
-          if (result.success) {
-              alert('Thank you for your submission. We will contact you soon.');
-              form.reset();
-          } else {
-              alert(result.error || 'An error occurred. Please try again.');
-          }
-      } catch (error) {
-          console.error('Submission error:', error);
-          alert('An error occurred while processing your submission. Please try again.');
-      } finally {
-          submitButton.disabled = false;
-      }
+      // Hidden recaptcha after completion
+      window.captchaVerified = function(token) {
+        recaptchaDisplay.style.display = "none";
+        document.getElementById("captchaToken").value = token;
+        form.querySelector('input[type="submit"]').disabled = false;
+        submitForm();
+      };
+    
+      // Exit recaptcha display with x button
+      recaptchaExit.addEventListener("click", () => {
+        recaptchaDisplay.style.display = "none";
+        form.querySelector('input[type="submit"]').disabled = false;
+      });
+    
+      // Exit recaptcha display box if click outside the display
+      window.onclick = function(event) {
+        if (event.target === recaptchaDisplay) {
+          recaptchaDisplay.style.display = "none";
+          form.querySelector('input[type="submit"]').disabled = false;
+        }
+      };
     });
+  }
+
+  // Function to submit form after recaptcha verification
+  async function submitForm() {
+    const formData = {
+      firstname: form.firstname.value,
+      lastname: form.lastname.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      message: form.message.value,
+      captchaToken: document.getElementById("captchaToken").value // Include captcha token
+    };
+
+    try {
+      const response = await fetch('/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Thank you for your submission. We will contact you soon.');
+        form.reset();
+      } else {
+        alert(result.error || 'An error occurred. Please try again.');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('An error occurred while processing your submission. Please try again.');
+    } finally {
+      submitButton.disabled = false;
+    }
   }
 });
