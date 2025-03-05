@@ -130,7 +130,7 @@
         Use the form below to contact us regarding your legal inquiry. Please be as detailed as possible. However, please do not include any confidential or sensitive information. To help us best service your inquiry, we recommend that you describe the debt issues you’re facing and tell us what you want to achieve. You may also email or call us to make an appointment.
       </p>
 
-      <form action="/submit-form" method="POST">
+      <form action="/submit-form" method="POST" id="contact-form">
         <!-- First Name and Last Name on the same line -->
         <div class="name-row">
           <div>
@@ -155,13 +155,22 @@
         <label for="message">How Can We Help? <small>(Required) <br> Please do not include confidential or sensitive information in your message.</small></label><br>
         <textarea id="message" name="message" maxlength="250" required></textarea><br><br>
         
-        <!-- Captcha Display Box -->
-        <div class="g-recaptcha" data-sitekey="6LfkeeAqAAAAAHaYetGOlRdTdA06kV7Ae5fdT6UV"></div><br>
+        <!-- Recaptcha token -->
+        <input type="hidden" id="captchaToken" name="captchaToken" value="">
 
         <!-- Submit Button -->
         <input type="submit" value="Submit"><br><br>
       </form>
     </section>
+
+    <!-- Hidden Recaptcha -->
+    <div id="recaptcha-display" class="recaptcha">
+      <div class="display-content">
+        <span class="recaptcha-exit" id="recaptcha-exit">&times;</span>
+        <h2>Please verify that you are not a robot</h2>
+        <div class="g-recaptcha" data-sitekey="6LfkeeAqAAAAAHaYetGOlRdTdA06kV7Ae5fdT6UV" data-callback="captchaVerified"></div>
+      </div>
+    </div> 
 
     <footer>
       <div class="disclaimer">
