@@ -20,6 +20,7 @@ async function loadClients() {
  * Populate the client list panel with data received from DynamoDB.
  * Adjusted to use the correct DynamoDB attributes: firstName, lastName, and submissionDate.
  */
+/*
 function populateClients() {
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
@@ -40,6 +41,7 @@ function populateClients() {
       clientList.appendChild(clientItem);
   });
 }
+  */
 
 /**
  * When a client is selected:
@@ -212,6 +214,8 @@ function toggleFlag() {
         if (result.success) {
             selectedClient.flagged = newFlag;
             populateClients();
+            // Reselect the same client to maintain highlighting
+            selectClient(selectedClient.email);
         } else {
             alert('Failed to update flag.');
         }
@@ -260,11 +264,11 @@ function formatTimestamp(isoString) {
     return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
 }
 
-function populateClients(clientData) {
+function populateClients() {
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
 
-    clientData.forEach(client => {
+    clients.forEach(client => {
         // Create a new element for each client
         const clientItem = document.createElement('div');
         clientItem.className = 'client-item';
