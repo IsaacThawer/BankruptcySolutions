@@ -518,3 +518,32 @@ async function loadUsers() {
   } catch (error) {
     console.error("Fetch error:", error);
   }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  initMobNab();
+});
+
+async function initMobNab() {
+  const menuToggle = document.getElementById("menuToggleAdmin");
+  const navBar = document.querySelector(".sidebar");
+
+  if (menuToggle && navBar) {
+    menuToggle.addEventListener("click", function () {
+      navBar.classList.toggle("active");
+      console.log("button is being clicked");
+    });
+  } else {
+    console.error("Menu Toggle or NavBar not found!");
+  }
+}
+
+const sidebarLinks = document.querySelectorAll('.sidebar a');
+const sidebar = document.querySelector('.sidebar');
+
+
+sidebarLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    sidebar.classList.remove('active'); 
+  });
+});
