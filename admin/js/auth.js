@@ -2,6 +2,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Get the login form element from the DOM
   const loginForm = document.getElementById("login-form");
+
+  // Keep count of number of failed login attempts
+  let failedAttempts = 0;
+
+  const recaptchaDisplay = document.getElementById('recaptcha-display');
+  const recaptchaExit = document.getElementById('recaptcha-exit');
+  const textField = document.getElementById('textField');
+  textField.style.display = "block";
+
+  // Store count of failedAttempts after page refreshes
+  if (localStorage.getItem('failedAttempts')) {
+    failedAttempts = parseInt(localStorage.getItem('failedAttempts'));
+  }
+
+  // verify the recaptcha challenge
+  window.captchaVerified = function(token) {
+    recaptchaDisplay.style.display = "none";
+    document.getElementById("captchaToken").value = token;
+    // reset the counter after a successful login
+    failedAttempts = 0;
+    localStorage.setItem('failedAttempts', failedAttempts);
+  };
+
+  // Close recaptcha display if x is clicked
+  recaptchaExit.addEventListener("click", () => {
+    recaptchaDisplay.style.display = "none";
+  });
+
+  // Closes recaptcha display if clicked outside the display box
+  window.onclick = function(event) {
+    if (event.target === recaptchaDisplay) {
+      recaptchaDisplay.style.display = "none";
+    }
+  };
  
   // Listen for form submission
   loginForm.addEventListener("submit", function(event) {
@@ -10,6 +44,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Retrieve the values entered by the user
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+
+    // Display recaptcha challenge after the user inputs a certain amount of failed logins
+    if (failedAttempts >= 3 && grecaptcha.getResponse() === "") {
+      alert("Please complete the reCAPTCHA to proceed.");
+      recaptchaDisplay.style.display = 'block';
+      return; 
+    }
  
     // Send a POST request to the /login endpoint with the username and password
     fetch('/login', {
@@ -20,7 +61,15 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(data => {
       if (data.error) {
-        alert("Login failed: " + data.error);
+        //alert("Login failed: " + data.error);
+        textField.value = "login failed: Incorrect Username or Password";
+        // Increment failedAttempts vlaue after a failed login
+        failedAttempts++;
+        localStorage.setItem('failedAttempts', failedAttempts);
+        // Displays login error message then refreshes page
+        setTimeout(function() {
+          location.reload();
+        }, 1000);
       } else {
         console.log("Login successful:", data);
     
