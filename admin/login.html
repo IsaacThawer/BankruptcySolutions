@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@5.2.4/dist/amazon-cognito-identity.min.js"></script>
     <script src="js/auth.js"></script> 
-    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <title>Login Page</title>
     <link rel="stylesheet" href="css/style.css">
@@ -31,7 +31,14 @@
                         <label class="toggleSwitch" for="checkboxInput"></label>
                         <span class="toggleText">Show Password</span>
                         </div>
+                        <div class="errorBox">
+                            <input type="text" id="textField" readonly style="display: none;">
+                        </div>
                     </div>
+
+                    <!-- Hidden captcha token -->
+                    <input type="hidden" id="captchaToken" name="captchaToken" value="">
+
                     <div class="login-button-group">
                         <button type="submit" class="login-button">Submit</button>
                         <a href="https://us-east-2wxph0lhec.auth.us-east-2.amazoncognito.com/forgotPassword?client_id=12kdtjv80rbe28jua8njbfgdug&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fadmin%2Fdashboard.html&response_type=code&scope=email+openid+phone" id="forgot-password" class="login-button">Forgot Password</a>
@@ -40,6 +47,15 @@
             </div>
         </div>
     </div>
+
+    <!-- Recaptcha Display (hidden) -->
+    <div id="recaptcha-display" class="recaptcha">
+        <div class="display-content">
+          <span class="recaptcha-exit" id="recaptcha-exit">&times;</span>
+          <h2>Please verify that you are not a robot</h2>
+          <div class="g-recaptcha" data-sitekey="6LfkeeAqAAAAAHaYetGOlRdTdA06kV7Ae5fdT6UV" data-callback="captchaVerified"></div>
+        </div>
+    </div> 
     
 </body>
 </html>
