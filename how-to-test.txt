@@ -1,0 +1,9 @@
+1. Install the following dependencies:
+	npm install --save-dev jest				// installs Jest (if it's already installed, you can skip this)
+	npm install --save-dev jest-environment-jsdom		// installs the required test environment
+
+2. In package.json, find the "scripts" section and change the line "test" to read:
+	"test": "jest",		// include quotes and comma
+
+3. Open the directory where server.js is in terminal, and type:
+	npm test

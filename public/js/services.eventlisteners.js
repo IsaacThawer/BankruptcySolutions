@@ -1,0 +1,1 @@
+window.addEventListener('DOMContentLoaded', readImageBackground('banner-services', 'banner-services.jpg'));
