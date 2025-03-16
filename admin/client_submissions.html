@@ -1,76 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Client Submissions</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Load the client submissions script -->
-  <script defer src="js/client_submissions.js"></script>
-</head>
-<body>
-  <div class="container">
-    <div class="header-buttons">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Submissions</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Load the client submissions script -->
+    <script defer src="js/client_submissions.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header-buttons">
         <!-- Navigation buttons -->
         <button onclick="window.location.href='/logout'">Sign Out</button>
-        <button onclick="window.location.href='dashboard.html'">Back to Main Page</button>
-    </div>
+        <button onclick="window.location.href='dashboard.html'">
+          Back to Main Page
+        </button>
+      </div>
 
-    <div class="header">Client Submissions</div>
+      <div class="header">Client Submissions</div>
 
-    <div class="top-actions">
+      <div class="top-actions">
         <button onclick="deleteClient()">Delete</button>
         <button onclick="replyToEmail()">Reply</button>
         <button onclick="toggleFlag()">Flag</button>
-        <input type="text" id="search" placeholder="Search" oninput="searchClients()">
-    </div>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search"
+          oninput="searchClients()"
+        />
+      </div>
 
-    <div class="title-clients">Clients</div>
-    <div class="separator"></div>
-    <div class="title-submissions">Submissions</div>
+      <div class="title-clients">Clients</div>
+      <div class="separator"></div>
+      <div class="title-submissions">Submissions</div>
 
-    <!-- Container where the client list will be populated by client_submissions.js -->
-    <div class="clients-panel" id="client-list"></div>
-    <div class="details-panel">
-
+      <!-- Container where the client list will be populated by client_submissions.js -->
+      <div class="clients-panel" id="client-list"></div>
+      <div class="details-panel">
         <!-- Client details are shown below. Note that the input IDs match those used in the JS file. -->
         <div class="field">
-            <label for="first-name">First Name</label>
-            <!-- This field displays the firstName from DynamoDB -->
-            <input type="text" id="first-name" disabled>
+          <label for="first-name">First Name</label>
+          <!-- This field displays the firstName from DynamoDB -->
+          <input type="text" id="first-name" disabled />
         </div>
         <div class="field">
-            <label for="last-name">Last Name</label>
-            <!-- This field displays the lastName from DynamoDB -->
-            <input type="text" id="last-name" disabled>
+          <label for="last-name">Last Name</label>
+          <!-- This field displays the lastName from DynamoDB -->
+          <input type="text" id="last-name" disabled />
         </div>
         <div class="field">
-            <label for="email">Email Address</label>
-            <!-- This field displays the email address -->
-            <input type="text" id="email" disabled>
+          <label for="email">Email Address</label>
+          <!-- This field displays the email address -->
+          <input type="text" id="email" disabled />
         </div>
         <div class="field">
-            <label for="phone">Phone</label>
-            <!-- This field displays the phoneNumber -->
-            <input type="text" id="phone" disabled>
+          <label for="phone">Phone</label>
+          <!-- This field displays the phoneNumber -->
+          <input type="text" id="phone" disabled />
         </div>
         <div class="field">
-            <label for="help-request">How Can We Help?</label>
-            <!-- This field displays the message (help request) -->
-            <textarea id="help-request" rows="3" disabled></textarea>
+          <label for="help-request">How Can We Help?</label>
+          <!-- This field displays the message (help request) -->
+          <textarea id="help-request" rows="3" disabled></textarea>
         </div>
         <div class="field">
-            <label for="follow-up-notes">Follow-Up Notes</label>
-            <!-- Extra field to add or update follow-up notes for the client -->
-            <textarea id="follow-up-notes" rows="3" placeholder="Add notes..."></textarea>
+          <label for="follow-up-notes">Follow-Up Notes</label>
+          <!-- Extra field to add or update follow-up notes for the client -->
+          <textarea
+            id="follow-up-notes"
+            rows="3"
+            placeholder="Add notes..."
+          ></textarea>
         </div>
+        <div class= "save-notes-button">
         <!-- Button to save the follow-up notes -->
         <button onclick="saveNotes()">Save Notes</button>
-    <div class="footer">
-      &copy; 2024 Eric Schwab, Attorney at Law. All Rights Reserved.
+        </div>
+      </div>
+      <div class="footer">
+        &copy; 2024 Eric Schwab, Attorney at Law. All Rights Reserved.
+      </div>
     </div>
-    </div>
-    
-  </div>
-</body>
+  </body>
 </html>

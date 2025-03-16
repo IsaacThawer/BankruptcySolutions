@@ -50,16 +50,16 @@ function populateClients() {
  * - Display the client’s details in the details panel.
  * - Pull the follow-up notes from the client record if they exist.
  */
-function selectClient(email) {
-    // Find the client by email
-    selectedClient = clients.find(client => client.email === email);
+function selectClient(submissionId) {
+    // Find the client by submissionId
+    selectedClient = clients.find(client => client.submissionId === submissionId);
     if (selectedClient) {
         // Remove 'active' class from all client items
         const allItems = document.querySelectorAll('.client-item');
         allItems.forEach(item => item.classList.remove('active'));
 
-        // Add 'active' class to the selected client item using the data-email attribute
-        const selectedItem = document.querySelector(`.client-item[data-email="${selectedClient.email}"]`);
+        // Add 'active' class to the selected client item using the data-submissionId attribute
+        const selectedItem = document.querySelector(`.client-item[data-id="${selectedClient.submissionId}"]`);
         if (selectedItem) {
             selectedItem.classList.add('active');
         }
@@ -215,7 +215,7 @@ function toggleFlag() {
             selectedClient.flagged = newFlag;
             populateClients(clients);
             // Reselect the same client to maintain highlighting
-            selectClient(selectedClient.email);
+            selectClient(selectedClient.submissionId);
         } else {
             alert('Failed to update flag.');
         }
@@ -273,9 +273,14 @@ function populateClients(clientData) {
         const clientItem = document.createElement('div');
         clientItem.className = 'client-item';
         // Set a data attribute so we can identify the client item later
-        clientItem.setAttribute('data-email', client.email);
+        //clientItem.setAttribute('data-email', client.email);
+
+        // CHANGE: Use submissionId as unique identifier instead of email
+        clientItem.setAttribute('data-id', client.submissionId);
+
         // Add click event listener to select this client when clicked
-        clientItem.addEventListener('click', () => selectClient(client.email));
+        //clientItem.addEventListener('click', () => selectClient(client.email));
+        clientItem.addEventListener('click', () => selectClient(client.submissionId));
         // Populate inner HTML with formatted timestamp
         clientItem.innerHTML = `
             <span>${client.firstName} ${client.lastName}</span>
