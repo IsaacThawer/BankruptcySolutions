@@ -1,5 +1,3 @@
-
-document.addEventListener('DOMContentLoaded', () => {
   //Email verification function that calls the /verify-email endpoint
   async function verifyEmail(email) {
     try {
@@ -7,11 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       return data.valid;
     } catch (error) {
-        console.error("Error verifying email:", error);
+        //console.error("Error verifying email:", error);
         return false;
     }
-  } 
+  }
 
+document.addEventListener('DOMContentLoaded', () => {
+  
   // Verify Recaptcha
   function captchaVerified(response) {
     if (response) {
@@ -155,3 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+//******************************************************* */
+// Expose verifyEmail for testing
+module.exports = verifyEmail;
+//******************************************************* */
