@@ -28,7 +28,7 @@ body {
   position: sticky;
   bottom: 0;
   width: 100%;
-  margin:auto;
+  margin: auto;
   grid-column: span 3;
 }
 
@@ -47,6 +47,11 @@ body {
   padding: 5px 10px;
   border: none;
   cursor: pointer;
+  border-radius: 9px;/* Added border-radius to preserve rounded edges */
+}
+.header-buttons button:hover {
+  background-color: #e0f7ff;
+  transition: background-color 0.3s; /* smooth transition */
 }
 
 /* Title header */
@@ -69,6 +74,7 @@ body {
   gap: 10px;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  
 }
 .top-actions button {
   cursor: pointer;
@@ -77,9 +83,11 @@ body {
   border: 1px solid #83b9e4;
   transition: background-color 0.3s;
   border-radius: 9px;
+  color: #333;
 }
-
-
+.top-actions button:hover {
+  background-color: #e0f7ff;
+}
 .top-actions input[type="text"] {
   margin-left: auto;
   padding: 5px;
@@ -104,6 +112,7 @@ body {
 }
 .save-notes-button button {
   float: right;
+  color: #333;
 }
 /* style the Save Notes button to match your top-actions buttons */
 .save-notes-button button {
@@ -150,7 +159,10 @@ body {
   background-color: #e0f7ff;
 }
 
-/* General container styling */
+/* --- Duplicated Sections --- */
+
+/* General container styling (duplicate) - Commented Out */
+/*
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -168,8 +180,10 @@ body {
     grid-template-columns: 30% 1px 70%;
     grid-template-rows: auto auto 1fr;
 }
+*/
 
-/* Header section with 'Sign Out' link and back button */
+/* Header section with 'Sign Out' link and back button (duplicate) - Commented Out */
+/*
 .header-buttons {
     grid-column: span 3;
     display: flex;
@@ -186,8 +200,10 @@ body {
     cursor: pointer;
     border-radius: 9px;
 }
+*/
 
-/* Title header */
+/* Title header (duplicate) - Commented Out */
+/*
 .header {
     grid-column: span 3;
     display: flex;
@@ -199,13 +215,10 @@ body {
     font-weight: bold;
     border: 1px solid #83b9e4;
 }
+*/
 
-.header-buttons button:hover {
-  background-color: #e0f7ff; 
-  transition: background-color 0.3s; /* smooth transition */
-}
-
-/* Action buttons and search bar */
+/* Action buttons and search bar (duplicate) - Commented Out */
+/*
 .top-actions {
     grid-column: span 3;
     display: flex;
@@ -234,8 +247,10 @@ body {
     background-color: #fff;
     color: #333;
 }
+*/
 
-/* Sort dropdown button */
+/* Sort dropdown button (duplicate) - Commented Out */
+/*
 .dropdown {
     position: relative;
     display: inline-block;
@@ -265,96 +280,7 @@ body {
 .dropdown-content button:hover {
     background-color: #e0f7ff;
 }
-
-/* Titles for Clients and Submissions */
-.title-clients, .title-submissions {
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-    background-color: white;
-    border-bottom: 1px solid #ccc;
-}
-.title-clients {
-    grid-column: 1 / 2;
-}
-.separator {
-    grid-row: 2 / span 2;
-    background-color: #ccc;
-    width: 1px;
-}
-.title-submissions {
-    grid-column: 3 / 4;
-}
-
-/* Clients panel on the left */
-.clients-panel {
-    grid-column: 1 / 2;
-    overflow-y: auto;
-    border-right: 1px solid #ccc;
-    max-height: 70vh;
-}
-.client-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.client-item:hover {
-    background-color: #e0f7ff;
-}
-.client-item input[type="checkbox"] {
-    margin-right: 10px;
-}
-.client-item span {
-    flex-grow: 1;
-}
-.client-item .flagged {
-    color: red;
-    margin-left: 10px;
-}
-.client-item .time {
-    font-size: 0.9em;
-    color: #666;
-    text-align: right;
-    margin-left: auto;
-}
-
-/* Right panel for client details */
-.details-panel {
-    grid-column: 3 / 4;
-    padding: 20px;
-}
-.details-panel .field {
-    margin-bottom: 15px;
-}
-.details-panel .field label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-}
-.details-panel .field input,
-.details-panel .field textarea {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    background-color: #e9e9e9;
-    border: 1px solid #ccc;
-    color: #333;
-    border-radius: 4px;
-}
-.details-panel .field input:disabled,
-.details-panel .field textarea:disabled {
-    background-color: #e9e9e9;
-}
-
-#follow-up-notes:hover {
-  border-color: #147dd3;
-  box-shadow: 0 0 5px rgba(20, 125, 211, 0.5);
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
+*/
 
 /* Titles for Clients and Submissions */
 .title-clients, .title-submissions {
@@ -411,12 +337,44 @@ body {
   margin-left: auto;
 }
 
-/* Highlight selected client */
+/*keep the active client highlighted even when not hovered */
 .client-item.active {
-  background-color: #cceeff; /* Light blue background for the active client */
+  background-color: #cceeff;
 }
 
-/* Right panel for client details */
+/* Right panel for client details - FIRST OCCURRENCE (Active) */
+.details-panel {
+    grid-column: 3 / 4;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.details-panel .field {
+    margin-bottom: 15px;
+}
+.details-panel .field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+.details-panel .field input,
+.details-panel .field textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: #e9e9e9;
+    border: 1px solid #ccc;
+    color: #333;
+    border-radius: 4px;
+}
+.details-panel .field input:disabled,
+.details-panel .field textarea:disabled {
+    background-color: #e9e9e9;
+}
+
+/* Right panel for client details - SECOND OCCURRENCE (duplicate, commented out) */
+/*
 .details-panel {
   grid-column: 3 / 4;
   padding: 20px;
@@ -444,6 +402,40 @@ body {
 .details-panel .field textarea:disabled {
   background-color: #e9e9e9;
 }
+*/
+
+/* Right panel for client details - THIRD OCCURRENCE (duplicate, commented out) */
+/*
+.details-panel {
+  grid-column: 3 / 4;
+  padding: 20px;
+}
+.details-panel .field {
+  margin-bottom: 15px;
+}
+.details-panel .field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+.details-panel .field input,
+.details-panel .field textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  background-color: #e9e9e9;
+  border: 1px solid #ccc;
+  color: #333;
+  border-radius: 4px;
+}
+.details-panel .field input:disabled,
+.details-panel .field textarea:disabled {
+  background-color: #e9e9e9;
+}
+*/
+
+/* db-status styling */
 .db-status {
   font-size: 18px;
   font-weight: bold;
@@ -460,7 +452,6 @@ body {
 .db-status.disconnected {
   color: red;
 }
-
 
 /* Login Page Styles */
 .login-container {
@@ -605,33 +596,29 @@ body {
   transition-duration: .2s;
 }
 
-
-
 /* Responsive styles for login */
 @media (max-width: 768px) {
-.login-container{
-  width: 100%;
-}
+  .login-container {
+    width: 100%;
+  }
 
-.login-card{
-  flex-direction: column;
-  height: auto;
-  margin: 16px;
-  width: 110%;
-}
+  .login-card {
+    flex-direction: column;
+    height: auto;
+    margin: 16px;
+    width: 110%;
+  }
 
   .login-button-group {
     justify-content: flex-start; 
     gap: 10px;
-}
+  }
 
-
-
-  .login-side{
+  .login-side {
     width: 100%;
   }
   
-  .login-side input{
+  .login-side input {
     width: 83%;
   }
 
@@ -639,13 +626,12 @@ body {
     text-align: center;
   }
 
-
   .welcome-side, .login-side {
-      width: 100%;
-      padding: 1rem;
+    width: 100%;
+    padding: 1rem;
   }
 
-  .welcome-side{
+  .welcome-side {
     height: 100px;
   }
 
@@ -656,7 +642,6 @@ body {
   .container {
     width: 100%;
     grid-template-columns: 1fr;
-    
   }
 
   .header-buttons {
@@ -669,12 +654,12 @@ body {
     align-items: center;
   }
 
-  .top-actions button{
+  .top-actions button {
     width: 70px;
     height: 30px;
   }
 
-  .details-panel button{
+  .details-panel button {
     width: 90px;
     height: 40px;
   }
@@ -683,12 +668,12 @@ body {
     width: 100%;
   }
 
-  .header-buttons, .top-actions{
+  .header-buttons, .top-actions {
     flex-direction: row;
   }
 
   html {
-    font-size: 15px; 
+    font-size: 15px;
   }
 
   .content-wrapper {
@@ -702,7 +687,111 @@ body {
   #GMap {
     height: 250px;
   }
-
 }
 
+/* Pagination Styling */
 
+/* Position the pagination container at the bottom right of the details panel */
+/* Using margin-top: auto in .details-panel and here to push pagination down */
+#pagination-container {
+  margin-top: auto;
+  justify-content: center;  /* Center horizontally */
+  text-align: center;
+  padding: 10px 20px;
+}
+
+/* Style for pagination buttons: white background, no border */
+#pagination-container button {
+  margin: 0 3px;
+  padding: 5px 10px;
+  background-color: #fff; /* white background */
+  color: #333 !important; /* Force black text */
+  border: none;           /* no border */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Highlight the active page button */
+#pagination-container button.active {
+  background-color: #cceeff; 
+  color: #333;
+}
+
+/* Hover effect for pagination buttons */
+#pagination-container button:hover {
+  background-color: #e0f7ff;
+}
+
+/* Ensure the highlighted page number remains styled on small screens */
+#pagination-container span.active {
+  background-color: #cceeff; /* Same highlight color as client-item.active */
+  color: #333 !important; /* Ensure text color remains black */
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/*Ensure that active client stays highlighted on hover */
+.client-item.active:hover {
+  background-color: #cceeff;
+}
+  
+/*Ensure Follow-Up Notes hover works by adding !important */
+#follow-up-notes:hover {
+  border-color: #147dd3 !important;
+  box-shadow: 0 0 5px rgba(20, 125, 211, 0.5) !important;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Remove margins and use full width on small screens */
+@media (max-width: 768px) {
+  body {
+    padding: 0 !important; /* Remove extra padding around the body */
+    margin: 0 !important;  /* Ensure no extra margins */
+  }
+
+  .container {
+    width: 100% !important; /* Force full width for the container */
+    margin: 0 !important; /* Remove any extra margin */
+    padding: 0 !important;
+  }
+
+  /* Ensure the highlighted page number remains styled on small screens */
+  #pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;  /* Fixed width to reserve space */
+    height: 40px;  /* Consistent height */
+    gap: 10px;
+    position: relative;
+  }
+
+  /* Keep spacing even if buttons are hidden */
+  #pagination-container button,
+  #pagination-container span {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
+    visibility: visible;
+    display: inline-block;
+  }
+
+  /* Hide Prev/Next but keep their space */
+  #pagination-container button.hidden {
+    visibility: hidden; /* Hide the button but keep its space */
+  }
+
+  /* Ensure the page number button does not expand */
+  #pagination-container span.active {
+    display: inline-block;
+    width: 15px;  /* Set a fixed width */
+    min-width: 15px;
+    max-width: 15px;
+    background-color: #cceeff; /* Keep the highlight color */
+    color: #333;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+}
