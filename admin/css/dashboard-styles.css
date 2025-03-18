@@ -597,3 +597,42 @@ input:checked + .slider:before {
     color: red;
   }  
 }
+
+/* File Input Styling, adding new */
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #CCCCCC;
+  border-radius: 8px;
+  font-size: 16px;
+  background: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Upload Button */
+#upload-btn {
+  background: #2C2C2C;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+}
+
+#upload-btn:hover {
+  background: #147dd3;
+}
+
+/* Upload Status Message */
+#upload-status {
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}

@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-contactInfo" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.json')">Update</button>
         </div>
-        
         <div class="page-section">
           <label for="home-page-services-selection">Select Service Description</label>
           <select id="home-page-services-selection">
@@ -44,16 +43,58 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-services" rows="4"></textarea>
           <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.json')">Update</button>
         </div>
-        <form id="uploadForm1">
-        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
-        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-        <br><br>
-        <button type="submit">Upload</button>
-      </form>
-    </div>
-    <script>
-      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
-    </script>
+        <div class="page-section">
+  <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+  <br>
+  <button type="submit" class="button" id="upload-btn">Upload</button>
+  <p id="upload-status"></p> <!-- Status message for upload -->
+
+</div>
+
+<script>
+  function uploadImage(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const fileInput = document.getElementById("image");
+    const statusMessage = document.getElementById("upload-status");
+    if (fileInput.files.length === 0) {
+      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.style.color = "red";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    document.getElementById("upload-btn").innerText = "Uploading...";
+
+    fetch("/upload", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      if (data.success) {
+        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.style.color = "green";
+      } else {
+        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.style.color = "red";
+      }
+    })
+    .catch(error => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.style.color = "red";
+      console.error("Error uploading image:", error);
+    });
+  }
+
+  document.getElementById("upload-btn").addEventListener("click", uploadImage);
+</script>
+
         
       </section>
     `,
@@ -90,16 +131,58 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="why-choose-us" rows="4"></textarea>
           <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.json')">Update</button>
         </div>
-        <form id="uploadForm1">
-        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
-        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-        <br><br>
-        <button type="submit">Upload</button>
-      </form>
-    </div>
-    <script>
-      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
-    </script>
+        <div class="page-section">
+  <label for="image">If you want to change the banner image at the top of the Services page, select it below:</label>
+  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+  <br>
+  <button type="submit" class="button" id="upload-btn">Upload</button>
+  <p id="upload-status"></p> <!-- Status message for upload -->
+</div>
+
+<script>
+  function uploadImage(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const fileInput = document.getElementById("image");
+    const statusMessage = document.getElementById("upload-status");
+    if (fileInput.files.length === 0) {
+      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.style.color = "red";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    document.getElementById("upload-btn").innerText = "Uploading...";
+
+    fetch("/upload", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      if (data.success) {
+        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.style.color = "green";
+      } else {
+        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.style.color = "red";
+      }
+    })
+    .catch(error => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.style.color = "red";
+      console.error("Error uploading image:", error);
+    });
+  }
+
+  document.getElementById("upload-btn").addEventListener("click", uploadImage);
+
+</script>
+
       </section>  
     `,
     "about-us": `
@@ -130,17 +213,57 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="about-client-commitment" rows="4"></textarea>
           <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.json')">Update</button>
         </div>
-        <div>
-        <form id="uploadForm1">
-        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
-        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-        <br><br>
-        <button type="submit">Upload</button>
-      </form>
-    </div>
-    <script>
-      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
-    </script>
+        <div class="page-section">
+  <label for="image">If you want to change the banner image at the top of the About Us page, select it below:</label>
+  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+  <br>
+  <button type="submit" class="button" id="upload-btn">Upload</button>
+  <p id="upload-status"></p> <!-- Status message for upload -->
+</div>
+
+<script>
+  function uploadImage(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const fileInput = document.getElementById("image");
+    const statusMessage = document.getElementById("upload-status");
+    if (fileInput.files.length === 0) {
+      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.style.color = "red";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    document.getElementById("upload-btn").innerText = "Uploading...";
+
+    fetch("/upload", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      if (data.success) {
+        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.style.color = "green";
+      } else {
+        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.style.color = "red";
+      }
+    })
+    .catch(error => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.style.color = "red";
+      console.error("Error uploading image:", error);
+    });
+  }
+
+  document.getElementById("upload-btn").addEventListener("click", uploadImage);
+</script>
+
         
       </section>
     `,
@@ -165,17 +288,58 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="loading">Loading reviews...</div>
           </div>
         </div>
-        <div>
-        <form id="uploadForm1">
-        <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
-        <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-        <br><br>
-        <button type="submit">Upload</button>
-      </form>
-    </div>
-    <script>
-      document.getElementById("uploadForm1").addEventListener("submit", uploadImage);
-    </script>
+        <div class="page-section">
+  <label for="image">If you want to change the banner image at the top of the Reviews page, select it below:</label>
+  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+  <br>
+  <button type="submit" class="button" id="upload-btn">Upload</button>
+  <p id="upload-status"></p> <!-- Status message for upload -->
+</div>
+
+<script>
+  function uploadImage(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const fileInput = document.getElementById("image");
+    const statusMessage = document.getElementById("upload-status");
+    if (fileInput.files.length === 0) {
+      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.style.color = "red";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    document.getElementById("upload-btn").innerText = "Uploading...";
+
+    fetch("/upload", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      if (data.success) {
+        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.style.color = "green";
+      } else {
+        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.style.color = "red";
+      }
+    })
+    .catch(error => {
+      document.getElementById("upload-btn").innerText = "Upload";
+      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.style.color = "red";
+      console.error("Error uploading image:", error);
+    });
+  }
+
+  document.getElementById("upload-btn").addEventListener("click", uploadImage);
+  
+</script>
+
         
       </section>
     `,
