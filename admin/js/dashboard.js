@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-contactInfo" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.json')">Update</button>
         </div>
-        
         <div class="page-section">
           <label for="home-page-services-selection">Select Service Description</label>
           <select id="home-page-services-selection">
@@ -50,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <br>
   <button type="submit" class="button" id="upload-btn">Upload</button>
   <p id="upload-status"></p> <!-- Status message for upload -->
+
 </div>
 
 <script>
@@ -180,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.getElementById("upload-btn").addEventListener("click", uploadImage);
+
 </script>
 
       </section>  
@@ -336,6 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.getElementById("upload-btn").addEventListener("click", uploadImage);
+  
 </script>
 
         
