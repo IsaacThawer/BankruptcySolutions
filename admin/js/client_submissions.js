@@ -234,16 +234,28 @@ function searchClients() {
     const searchInput = document.getElementById('search').value.toLowerCase().trim();
 
     if (searchInput === '') {
-        // If input is empty, show all clients
-        populateClients(clients);
+        populateClients(clients); // Show all clients when search is empty
         return;
     }
 
-    const filteredClients = clients.filter(client =>
-        client.firstName.toLowerCase().includes(searchInput) ||
-        client.lastName.toLowerCase().includes(searchInput) ||
-        client.email.toLowerCase().includes(searchInput)
-    );
+    const searchTerms = searchInput.split(' '); // Split input into words
+
+    const filteredClients = clients.filter(client => {
+        const firstName = client.firstName.toLowerCase();
+        const lastName = client.lastName.toLowerCase();
+        const fullName = `${firstName} ${lastName}`;
+
+        // Check if the input matches the full name, first name, last name, or individual words
+        if (searchTerms.length === 2) {
+            return (firstName.includes(searchTerms[0]) && lastName.includes(searchTerms[1])) ||
+                   fullName.includes(searchInput);
+        } else {
+            return firstName.includes(searchInput) ||
+                   lastName.includes(searchInput) ||
+                   fullName.includes(searchInput) ||
+                   client.email.toLowerCase().includes(searchInput);
+        }
+    });
 
     populateClients(filteredClients);
 }
