@@ -479,6 +479,11 @@ body {
 /* Login Error message */
 .errorBox {
   margin-top: 2px;
+  background-color: #ffcccc; 
+  border: 1px solid #ff0000; 
+  border-radius: 5px; 
+  display: none; 
+  width: 70%;
 }
 
 /* Styling the text field for login error message */
@@ -490,6 +495,7 @@ body {
   width: 100%;
   text-align: left;
   padding: 1px;
+  padding-left: 6px;
   margin-top: 1px;
   display: none; 
   font-family: Arial, sans-serif;

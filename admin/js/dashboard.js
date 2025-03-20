@@ -26,7 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-description" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-description', 'index-description.json')">Update</button>
         </div>
-  
+
+        <div class="page-section">
+         <label for="home-page-map">Google Map</label>
+         <textarea id="home-page-map" rows="4"></textarea>
+         <button class="button" onclick="saveText('home-page-map', 'index-map.json')">Update</button>
+        </div>
+
         <div class="page-section">
           <label for="home-page-contactInfo">Contact Information</label>
           <textarea id="home-page-contactInfo" rows="4"></textarea>
@@ -447,6 +453,7 @@ function updateContent(page) {
       if (page === "home") {
         loadText('home-page-title', 'index-title.json');
         loadText('home-page-description', 'index-description.json');
+        loadText('home-page-map', 'index-map.json');
         loadText('home-page-contactInfo', 'index-contact.json');
         loadText('home-page-services', 'index-services.json');
         loadText('home-page-reviews', 'index-reviews.json');
