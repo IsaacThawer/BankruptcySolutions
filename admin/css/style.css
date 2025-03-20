@@ -476,6 +476,25 @@ body {
   margin: 16px;  /* This adds the inch-like spacing around the border */
 }
 
+/* Login Error message */
+.errorBox {
+  margin-top: 2px;
+}
+
+/* Styling the text field for login error message */
+#textField {
+  color: #000000;
+  border: none;
+  background: none;
+  font-size: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 1px;
+  margin-top: 1px;
+  display: none; 
+  font-family: Arial, sans-serif;
+}
+
 .welcome-side {
   width: 40%;
   background-color: #4086f4;
@@ -594,6 +613,33 @@ body {
 #checkboxInput:checked ~ .toggleContainer .toggleSwitch {
   background-color: #93c5fd;
   transition-duration: .2s;
+}
+
+/* Recaptcha display for login page page */
+.recaptcha {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+.display-content {
+  background-color: #ffffff;
+  margin: 15% auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: #147dd3;
+}
+.recaptcha-exit {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* Responsive styles for login */
