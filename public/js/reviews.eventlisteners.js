@@ -1,1 +1,0 @@
-window.addEventListener('DOMContentLoaded', readImageBackground('banner-reviews', 'banner-reviews.png'));

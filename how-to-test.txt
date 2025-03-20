@@ -6,4 +6,7 @@
 	"test": "jest",		// include quotes and comma
 
 3. Open the directory where server.js is in terminal, and type:
-	npm test
+	npm test	// this will run all test in the 'tests' file
+
+   Alternatively, add the name of a test .js file to run a specific test
+	npm test (testname).test.js

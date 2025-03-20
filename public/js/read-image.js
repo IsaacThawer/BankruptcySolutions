@@ -22,6 +22,22 @@ async function readImageBackground(contID, fileName) {
 	}
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+	readImageBackground('banner', 'banner-index.jpg');
+});
+window.addEventListener('DOMContentLoaded', () => {
+	readImageBackground('about-banner', 'banner-about.png');
+});
+window.addEventListener('DOMContentLoaded', () => {
+	readImage('client-photo', 'client-photo.png');
+});
+window.addEventListener('DOMContentLoaded', () => {
+	readImageBackground('banner-reviews', 'banner-reviews.png');
+});
+window.addEventListener('DOMContentLoaded', () => {
+	readImageBackground('banner-services', 'banner-services.jpg');
+});
+
 module.exports = {
 	readImage,
 	readImageBackground
