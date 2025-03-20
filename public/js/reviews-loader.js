@@ -68,6 +68,11 @@ function displayReviews(containerId, reviews) {
   });
 }
 
+// Make functions available for testing (if in a module environment)
+if (typeof module !== 'undefined') {
+  module.exports = { loadGoogleReviews, loadYelpReviews, displayReviews };
+}
+
 // Load reviews when the page loads
 document.addEventListener('DOMContentLoaded', function() {
   loadGoogleReviews();
