@@ -14,6 +14,7 @@ const multer = require('multer');
 const cognito = new AWS.CognitoIdentityServiceProvider();
 const { UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
 const session = require('express-session');//import express-session
+const nodemailer = require('nodemailer');
 
 const app = express();
 const port = 8000;
@@ -36,6 +37,14 @@ const imgStorageAdmin = multer.diskStorage({
 const upload = multer({ storage: imgStorage });
 const uploadAdmin = multer({ storage: imgStorageAdmin });
 
+// Create a transporter instance
+const transporter = nodemailer.createTransport({
+  service: 'Gmail', // or another email provider
+  auth: {
+    user: process.env.EMAIL_USER, // your email address (e.g., your-email@gmail.com)
+    pass: process.env.EMAIL_PASS  // your email password or app-specific password
+  }
+});
 
 // Initialize the AWS DynamoDB client with region and credentials
 const client = new DynamoDBClient({
@@ -265,6 +274,15 @@ app.post('/submit-form', async (req, res) => {
 
   try {
     await docClient.send(new PutCommand(params));
+    const mailOptions = {
+      from: process.env.EMAIL_USER,          // send email to self
+      to: process.env.CLIENT_EMAIL,            // sends notification to your email account
+      subject: `New Form Submission From ${firstname} ${lastname}`,
+      text: 'A new form has been submitted. Please check the Client Submissions page'
+    };
+
+    await transporter.sendMail(mailOptions);
+    
     res.json({ success: true, message: 'Submission successful' });
   } catch (error) {
     console.error('DynamoDB Error:', error);

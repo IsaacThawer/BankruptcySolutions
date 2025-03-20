@@ -1,3 +1,4 @@
+/** @jest-environment jsdom */
 
 // Define global.fetch 
 global.fetch = jest.fn(() =>

@@ -422,8 +422,24 @@ setInterval(showTime, 1000);
 showTime();
 
 
-  function updateContent(page) {
-    if (pages[page]) {
+function updateContent(page) {
+  const token = localStorage.getItem("id_token");
+  let isAdmin = false;
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const groups = payload["cognito:groups"] || [];
+      isAdmin = groups.includes("Admin");
+      } catch (error) {
+        console.error("❌ Error decoding token:", error);
+      }
+  }
+  // Override to the "home" page if user is not an Admin
+  if (page === "modify-users" && !isAdmin) {
+    page = "home";
+  }
+
+  if (pages[page]) {
       // Update the content
       contentSection.innerHTML = pages[page];
       
@@ -474,8 +490,8 @@ showTime();
 
       // Save the last visited page
       localStorage.setItem("lastVisitedPage", page);
-    }
   }
+}
 
   // Attach click events to navigation links
   navLinks.forEach(link => {
@@ -590,10 +606,11 @@ async function addUser() {
     if (response.ok) {
       console.log('User created successfully!');
       alert("User added successfully!");
-      loadUsers(); // Refresh the user list
-    } else {
-      alert('Error: ' + (data.error || 'Unknown error'));
-      console.error('API error:', data);
+      if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
+        window.loadUsers();
+      } else {
+        loadUsers();
+      }
     }
   } catch (error) {
     console.error('Error calling API:', error);
@@ -636,10 +653,11 @@ async function deleteUser(email, role) {
       if (response.ok) {
         console.log('User deleted successfully!');
         alert("User deleted successfully!");
-        loadUsers(); // Refresh user list
-      } else {
-        alert('Error: ' + (data.error || 'Unknown error'));
-        console.error('API error:', data);
+        if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
+          window.loadUsers();
+        } else {
+          loadUsers();
+        }
       }
     } catch (error) {
       console.error('Error parsing response:', text);
@@ -711,3 +729,10 @@ sidebarLinks.forEach(link => {
     sidebar.classList.remove('active'); 
   });
 });
+
+module.exports = { addUser, deleteUser, loadUsers };
+
+if (typeof window !== 'undefined') {
+  window.loadUsers = loadUsers;
+}
+
