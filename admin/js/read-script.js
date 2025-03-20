@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const content = {
         "home-page-title": "index-title.json",
         "home-page-description": "index-description.json",
+        "home-page-map": "index-map.json",
         "home-page-contactInfo": "index-contact.json",
         "home-page-chapter": "index-chapter.json",
         "home-page-services": "index-services.json",
