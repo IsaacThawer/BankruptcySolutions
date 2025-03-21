@@ -158,5 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //******************************************************* */
 // Expose verifyEmail for testing
-module.exports = verifyEmail;
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = 
+    module.exports = verifyEmail;
+}
 //******************************************************* */
