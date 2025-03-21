@@ -404,3 +404,7 @@ package.json
 
 #aws keys
 .env
+
+#test folders data
+coverage/
+data/

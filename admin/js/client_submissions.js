@@ -406,8 +406,12 @@ function renderPagination(totalItems) {
 loadClients();
 
 // **************************Export Jest tests     *****************************
-module.exports = {
-    renderPagination,
-    populateClients,
-};
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        renderPagination,
+        populateClients,
+    };
+  }
+
 //********************************************************************** */
