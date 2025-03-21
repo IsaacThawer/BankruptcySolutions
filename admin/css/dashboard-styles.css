@@ -134,7 +134,7 @@ main {
   width: 100%; /* Make the image responsive within the avatar container */
   height: 100%; /* Maintain the height within the container */
   object-fit: cover; /* Ensure the image scales properly without distortion */
-  border-radius: 50%; /* Make the image circular */
+  display: block; /* Make the image circular */
 }
 
 .logout {
