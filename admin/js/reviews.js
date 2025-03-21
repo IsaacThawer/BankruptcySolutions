@@ -136,6 +136,18 @@ async function toggleReview(platform, index) {
   }
 }
 
+// Export functions for testing
+ if (typeof module !== 'undefined') {
+   module.exports = { 
+     showReviewTab, 
+     loadGoogleReviewsAdmin, 
+     loadYelpReviewsAdmin, 
+     displayReviewsAdmin, 
+     toggleReview, 
+     initReviewsManagement 
+   };
+ }
+
 // Initialize the reviews management when that tab is selected
 function initReviewsManagement() {
   loadGoogleReviewsAdmin();
