@@ -1,4 +1,3 @@
-
 async function loadText(contID, filename) {
     const response = await fetch(`/admin/content/${filename}`, {
         method: 'GET',
@@ -7,6 +6,18 @@ async function loadText(contID, filename) {
     document.getElementById(contID).innerHTML = dataText.text;
 }
 
+//Moved updateServiceDescription to the global scope for testing purposes and modified to return a promise
+function updateServiceDescription(chapter) {  
+    const serviceDescription = document.getElementById(`services${chapter}`);
+    if (serviceDescription) {
+        return fetch(`/admin/content/services-${chapter}.json`)  
+            .then((response) => response.text())
+            .then((text) => {
+                serviceDescription.innerText = text;
+            });
+    }
+    return Promise.resolve(); // returns a promise to fix testing error
+} 
 
 window.addEventListener('DOMContentLoaded', () => {
     // define all content to load in an object
@@ -63,18 +74,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // function to update the correct service description
-    function updateServiceDescription(chapter) {
-        const serviceDescription = document.getElementById(`services${chapter}`);
-        if (serviceDescription) {
-            fetch(`/admin/content/services-${chapter}.json`)
-                .then((response) => response.text())
-                .then((text) => {
-                    serviceDescription.innerText = text;
-                });
-        }
-    }
-
     // update the service description when the update button is clicked
     const updateButton = document.getElementById("update-services-button");
     const servicesTextarea = document.getElementById("home-page-services");
@@ -102,3 +101,14 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error("Update button or textarea not found!");
     }
 });
+
+//****************************************************** */
+// Expose loadText and updateServiceDescription for testing
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        loadText,
+        updateServiceDescription
+    };
+  }
+
+//****************************************************** */

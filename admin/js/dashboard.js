@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -77,16 +77,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -164,16 +164,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -246,16 +246,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -321,16 +321,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -431,9 +431,12 @@ function updateContent(page) {
       const groups = payload["cognito:groups"] || [];
       isAdmin = groups.includes("Admin");
       } catch (error) {
-        console.error("❌ Error decoding token:", error);
+        console.error("Error decoding token:", error);
       }
   }
+  // Expose updateContent to global scope for external scripts and tests
+  window.updateContent = updateContent;
+
   // Override to the "home" page if user is not an Admin
   if (page === "modify-users" && !isAdmin) {
     page = "home";
@@ -535,10 +538,10 @@ function updateContent(page) {
         document.getElementById("database-link").style.display = "none";
       }
     } catch (error) {
-      console.error("❌ Error decoding token:", error);
+      console.error("Error decoding token:", error);
     }
   } else {
-    console.warn("⚠️ No ID token found in localStorage.");
+    console.warn("No ID token found in localStorage.");
   }
 
 
@@ -730,9 +733,11 @@ sidebarLinks.forEach(link => {
   });
 });
 
-module.exports = { addUser, deleteUser, loadUsers };
+
 
 if (typeof window !== 'undefined') {
   window.loadUsers = loadUsers;
+  module.exports = { addUser, deleteUser, loadUsers };
 }
+
 
