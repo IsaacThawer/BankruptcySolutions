@@ -12,3 +12,13 @@ async function saveText(contID, filename) {
     const result = await response.text();
     alert(result);
 }
+
+
+//******************************************************* */
+// Expose saveText for testing
+if (typeof module !== 'undefined' && module.exports) {
+    window.saveText = saveText;
+    module.exports = saveText;
+  }
+
+//******************************************************* */

@@ -14,6 +14,7 @@ const multer = require('multer');
 const cognito = new AWS.CognitoIdentityServiceProvider();
 const { UpdateCommand, DeleteCommand } = require('@aws-sdk/lib-dynamodb');
 const session = require('express-session');//import express-session
+const nodemailer = require('nodemailer');
 
 const app = express();
 const port = 8000;
@@ -36,6 +37,14 @@ const imgStorageAdmin = multer.diskStorage({
 const upload = multer({ storage: imgStorage });
 const uploadAdmin = multer({ storage: imgStorageAdmin });
 
+// Create a transporter instance
+const transporter = nodemailer.createTransport({
+  service: 'Gmail', // or another email provider
+  auth: {
+    user: process.env.EMAIL_USER, // your email address (e.g., your-email@gmail.com)
+    pass: process.env.EMAIL_PASS  // your email password or app-specific password
+  }
+});
 
 // Initialize the AWS DynamoDB client with region and credentials
 const client = new DynamoDBClient({
@@ -265,6 +274,15 @@ app.post('/submit-form', async (req, res) => {
 
   try {
     await docClient.send(new PutCommand(params));
+    const mailOptions = {
+      from: process.env.EMAIL_USER,          // send email to self
+      to: process.env.CLIENT_EMAIL,            // sends notification to your email account
+      subject: `New Form Submission From ${firstname} ${lastname}`,
+      text: 'A new form has been submitted. Please check the Client Submissions page'
+    };
+
+    await transporter.sendMail(mailOptions);
+    
     res.json({ success: true, message: 'Submission successful' });
   } catch (error) {
     console.error('DynamoDB Error:', error);
@@ -443,49 +461,70 @@ app.delete('/api/clients', async (req, res) => {
     }
 });
 
+// Modified proxy-google-reviews endpoint to read from existing JSON file
 app.get('/proxy-google-reviews', async (req, res) => {
-  // Hardcoded Google reviews
-  const googleReviews = [
-    "Eric is a great attorney who helped me with my Chapter 7 bankruptcy. He was able to get back to us almost immediately with any questions we had all throughout the process.",
-    "Eric was a fantastic attorney for my Chapter 7 bankruptcy. He was very thorough with explaining the process, and is very professional. He was able to answer all questions and concerns quickly.",
-    "Eric is an amazing bankruptcy attorney. Very knowledgeable, compassionate, and patient. He helped me through the whole process of filing chapter 7 and it was so much easier than I expected.",
-    "Eric is very professional and has made this process so easy to get through. I highly recommend Eric to everyone. Thank you Eric you are the best!",
-    "Eric is thorough, honest, and friendly. I felt comfortable with him. I would definitely recommend him to anyone."
-  ];
-  
-  // Get a random review for variety
-  const randomIndex = Math.floor(Math.random() * googleReviews.length);
-  
-  res.json({
-    rating: '5.0',
-    reviewCount: '5',
-    reviewText: googleReviews[randomIndex],
-    allReviews: googleReviews
-  });
+  try {
+    // Read the Google reviews from the JSON file
+    const filePath = path.join(__dirname, 'admin', 'content', 'google-reviews.json');
+    const reviewsData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    
+    // Filter only active reviews
+    const activeReviews = reviewsData.reviews
+      .filter(review => review.active)
+      .map(review => review.content);
+    
+    // Get a random review for variety
+    const randomIndex = Math.floor(Math.random() * activeReviews.length);
+    
+    res.json({
+      rating: '5.0', // Since your JSON doesn't have an overall rating, using static value
+      reviewCount: activeReviews.length.toString(),
+      reviewText: activeReviews[randomIndex] || "No reviews available.",
+      allReviews: activeReviews
+    });
+  } catch (error) {
+    console.error("Error reading Google reviews:", error);
+    // Fallback response in case of error
+    res.status(500).json({
+      rating: '5.0',
+      reviewCount: '0',
+      reviewText: "Unable to load reviews at this time.",
+      allReviews: []
+    });
+  }
 });
 
+// Modified proxy-yelp-reviews endpoint to read from existing JSON file
 app.get('/proxy-yelp-reviews', async (req, res) => {
-  // Hardcoded Yelp reviews
-  const yelpReviews = [
-    "Eric did a fantastic job with my bankruptcy. I was a bit apprehensive about the whole process, but he guided me through every step with professionalism and compassion.",
-    "Eric was extremely helpful during my bankruptcy process. He explained everything clearly and made what could have been a stressful situation much easier to handle.",
-    "I can't recommend Eric Schwab enough. His expertise in bankruptcy law is outstanding, and he guided me through the entire process with compassion and professionalism.",
-    "Working with Eric Schwab was the best decision I made during a difficult financial time. He's knowledgeable, responsive, and truly cares about his clients.",
-    "Five stars for Eric Schwab! He helped me navigate bankruptcy with ease, answering all my questions promptly and making me feel at ease throughout the process.",
-    "Eric's knowledge of bankruptcy law is impressive. He made sure I understood all my options and helped me make the best decision for my financial future.",
-    "Eric was straightforward and honest throughout the entire process. He explained everything in terms I could understand and was always available when I had questions.",
-    "I was nervous about filing for bankruptcy, but Eric made the process stress-free. He is professional, knowledgeable, and genuinely cares about his clients."
-  ];
-  
-  // Get a random review for variety
-  const randomIndex = Math.floor(Math.random() * yelpReviews.length);
-  
-  res.json({
-    rating: '5.0',
-    reviewCount: '8',
-    reviewText: yelpReviews[randomIndex],
-    allReviews: yelpReviews
-  });
+  try {
+    // Read the Yelp reviews from the JSON file
+    const filePath = path.join(__dirname, 'admin', 'content', 'yelp-reviews.json');
+    const reviewsData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    
+    // Filter only active reviews
+    const activeReviews = reviewsData.reviews
+      .filter(review => review.active)
+      .map(review => review.content);
+    
+    // Get a random review for variety
+    const randomIndex = Math.floor(Math.random() * activeReviews.length);
+    
+    res.json({
+      rating: '5.0', // Since your JSON doesn't have an overall rating, using static value
+      reviewCount: activeReviews.length.toString(),
+      reviewText: activeReviews[randomIndex] || "No reviews available.",
+      allReviews: activeReviews
+    });
+  } catch (error) {
+    console.error("Error reading Yelp reviews:", error);
+    // Fallback response in case of error
+    res.status(500).json({
+      rating: '5.0',
+      reviewCount: '0',
+      reviewText: "Unable to load reviews at this time.",
+      allReviews: []
+    });
+  }
 });
 
 app.listen(port, () => {

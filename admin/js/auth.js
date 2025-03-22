@@ -1,3 +1,20 @@
+// Display an error text field message after a failed login
+async function loginFailure(textField) {
+  textField.value = "Login Failed: Incorrect Username or Password";
+  document.querySelector(".errorBox").style.display = "block";
+  let failedAttempts = parseInt(localStorage.getItem('failedAttempts') || '0', 10);
+  // Increment failedAttempts vlaue after a failed login
+  failedAttempts++;
+  localStorage.setItem('failedAttempts', failedAttempts);
+ }
+ 
+ // Reload the page after the set timer
+ async function reloadPage() {
+  setTimeout(() => {
+    location.reload();
+  }, 1000);
+ }
+ 
 document.addEventListener("DOMContentLoaded", function() {
 
   // Get the login form element from the DOM
@@ -61,15 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(data => {
       if (data.error) {
-        //alert("Login failed: " + data.error);
-        textField.value = "login failed: Incorrect Username or Password";
-        // Increment failedAttempts vlaue after a failed login
-        failedAttempts++;
-        localStorage.setItem('failedAttempts', failedAttempts);
-        // Displays login error message then refreshes page
-        setTimeout(function() {
-          location.reload();
-        }, 1000);
+        loginFailure(textField);
+        reloadPage();
+       
       } else {
         console.log("Login successful:", data);
     
@@ -111,3 +122,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+
+module.exports = {
+  loginFailure,
+  reloadPage
+ };
+ 

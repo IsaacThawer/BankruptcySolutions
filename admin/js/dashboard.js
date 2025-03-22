@@ -26,7 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
           <textarea id="home-page-description" rows="4"></textarea>
           <button class="button" onclick="saveText('home-page-description', 'index-description.json')">Update</button>
         </div>
-  
+
+        <div class="page-section">
+         <label for="home-page-map">Google Map</label>
+         <textarea id="home-page-map" rows="4"></textarea>
+         <button class="button" onclick="saveText('home-page-map', 'index-map.json')">Update</button>
+        </div>
+
         <div class="page-section">
           <label for="home-page-contactInfo">Contact Information</label>
           <textarea id="home-page-contactInfo" rows="4"></textarea>
@@ -59,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -77,16 +83,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -146,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -164,16 +170,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -228,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -246,16 +252,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -303,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     if (fileInput.files.length === 0) {
-      statusMessage.innerText = "⚠️ Please select an image file.";
+      statusMessage.innerText = "Please select an image file.";
       statusMessage.style.color = "red";
       return;
     }
@@ -321,16 +327,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
       document.getElementById("upload-btn").innerText = "Upload";
       if (data.success) {
-        statusMessage.innerText = "✅ Image uploaded successfully!";
+        statusMessage.innerText = "Image uploaded successfully!";
         statusMessage.style.color = "green";
       } else {
-        statusMessage.innerText = "❌ Upload failed: " + data.message;
+        statusMessage.innerText = "Upload failed: " + data.message;
         statusMessage.style.color = "red";
       }
     })
     .catch(error => {
       document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "❌ An error occurred while uploading.";
+      statusMessage.innerText = "An error occurred while uploading.";
       statusMessage.style.color = "red";
       console.error("Error uploading image:", error);
     });
@@ -384,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
     `
   };
 
-  function showTime() {
+ /* function showTime() {
     let time = new Date();
     let hour = time.getHours();
     let min = time.getMinutes();
@@ -420,10 +426,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 setInterval(showTime, 1000);
 showTime();
+*/
 
 
-  function updateContent(page) {
-    if (pages[page]) {
+function updateContent(page) {
+  const token = localStorage.getItem("id_token");
+  let isAdmin = false;
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const groups = payload["cognito:groups"] || [];
+      isAdmin = groups.includes("Admin");
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+  }
+  // Expose updateContent to global scope for external scripts and tests
+  window.updateContent = updateContent;
+
+  // Override to the "home" page if user is not an Admin
+  if (page === "modify-users" && !isAdmin) {
+    page = "home";
+  }
+
+  if (pages[page]) {
       // Update the content
       contentSection.innerHTML = pages[page];
       
@@ -431,6 +457,7 @@ showTime();
       if (page === "home") {
         loadText('home-page-title', 'index-title.json');
         loadText('home-page-description', 'index-description.json');
+        loadText('home-page-map', 'index-map.json');
         loadText('home-page-contactInfo', 'index-contact.json');
         loadText('home-page-services', 'index-services.json');
         loadText('home-page-reviews', 'index-reviews.json');
@@ -474,8 +501,8 @@ showTime();
 
       // Save the last visited page
       localStorage.setItem("lastVisitedPage", page);
-    }
   }
+}
 
   // Attach click events to navigation links
   navLinks.forEach(link => {
@@ -519,10 +546,10 @@ showTime();
         document.getElementById("database-link").style.display = "none";
       }
     } catch (error) {
-      console.error("❌ Error decoding token:", error);
+      console.error("Error decoding token:", error);
     }
   } else {
-    console.warn("⚠️ No ID token found in localStorage.");
+    console.warn("No ID token found in localStorage.");
   }
 
 
@@ -590,10 +617,11 @@ async function addUser() {
     if (response.ok) {
       console.log('User created successfully!');
       alert("User added successfully!");
-      loadUsers(); // Refresh the user list
-    } else {
-      alert('Error: ' + (data.error || 'Unknown error'));
-      console.error('API error:', data);
+      if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
+        window.loadUsers();
+      } else {
+        loadUsers();
+      }
     }
   } catch (error) {
     console.error('Error calling API:', error);
@@ -636,10 +664,11 @@ async function deleteUser(email, role) {
       if (response.ok) {
         console.log('User deleted successfully!');
         alert("User deleted successfully!");
-        loadUsers(); // Refresh user list
-      } else {
-        alert('Error: ' + (data.error || 'Unknown error'));
-        console.error('API error:', data);
+        if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
+          window.loadUsers();
+        } else {
+          loadUsers();
+        }
       }
     } catch (error) {
       console.error('Error parsing response:', text);
@@ -684,30 +713,71 @@ async function loadUsers() {
   }
 }
 
+
+function showTime() {
+  let time = new Date();
+  let hour = time.getHours();
+  let min = time.getMinutes();
+  //let sec = time.getSeconds();  will not be using seconds for now
+  let am_pm = "AM";
+
+  if (hour >= 12) {
+      am_pm = "PM";
+      if (hour > 12) hour -= 12;
+  } else if (hour == 0) {
+      hour = 12;
+  }
+
+  min = min < 10 ? "0" + min : min;
+  //sec = sec < 10 ? "0" + sec : sec;
+
+  let currentTime = hour + ":" + min + " " + am_pm;
+
+  let timeBox = document.querySelector(".time-box");
+  if (timeBox) {
+      timeBox.textContent = currentTime;
+  } 
+
+  let dateBox = document.querySelector(".date-box");
+      if (dateBox) {
+          let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          let currentDate = time.toLocaleDateString("en-US", options);
+          dateBox.textContent = currentDate;
+      }
+}
+
+setInterval(showTime, 1000);
+showTime();
+
+
 document.addEventListener("DOMContentLoaded", function () {
   initMobNab();
 });
 
-async function initMobNab() {
-  const menuToggle = document.getElementById("menuToggleAdmin");
-  const navBar = document.querySelector(".sidebar");
+function initMobNab() {
+  const menuToggleAdmin = document.getElementById('menuToggleAdmin');
+  const navBarAdmin = document.querySelector('.sidebar');
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
 
-  if (menuToggle && navBar) {
-    menuToggle.addEventListener("click", function () {
-      navBar.classList.toggle("active");
-      console.log("button is being clicked");
-    });
-  } else {
-    console.error("Menu Toggle or NavBar not found!");
-  }
+
+  menuToggleAdmin.addEventListener('click', () => {
+      navBarAdmin.classList.toggle('active');
+  });
+
+  sidebarLinks.forEach(link => {
+      link.addEventListener('click', () => {
+          navBarAdmin.classList.remove('active');
+      });
+  });
 }
 
-const sidebarLinks = document.querySelectorAll('.sidebar a');
-const sidebar = document.querySelector('.sidebar');
+module.exports = {showTime, addUser, deleteUser, loadUsers, initMobNab,};
 
 
-sidebarLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    sidebar.classList.remove('active'); 
-  });
-});
+
+if (typeof window !== 'undefined') {
+  window.loadUsers = loadUsers;
+  module.exports = { addUser, deleteUser, loadUsers };
+}
+
+

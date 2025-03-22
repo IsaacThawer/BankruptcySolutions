@@ -6,6 +6,9 @@
 	npm install --save dotenv 		// install dependencies
 	npm install axios cheerio node-cache --save // install for yelp/google review star dependencies
 	npm install express-session
+	npm install jsdom
+	npm install --save-dev jest-environment-jsdom // for testing environment
+	npm install nodemailer // used to send an email to the Product Owner after form submission
 	node server.js				// run virtual server
 
 3. Make sure you have a .env file in the root folder with the required key. The .env file must be excluded from your .gitignore and should not be uploaded into GitHub.	

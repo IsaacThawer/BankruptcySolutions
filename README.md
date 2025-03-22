@@ -6,14 +6,14 @@
 
 ## Contributers 
 
-- [Romaine De La Cruz](https://github.com/username)
-- [Isaac Thawer](https://github.com/username)
-- [Robby Dosanjh](https://github.com/username)
-- [Bryan Robare](https://github.com/username)
-- [Christopher Flores](https://github.com/username)
-- [Alexis Aguilar](https://github.com/username)
-- [Goodwin Lu](https://github.com/username)
-- [Seyed Mojtaba Karanizadeh](https://github.com/username)
+- [Romaine De La Cruz](https://github.com/r2dcruz)
+- [Isaac Thawer](https://github.com/IsaacThawer)
+- [Robby Dosanjh](https://github.com/RobbyS3)
+- [Bryan Robare](https://github.com/BryTheGuy98)
+- [Christopher Flores](https://github.com/ChristopherFl)
+- [Alexis Aguilar](https://github.com/MazatheGoD)
+- [Goodwin Lu](https://github.com/KirinBlade)
+- [Seyed Mojtaba Karanizadeh](https://github.com/skaranizadeh)
 
 ## Prototype UI
 ### Home Page
