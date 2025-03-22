@@ -405,13 +405,10 @@ function renderPagination(totalItems) {
 // Load the clients when the page loads
 loadClients();
 
-// **************************Export Jest tests     *****************************
-
+// Export functions for Jest tests 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         renderPagination,
         populateClients,
     };
   }
-
-//********************************************************************** */

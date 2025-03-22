@@ -103,7 +103,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-//****************************************************** */
 // Expose loadText and updateServiceDescription for testing
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -111,5 +110,3 @@ if (typeof module !== 'undefined' && module.exports) {
         updateServiceDescription
     };
   }
-
-//****************************************************** */

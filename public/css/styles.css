@@ -75,8 +75,6 @@ nav {
   box-sizing: border-box;
 }
 
-
-
 nav ul {
   list-style-type: none;
   display: flex;
@@ -110,15 +108,15 @@ nav ul li a {
   text-align: center;
 }
 
-
-
 /* Review Cards Styling */
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 0.2fr); /* Retained the more specific column setup */
+  justify-content: center;
   gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto;
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: 'Inter', serif;
 }
 
 .google, .yelp {
@@ -131,7 +129,11 @@ nav ul li a {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative; /* Important for the absolute positioning of the link */
-  cursor: pointer; /* Show a pointer cursor on hover */
+  cursor: pointer;
+  width: 400px; /* Merged specific width from the second declaration */
+  margin: 0 auto; /* Centers the text horizontally */
+  text-align: center;
+  margin-bottom: 1.5rem; /* Added from mobile layout for consistent spacing */
 }
 
 .google:hover, .yelp:hover {
@@ -180,7 +182,6 @@ nav ul li a {
   height: 100%;
   z-index: 2; /* Above the content */
   opacity: 0; /* Make it invisible */
-  cursor: pointer;
 }
 
 /* Reviews Page Enhanced Styling */
@@ -284,9 +285,6 @@ nav ul li a {
   text-align: center;
   color: #666;
 }
-
-
-
 
 /* Sacramento Website Title */
 .hero-text {
@@ -401,10 +399,6 @@ footer {
   line-height: 1.5;
 }
 
-
-
-
-
 /* Testominals*/
 /* Reviews Page Header Styles */
 .reviews-page-header {
@@ -433,16 +427,6 @@ footer {
   margin-left: 0;
   font-family: Marcellus, serif;
   border-top: 1px solid #e5e5e5;
-}
-
-
-
-.yelp, .google {
-  width: 400px; /* Makes each div take up 45% of the parent width */
-  padding: 10px; /* Adds some padding */
-
-  margin: 0 auto; /* Centers the text horizontally */
-  text-align: center;
 }
 
 .reviews-grid {
@@ -485,8 +469,6 @@ footer {
   text-decoration: underline;
 }
  
-
-
 /* Header for Form */
 .send-text p {
   color: #147dd3;
@@ -667,7 +649,6 @@ form {
 
 /* Responsive adjustments */
 
-
 /* About header specific styles */
 .about-header {
   margin-top: 60px; /* To account for fixed navigation */
@@ -774,9 +755,7 @@ footer {
   text-decoration: none;
 }
 
-
 @media (max-width: 768px) {
-
     .introduction , .service-card p , .review-text, .send-text p, .disclaimer p, .services-page-grid p{
     font-size: 17px;
     }
@@ -881,6 +860,4 @@ footer {
 .contactInfo {
   flex: 0 0 100%;
 }
- 
- }
-
+}

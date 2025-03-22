@@ -13,12 +13,8 @@ async function saveText(contID, filename) {
     alert(result);
 }
 
-
-//******************************************************* */
-// Expose saveText for testing
+// Export saveText for Jest testing
 if (typeof module !== 'undefined' && module.exports) {
     window.saveText = saveText;
     module.exports = saveText;
   }
-
-//******************************************************* */

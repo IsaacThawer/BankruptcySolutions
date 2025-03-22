@@ -40,9 +40,6 @@ const signOutButton = buttons[0];
 });
 
 
-
-
-
 test(' Back to Main Page button redirects to dashboard.html when licked', () => {
     const backButton = screen.getByText('Back to Main Page');
 
