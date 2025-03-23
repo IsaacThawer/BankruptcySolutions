@@ -860,4 +860,16 @@ footer {
 .contactInfo {
   flex: 0 0 100%;
 }
+
+/* Initially hide elements */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Visible state */
+.fade-in-section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

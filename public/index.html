@@ -11,6 +11,7 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="/js/form-handler.js"></script>
     <script src="js/menu-toggle.js"></script>
+    <script src="js/fade-in.js"></script>
 
   </head>
 
@@ -31,11 +32,11 @@
     </header>
 
     <main>
-      <h2 id="title"></h2>
+      <h2 class="fade-in-section" id="title"></h2>
       <div class="content-wrapper">
-        <div class="introduction" id="introduction">
+        <div class="introduction fade-in-section" id="introduction">
         </div>
-        <div class="contactInfo">
+        <div class="contactInfo fade-in-section">
           <h3>Contact</h3>
           <p id="contact">
           </p>
@@ -45,7 +46,7 @@
       </div>
     </main>
 
-    <section class="services">
+    <section class="services fade-in-section">
       <h2 class="index-service-header">Our Services</h2>
       <div class="services-grid">
         <!-- Chapter 7 -->
@@ -84,7 +85,7 @@
       </div>
     </section>
 
-    <section class="pastCLients">
+    <section class="pastCLients services fade-in-section">
       <h2 class="pastClientsHeader">Past Clients</h2>
       <div class="reviews-grid">
         <!-- Google Reviews Box -->
@@ -128,7 +129,8 @@
       Use the form below to contact us regarding your legal inquiry. Please be as detailed as possible. However, please do not include any confidential or sensitive information. To help us best service your inquiry, we recommend that you describe the debt issues you’re facing and tell us what you want to achieve. You may also email or call us to make an appointment.
     </p>
 
-    <form action="/submit-form" method="POST" id="contact-form">
+
+    <form action="/submit-form" method="POST" id="contact-form" data-testid="contact-form">
       <!-- First Name and Last Name on the same line -->
       <div class="name-row">
         <div>
@@ -160,6 +162,12 @@
       <input type="submit" value="Submit"><br><br>
     </form>
     </section>
+
+    <!-- Success message for testing -->
+    <div class="success-message" style="display:none;">
+      Thank you for your submission!
+    </div>
+  
 
     <!-- Hidden Recaptcha -->
     <div id="recaptcha-display" class="recaptcha">
