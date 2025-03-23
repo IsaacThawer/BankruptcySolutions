@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+// npm install selenium-webdriver chrome-driver jest
 // Import necessary modules from Selenium WebDriver
 const { Builder, By, until, Key } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
