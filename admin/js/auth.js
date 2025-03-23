@@ -123,8 +123,13 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-module.exports = {
-  loginFailure,
-  reloadPage
- };
+// Export functions for Jest tests
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    loginFailure,
+    reloadPage
+   };
+}
+
+
  

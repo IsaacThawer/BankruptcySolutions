@@ -390,45 +390,6 @@ document.addEventListener("DOMContentLoaded", function () {
     `
   };
 
- /* function showTime() {
-    let time = new Date();
-    let hour = time.getHours();
-    let min = time.getMinutes();
-    //let sec = time.getSeconds();  will not be using seconds for now
-    let am_pm = "AM";
-
-    if (hour >= 12) {
-        am_pm = "PM";
-        if (hour > 12) hour -= 12;
-    } else if (hour == 0) {
-        hour = 12;
-    }
-
-    min = min < 10 ? "0" + min : min;
-    //sec = sec < 10 ? "0" + sec : sec;
-
-    let currentTime = hour + ":" + min + " " + am_pm;
-
-    let timeBox = document.querySelector(".time-box");
-    if (timeBox) {
-        timeBox.textContent = currentTime;
-    } else {
-        console.error("Error: .time-box element not found!");
-    }
-
-    let dateBox = document.querySelector(".date-box");
-        if (dateBox) {
-            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            let currentDate = time.toLocaleDateString("en-US", options);
-            dateBox.textContent = currentDate;
-        }
-}
-
-setInterval(showTime, 1000);
-showTime();
-*/
-
-
 function updateContent(page) {
   const token = localStorage.getItem("id_token");
   let isAdmin = false;
@@ -680,11 +641,6 @@ async function deleteUser(email, role) {
   }
 }
 
-
-
-
-
-
 async function loadUsers() {
   try {
     const response = await fetch('/api/users');
@@ -713,12 +669,10 @@ async function loadUsers() {
   }
 }
 
-
 function showTime() {
   let time = new Date();
   let hour = time.getHours();
   let min = time.getMinutes();
-  //let sec = time.getSeconds();  will not be using seconds for now
   let am_pm = "AM";
 
   if (hour >= 12) {
@@ -729,7 +683,6 @@ function showTime() {
   }
 
   min = min < 10 ? "0" + min : min;
-  //sec = sec < 10 ? "0" + sec : sec;
 
   let currentTime = hour + ":" + min + " " + am_pm;
 
@@ -749,7 +702,6 @@ function showTime() {
 setInterval(showTime, 1000);
 showTime();
 
-
 document.addEventListener("DOMContentLoaded", function () {
   initMobNab();
 });
@@ -758,7 +710,6 @@ function initMobNab() {
   const menuToggleAdmin = document.getElementById('menuToggleAdmin');
   const navBarAdmin = document.querySelector('.sidebar');
   const sidebarLinks = document.querySelectorAll('.sidebar a');
-
 
   menuToggleAdmin.addEventListener('click', () => {
       navBarAdmin.classList.toggle('active');
@@ -771,11 +722,9 @@ function initMobNab() {
   });
 }
 
-module.exports = {showTime, addUser, deleteUser, loadUsers, initMobNab,};
-
-
-
+// Export functions for Jest tests
 if (typeof window !== 'undefined') {
+  module.exports = {showTime, addUser, deleteUser, loadUsers, initMobNab,};
   window.loadUsers = loadUsers;
   module.exports = { addUser, deleteUser, loadUsers };
 }

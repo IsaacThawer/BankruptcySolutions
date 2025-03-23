@@ -1,8 +1,6 @@
 // test for functions inside read-script and save-script for reading and loading .JSON files
 
-// =============================
 // DIRECT FUNCTION TESTS
-// =============================
 
 // Instead of importing at the top level, we wrap these in a beforeAll so that the module is imported after setup.
 let saveText, loadText, updateServiceDescription;
@@ -20,7 +18,7 @@ beforeEach(() => {
   jest.restoreAllMocks();
 });
 
-// --- Test: loadText sets element innerHTML correctly ---
+// Test: loadText sets element innerHTML correctly 
 test("loadText sets element innerHTML correctly", async () => {
   document.body.innerHTML = '<div id="test-element"></div>';
   global.fetch.mockResolvedValue({
@@ -30,7 +28,7 @@ test("loadText sets element innerHTML correctly", async () => {
   expect(document.getElementById("test-element").innerHTML).toBe("Hello world");
 });
 
-// --- Test: loadText handles fetch failure gracefully ---
+// Test: loadText handles fetch failure gracefully
 test("loadText handles fetch failure gracefully", async () => {
   document.body.innerHTML = '<div id="test-element"></div>';
   global.fetch.mockRejectedValue(new Error("Network Error"));
@@ -38,7 +36,7 @@ test("loadText handles fetch failure gracefully", async () => {
   expect(document.getElementById("test-element").innerHTML).toBe("");
 });
 
-// --- Test: saveText sends POST request and alerts response ---
+// Test: saveText sends POST request and alerts response 
 test("saveText sends POST request and alerts response", async () => {
   document.body.innerHTML = `<input id="test-input" value="Test content" />`;
   global.fetch.mockResolvedValue({
@@ -54,7 +52,7 @@ test("saveText sends POST request and alerts response", async () => {
   expect(global.alert).toHaveBeenCalledWith("File saved");
 });
 
-// --- Test: saveText handles fetch failure gracefully ---
+// Test: saveText handles fetch failure gracefully
 test("saveText handles fetch failure gracefully", async () => {
   document.body.innerHTML = `<input id="test-input" value="Test content" />`;
   global.fetch.mockRejectedValue(new Error("Network Error"));
@@ -63,7 +61,7 @@ test("saveText handles fetch failure gracefully", async () => {
   expect(global.alert).not.toHaveBeenCalled();
 });
 
-// --- Test: updateServiceDescription updates service description text correctly ---
+// Test: updateServiceDescription updates service description text correctly
 test("updateServiceDescription updates service description text correctly", async () => {
   document.body.innerHTML = '<p id="servicesChapter7"></p>';
   global.fetch.mockResolvedValue({
@@ -73,7 +71,7 @@ test("updateServiceDescription updates service description text correctly", asyn
   expect(document.getElementById("servicesChapter7").innerText).toBe("Updated Service Description");
 });
 
-// --- Test: updateServiceDescription does nothing if element does not exist ---
+// Test: updateServiceDescription does nothing if element does not exist
 test("updateServiceDescription does nothing if element does not exist", async () => {
   document.body.innerHTML = "";
   global.fetch = jest.fn();
