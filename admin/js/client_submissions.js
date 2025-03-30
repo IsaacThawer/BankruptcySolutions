@@ -424,3 +424,12 @@ if (typeof module !== 'undefined' && module.exports) {
         populateClients,
     };
   }
+
+// forces the page to reload prevents users from accessing the client_submissions page after siging out.
+// ensuring the session is rechecked at server side.
+window.addEventListener('pageshow', function (event) {
+    // If the page was restored from the bfcache ( with browser back/forward button), force a reload
+    if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+      window.location.reload(); //session-checking on reload
+    }
+  });

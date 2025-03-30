@@ -729,4 +729,11 @@ if (typeof window !== 'undefined') {
   module.exports = { addUser, deleteUser, loadUsers };
 }
 
+// Prevent accessing dashboard using the browser back button after logout
+window.addEventListener('pageshow', function (event) {
+  if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+    window.location.reload(); 
+  }
+});
+
 
