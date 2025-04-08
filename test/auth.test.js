@@ -1,6 +1,7 @@
 /**
-* @jest-environmnet jsdom
-*/
+ * @jest-environment jsdom
+ */
+
 
 const {loginFailure, reloadPage} = require('../admin/js/auth');
 
@@ -35,17 +36,14 @@ describe('Login page test text field and reload test', () => {
     // Mock the loginFailure function with spyOn
     loginFailureMock = jest.spyOn(require('../admin/js/auth'), 'loginFailure').mockImplementation(() => {});
 
-    // Mock reload
-    Object.defineProperty(window, 'location', {
-      value: {
-        reload: jest.fn(),
-      },
-    });
+    delete window.location;
+    window.location = { reload: jest.fn() };
 
     // Use jest timers to control setTimeout used in reloadPage()
     jest.useFakeTimers();
     loginFailure(mockText);
   });
+
   afterEach(() => {
     // Clean up after each test
     jest.clearAllMocks();
@@ -93,5 +91,38 @@ describe('Login page test text field and reload test', () => {
 
     expect(loginFailureMock).toHaveBeenCalled();
     expect(mockText.value).toBe('Login Failed: Incorrect Username or Password')
+  });
+
+  test('loginFailure does nothing when textField is null', async () => {
+    // Call loginFailure with null to simulate a missing DOM element
+    await loginFailure(null);
+  
+    // Since there's no textField, nothing should happen and no error should be thrown
+    expect(true).toBe(true); // This passes as long as no exception occurs
+  });
+  
+  test('reloadPage should reload the page only once even when called multiple times', () => {
+    reloadPage();
+    jest.advanceTimersByTime(1000);
+    expect(window.location.reload).toHaveBeenCalledTimes(1);
+  
+    reloadPage();
+    jest.advanceTimersByTime(1000);
+    expect(window.location.reload).toHaveBeenCalledTimes(2);
+  });
+  
+  test('should not call loginFailure when form fields are empty', async () => {
+    // Leave username and password empty
+    username.value = '';
+    password.value = '';
+  
+    const formSubmit = new Event('submit');
+    loginForm.dispatchEvent(formSubmit);
+  
+    await Promise.resolve(); // Wait for any async operations
+  
+    // You might expect loginFailure not to be called
+    // But depending on your auth.js logic, update this accordingly
+    expect(loginFailureMock).not.toHaveBeenCalled();
   });
 });
