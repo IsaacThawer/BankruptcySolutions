@@ -118,11 +118,11 @@ document.addEventListener("DOMContentLoaded", function() {
   toggleCheckbox.addEventListener('change', function() {
     if (this.checked) {
       passwordField.type = 'text';
-      toggleText.textContent = 'Hide Password';
+      if (toggleText) toggleText.textContent = 'Hide Password';
     } else {
       passwordField.type = 'password';
-      toggleText.textContent = 'Show Password';
-    }
+      if (toggleText) toggleText.textContent = 'Show Password';
+    }    
   });
 });
 
