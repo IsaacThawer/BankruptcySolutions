@@ -24,34 +24,6 @@ async function loadClients() {
     }
 }
 
-
-/**
- * Populate the client list panel with data received from DynamoDB.
- * Adjusted to use the correct DynamoDB attributes: firstName, lastName, and submissionDate.
- */
-/*
-function populateClients() {
-    const clientList = document.getElementById('client-list');
-    clientList.innerHTML = '';
-
-    clients.forEach(client => {
-      // Create a new element for each client
-      const clientItem = document.createElement('div');
-      clientItem.className = 'client-item';
-      // Set a data attribute so we can identify the client item later
-      clientItem.setAttribute('data-email', client.email);
-      // Add click event listener to select this client when clicked
-      clientItem.addEventListener('click', () => selectClient(client.email));
-      // Populate inner HTML 
-      clientItem.innerHTML = `
-          <span>${client.firstName} ${client.lastName}</span>
-          ${client.flagged ? '<span class="flagged">⚑</span>' : ''}
-          <span class="time">${client.submissionDate}</span>`;
-      clientList.appendChild(clientItem);
-  });
-}
-  */
-
 /**
  * When a client is selected:
  * - Remove the "active" class from all client items.
@@ -137,15 +109,15 @@ async function saveNotes() {
 function deleteClient() {
     if (!selectedClient) {
         alert('No client selected');
-        return;
+        return Promise.resolve();
     }
     // Ask for confirmation
     if (!confirm('Are you sure you want to delete this client?')) {
-        return;
+        return Promise.resolve();
     }
 
     // Send DELETE request with the submissionId
-    fetch('/api/clients', {
+    return fetch('/api/clients', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ submissionId: selectedClient.submissionId })
@@ -200,11 +172,11 @@ function replyToEmail() {
 function toggleFlag() {
     if (!selectedClient) {
         alert('No client selected');
-        return;
+        return Promise.resolve(); 
     }
     // Toggle flagged status: if undefined, treat as false.
     const newFlag = !selectedClient.flagged;
-    fetch('/api/clients/flag', {
+    return fetch('/api/clients/flag', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -260,6 +232,9 @@ function searchClients() {
     populateClients(filteredClients);
 }
 
+/**
+ * Formats an ISO timestamp into "MM/DD/YYYY HH:MM AM/PM" format.
+ */
 function formatTimestamp(isoString) {
     const date = new Date(isoString);
 
@@ -281,8 +256,10 @@ function formatTimestamp(isoString) {
 
 /**
  * Populate the client list panel with data for the current page.
+ * Also updates the global clients variable.
  */
 function populateClients(clientData) {
+    clients = clientData; // update global clients
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
 
@@ -414,16 +391,12 @@ function renderPagination(totalItems) {
     return; // Skip rendering regular pagination on small screens
 }
 
-// Load the clients when the page loads
-loadClients();
-
-// Export functions for Jest tests 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        renderPagination,
-        populateClients,
-    };
+// Automatically load the clients when the page loads in a browser environment,
+// but not during testing.
+if (typeof window !== 'undefined' && window.document && process.env.NODE_ENV !== 'test') {
+    loadClients();
   }
+
 
 // forces the page to reload prevents users from accessing the client_submissions page after siging out.
 // ensuring the session is rechecked at server side.
@@ -433,3 +406,19 @@ window.addEventListener('pageshow', function (event) {
       window.location.reload(); //session-checking on reload
     }
   });
+
+  // Export functions for Jest tests 
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        renderPagination,
+        populateClients,
+        loadClients,
+        selectClient,
+        saveNotes,
+        deleteClient,
+        replyToEmail,
+        toggleFlag,
+        searchClients,
+        formatTimestamp,
+    };
+  }
