@@ -860,7 +860,7 @@ footer {
 .contactInfo {
   flex: 0 0 100%;
 }
-
+}
 /* Initially hide elements */
 .fade-in-section {
   opacity: 0;
