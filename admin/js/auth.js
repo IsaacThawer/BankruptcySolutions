@@ -1,11 +1,14 @@
 // Display an error text field message after a failed login
 async function loginFailure(textField) {
-  textField.value = "Login Failed: Incorrect Username or Password";
-  document.querySelector(".errorBox").style.display = "block";
+  if (textField) {
+    textField.value = "Login Failed: Incorrect Username or Password";
+  }
+
+  const errorBox = document.querySelector(".errorBox");
+  if (errorBox) errorBox.style.display = "block";
+  
   let failedAttempts = parseInt(localStorage.getItem('failedAttempts') || '0', 10);
-  // Increment failedAttempts vlaue after a failed login
-  failedAttempts++;
-  localStorage.setItem('failedAttempts', failedAttempts);
+  localStorage.setItem('failedAttempts', failedAttempts + 1);
  }
  
  // Reload the page after the set timer
@@ -115,11 +118,11 @@ document.addEventListener("DOMContentLoaded", function() {
   toggleCheckbox.addEventListener('change', function() {
     if (this.checked) {
       passwordField.type = 'text';
-      toggleText.textContent = 'Hide Password';
+      if (toggleText) toggleText.textContent = 'Hide Password';
     } else {
       passwordField.type = 'password';
-      toggleText.textContent = 'Show Password';
-    }
+      if (toggleText) toggleText.textContent = 'Show Password';
+    }    
   });
 });
 
