@@ -393,9 +393,12 @@ function renderPagination(totalItems) {
 
 // Automatically load the clients when the page loads in a browser environment,
 // but not during testing.
-if (typeof window !== 'undefined' && window.document && process.env.NODE_ENV !== 'test') {
+/*if (typeof window !== 'undefined' && window.document && process.env.NODE_ENV !== 'test') {
     loadClients();
-  }
+  }*/
+  if (typeof window !== 'undefined' && window.document && !window.__TEST__) {
+    loadClients();
+}
 
 
 // forces the page to reload prevents users from accessing the client_submissions page after siging out.
