@@ -22,6 +22,11 @@ const {
   formatTimestamp,
 } = require('../admin/js/client_submissions');
 
+beforeAll(() => {
+  // This will prevent loadClients from running automatically in tests
+  global.__TEST__ = true;
+});
+
 // Simple DOM setup before each test.
 beforeEach(() => {
   // Set up required DOM elements
@@ -524,4 +529,8 @@ describe("pageshow event", () => {
     window.dispatchEvent(eventNotPersisted);
     expect(window.location.reload).not.toHaveBeenCalled();
   });
+});
+
+afterAll(() => {
+  delete global.__TEST__;
 });
