@@ -559,8 +559,15 @@ async function uploadImage() {
     const fileInput = document.getElementById("image");
     const statusMessage = document.getElementById("upload-status");
     const fileName = fileInput.name;
+    // Stop if no file is uploaded
     if (fileInput.files.length === 0) {
         statusMessage.innerText = "Please select an image file.";
+        statusMessage.style.color = "red";
+        return;
+    }
+    // Stop if the uploaded file is not an image
+    if (!fileInput.files[0].type.startsWith("image/")) {
+        statusMessage.innerText = "The selected file is not an image.";
         statusMessage.style.color = "red";
         return;
     }
