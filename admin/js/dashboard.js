@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Check if the dynamic content section exists
   if (!contentSection) {
     console.error("Error: #dynamic-content section not found!");
+  
     return;
   }
 
@@ -671,6 +672,7 @@ async function loadUsers() {
 
 function showTime() {
   let time = new Date();
+  //testing
   let hour = time.getHours();
   let min = time.getMinutes();
   let am_pm = "AM";
