@@ -1,16 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const contentSection = document.getElementById("dynamic-content");
-  const navLinks = document.querySelectorAll("nav a");
-
-
-  // Check if the dynamic content section exists
-  if (!contentSection) {
-    console.error("Error: #dynamic-content section not found!");
-    return;
-  }
-
-  // Define content for each section now updated JSON files
-  const pages = {
+const pages = {
     "home": `
       <section id="rectangle-24">
         <h1>Edit Home Page</h1>
@@ -208,351 +196,375 @@ document.addEventListener("DOMContentLoaded", function () {
     `
   };
 
-function updateContent(page) {
-  const token = localStorage.getItem("id_token");
-  let isAdmin = false;
-  if (token) {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      const groups = payload["cognito:groups"] || [];
-      isAdmin = groups.includes("Admin");
-      } catch (error) {
-        console.error("Error decoding token:", error);
-      }
-  }
-  // Expose updateContent to global scope for external scripts and tests
-  window.updateContent = updateContent;
+    function updateContent(page) {
+        const token = localStorage.getItem("id_token");
+        let isAdmin = false;
 
-  // Override to the "home" page if user is not an Admin
-  if (page === "modify-users" && !isAdmin) {
-    page = "home";
-  }
-
-  if (pages[page]) {
-      // Update the content
-      contentSection.innerHTML = pages[page];
-      
-      // Load specific content based on the page
-      if (page === "home") {
-        loadText('home-page-title', 'index-title.json');
-        loadText('home-page-description', 'index-description.json');
-        loadText('home-page-map', 'index-map.json');
-        loadText('home-page-contactInfo', 'index-contact.json');
-        loadText('home-page-services', 'index-services.json');
-        loadText('home-page-reviews', 'index-reviews.json');
-      } else if (page === "reviews") {
-        // Initialize the reviews management interface
-        initReviewsManagement();
-      } else if (page === "services") {
-        loadText('services-Chapter7', 'services-Chapter7.json');
-        loadText('services-Chapter11', 'services-Chapter11.json');
-        loadText('services-Chapter12', 'services-Chapter12.json');
-        loadText('services-Chapter13', 'services-Chapter13.json');
-        loadText('service-benefits', 'service-benefits.json');
-        loadText('why-choose-us', 'why-choose-us.json');
-      } else if (page === "about-us") {
-        loadText('about-us', 'about-us.json');
-        loadText('about-meet-eric', 'about-meet-eric.json');
-        loadText('about-erics-role', 'about-erics-role.json');
-        loadText('about-education', 'about-education.json');
-        loadText('about-client-commitment', 'about-client-commitment.json');
-      } else if (page === "modify-users") {
-        // Example: Call loadUsers on page load or when needed
-        document.addEventListener("DOMContentLoaded", loadUsers);
-        const userForm = document.getElementById('modify-user-form');
-        if (userForm) {
-          userForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            addUser();
-          });
-        } else {
-          console.error("modify-user-form not found.");
+        if (token) {
+            try {
+                const payload = JSON.parse(atob(token.split(".")[1]));
+                const groups = payload["cognito:groups"] || [];
+                isAdmin = groups.includes("Admin");
+            } catch (error) {
+                console.error("Error decoding token:", error);
+            }
         }
-        loadUsers();
-      }
 
-      // Update navigation active state
-      navLinks.forEach(link => link.classList.remove("active"));
-      const activeLink = document.getElementById(`${page}-link`);
-      if (activeLink) {
-        activeLink.classList.add("active");
-      }
-
-      // Save the last visited page
-      localStorage.setItem("lastVisitedPage", page);
-  }
-}
-
-  // Attach click events to navigation links
-  navLinks.forEach(link => {
-    link.addEventListener("click", function (event) {
-      const page = this.id.replace("-link", ""); // Extract page name
-
-      // Allow external links (like Database) to open
-      if (page === "database") {
-        return; // Don't prevent the default action
-      }
-
-      event.preventDefault();  // Prevents anchor jump for internal pages
-      updateContent(page);
-    });
-  });
-
-  // Load the last visited page from localStorage or default to home
-  const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
-  updateContent(lastVisitedPage);
-
-  const token = localStorage.getItem("id_token");
-
-  if (token) {
-    try {
-      // Decode the token payload
-      const payload = JSON.parse(atob(token.split(".")[1]));
-
-      // Extract the username from the token
-      const username = payload["cognito:username"] || payload["username"] || "User";
-
-      // Update the greeting in the profile container (replace "Hello, Eric!" with the actual username)
-      const greetingElement = document.querySelector(".profile-container h2");
-      if (greetingElement) {
-        greetingElement.textContent = `Hello, ${username}!`;
-      }
-
-      // Hide links if the user is not an Admin
-      const groups = payload["cognito:groups"] || [];
-      if (!groups.includes("Admin")) {
-        document.getElementById("modify-users-link").style.display = "none";
-        document.getElementById("database-link").style.display = "none";
-      }
-    } catch (error) {
-      console.error("Error decoding token:", error);
-    }
-  } else {
-    console.warn("No ID token found in localStorage.");
-  }
-
-
-});
-
-// Function to initialize reviews management
-function initReviewsManagement() {
-  if (typeof loadGoogleReviewsAdmin === 'function') {
-    loadGoogleReviewsAdmin();
-    loadYelpReviewsAdmin();
-  } else {
-    console.error('Reviews management functions not loaded');
-  }
-}
-
-async function addUser() {
-  // Get the values from form inputs
-  const username = document.getElementById('modify-username').value.trim();
-  const phone = document.getElementById('modify-phone-number').value.trim();
-  const email = document.getElementById('modify-email').value.trim();
-  const password = document.getElementById('modify-password').value;
-  const confirmPassword = document.getElementById('modify-password-verify').value;
-  const role = document.getElementById('modify-role').value; // Ensure role is included
-
-  // Validate required fields before sending
-  if (!username || !phone || !email || !password || !confirmPassword || !role) {
-    alert("Error: All fields are required.");
-    return;
-  }
-
-  // Build the payload
-  const payload = {
-    username,
-    phone,
-    email,
-    password,
-    confirmPassword,
-    role // Ensure role is included
-  };
-
-  console.log("Payload being sent:", payload); // Debugging output
-
-  const token = localStorage.getItem("id_token"); // Get token from local storage
-  if (!token) {
-    alert("You are not authenticated. Please log in again.");
-    window.location.href = "/admin-login"; // Redirect if no token
-  }
-
-  const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/user';
-
-  try {
-    const response = await fetch(apiEndpoint, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(payload)
-    });
-
-    const text = await response.text();
-    console.log("Raw API response:", text);
-    const data = JSON.parse(text);
-
-    if (response.ok) {
-      console.log('User created successfully!');
-      alert("User added successfully!");
-      if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
-        window.loadUsers();
-      } else {
-        loadUsers();
-      }
-    }
-  } catch (error) {
-    console.error('Error calling API:', error);
-    alert('An error occurred while creating the user.');
-  }
-}
-
-
-async function deleteUser(email, role) {
-  if (!confirm(`Are you sure you want to delete user "${email}"?`)) return;
-
-  const token = localStorage.getItem("id_token"); // Get stored token
-  if (!token) {
-    alert("You are not authenticated. Please log in again.");
-    window.location.href = "/admin-login"; // Redirect if no token
-    return;
-  }
-
-  const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/Test/user';
-
-  try {
-    // Ensure JSON format is correct 
-    const payload = { email, role };
-    console.log("🚀 Sending payload:", JSON.stringify(payload));
-
-    const response = await fetch(apiEndpoint, {
-      method: 'DELETE',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(payload) // Ensure valid JSON formatting 
-    });
-
-    const text = await response.text();
-    console.log("🔍 Raw API response:", text);
-
-    try {
-      const data = JSON.parse(text);
-      if (response.ok) {
-        console.log('User deleted successfully!');
-        alert("User deleted successfully!");
-        if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
-          window.loadUsers();
-        } else {
-          loadUsers();
+        if (page === "modify-users" && !isAdmin) {
+            page = "home";
         }
-      }
-    } catch (error) {
-      console.error('Error parsing response:', text);
-      alert('An error occurred while deleting the user.');
+
+        if (pages[page]) {
+            const contentSection = document.getElementById("dynamic-content");
+            if (!contentSection) {
+                console.error("contentSection not found");
+                return;
+            }
+
+            contentSection.innerHTML = pages[page];
+
+            if (page === "home") {
+                loadText('home-page-title', 'index-title.json');
+                loadText('home-page-description', 'index-description.json');
+                loadText('home-page-map', 'index-map.json');
+                loadText('home-page-contactInfo', 'index-contact.json');
+                loadText('home-page-services', 'index-services.json');
+                loadText('home-page-reviews', 'index-reviews.json');
+            } else if (page === "reviews") {
+                initReviewsManagement();
+            } else if (page === "services") {
+                loadText('services-Chapter7', 'services-Chapter7.json');
+                loadText('services-Chapter11', 'services-Chapter11.json');
+                loadText('services-Chapter12', 'services-Chapter12.json');
+                loadText('services-Chapter13', 'services-Chapter13.json');
+                loadText('service-benefits', 'service-benefits.json');
+                loadText('why-choose-us', 'why-choose-us.json');
+            } else if (page === "about-us") {
+                loadText('about-us', 'about-us.json');
+                loadText('about-meet-eric', 'about-meet-eric.json');
+                loadText('about-erics-role', 'about-erics-role.json');
+                loadText('about-education', 'about-education.json');
+                loadText('about-client-commitment', 'about-client-commitment.json');
+            } else if (page === "modify-users") {
+                loadUsers();
+                const userForm = document.getElementById('modify-user-form');
+                if (userForm) {
+                    userForm.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        addUser();
+                    });
+                } else {
+                    console.error("modify-user-form not found.");
+                }
+            }
+
+            // Update nav state
+            const navLinks = document.querySelectorAll("nav a");
+            navLinks.forEach(link => link.classList.remove("active"));
+            const activeLink = document.getElementById(`${page}-link`);
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+
+            localStorage.setItem("lastVisitedPage", page);
+        }
     }
-  } catch (error) {
-    console.error('Error calling API:', error);
-    alert('An error occurred while deleting the user.');
-  }
-}
 
-async function loadUsers() {
-  try {
-    const response = await fetch('/api/users');
-    const data = await response.json();
-    if (data.success) {
-      console.log("Users loaded:", data.users);
+    window.updateContent = updateContent;
 
-      const userList = document.getElementById("user-list");
-      userList.innerHTML = "";
 
-      data.users.forEach(user => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
+    document.addEventListener("DOMContentLoaded", () => {
+        initMobNab()
+        const navLinks = document.querySelectorAll("nav a");
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", function (event) {
+                const page = this.id.replace("-link", "");
+
+                if (page === "database") return;
+                event.preventDefault();
+                updateContent(page);
+            });
+        });
+
+        const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
+        updateContent(lastVisitedPage);
+
+        const token = localStorage.getItem("id_token");
+
+        if (token) {
+            try {
+                const payload = JSON.parse(atob(token.split(".")[1]));
+                const username = payload["cognito:username"] || payload["username"] || "User";
+
+                const greetingElement = document.querySelector(".profile-container h2");
+                if (greetingElement) {
+                    greetingElement.textContent = `Hello, ${username}!`;
+                }
+
+                const groups = payload["cognito:groups"] || [];
+                if (!groups.includes("Admin")) {
+                    document.getElementById("modify-users-link").style.display = "none";
+                    document.getElementById("database-link").style.display = "none";
+                }
+            } catch (error) {
+                console.error("Error decoding token:", error);
+            }
+        } else {
+            console.warn("No ID token found in localStorage.");
+        }
+
+
+    });
+
+
+    function initMobNab() {
+        const menuToggleAdmin = document.getElementById('menuToggleAdmin');
+        const navBarAdmin = document.querySelector('.sidebar');
+        const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+        // Ensure elements exist before adding event listeners
+        if (menuToggleAdmin && navBarAdmin) {
+            menuToggleAdmin.addEventListener('click', () => {
+                navBarAdmin.classList.toggle('active');
+            });
+        } else {
+            console.warn('menuToggleAdmin or navBarAdmin is missing');
+        }
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navBarAdmin.classList.remove('active');
+            });
+        });
+    }
+
+    // Function to initialize reviews management
+    function initReviewsManagement() {
+        if (typeof loadGoogleReviewsAdmin === 'function') {
+            loadGoogleReviewsAdmin();
+            loadYelpReviewsAdmin();
+        } else {
+            console.error('Reviews management functions not loaded');
+        }
+    }
+
+    async function addUser() {
+        // Get the values from form inputs
+        const username = document.getElementById('modify-username').value.trim();
+        const phone = document.getElementById('modify-phone-number').value.trim();
+        const email = document.getElementById('modify-email').value.trim();
+        const password = document.getElementById('modify-password').value;
+        const confirmPassword = document.getElementById('modify-password-verify').value;
+        const role = document.getElementById('modify-role').value; // Ensure role is included
+
+        // Validate required fields before sending
+        if (!username || !phone || !email || !password || !confirmPassword || !role) {
+            alert("Error: All fields are required.");
+            return;
+        }
+
+        // Build the payload
+        const payload = {
+            username,
+            phone,
+            email,
+            password,
+            confirmPassword,
+            role // Ensure role is included
+        };
+
+        console.log("Payload being sent:", payload); // Debugging output
+
+        const token = localStorage.getItem("id_token"); // Get token from local storage
+        if (!token) {
+            alert("You are not authenticated. Please log in again.");
+            window.location.href = "/admin-login"; // Redirect if no token
+        }
+
+        const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/user';
+
+        try {
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const text = await response.text();
+            console.log("Raw API response:", text);
+            const data = JSON.parse(text);
+
+            if (response.ok) {
+                console.log('User created successfully!');
+                alert("User added successfully!");
+                if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
+                    window.loadUsers();
+                } else {
+                    loadUsers();
+                }
+            }
+        } catch (error) {
+            console.error('Error calling API:', error);
+            alert('An error occurred while creating the user.');
+        }
+    }
+
+
+    async function deleteUser(email, role) {
+        if (!confirm(`Are you sure you want to delete user "${email}"?`)) return;
+
+        const token = localStorage.getItem("id_token"); // Get stored token
+        if (!token) {
+            alert("You are not authenticated. Please log in again.");
+            window.location.href = "/admin-login"; // Redirect if no token
+            return;
+        }
+
+        const apiEndpoint = 'https://u1top45us9.execute-api.us-east-2.amazonaws.com/Test/user';
+
+        try {
+            // Ensure JSON format is correct 
+            const payload = { email, role };
+            console.log("🚀 Sending payload:", JSON.stringify(payload));
+
+            const response = await fetch(apiEndpoint, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(payload) // Ensure valid JSON formatting 
+            });
+
+            const text = await response.text();
+            console.log("🔍 Raw API response:", text);
+
+            try {
+                const data = JSON.parse(text);
+                if (response.ok) {
+                    console.log('User deleted successfully!');
+                    alert("User deleted successfully!");
+                    if (typeof window !== 'undefined' && typeof window.loadUsers === 'function') {
+                        window.loadUsers();
+                    } else {
+                        loadUsers();
+                    }
+                }
+            } catch (error) {
+                console.error('Error parsing response:', text);
+                alert('An error occurred while deleting the user.');
+            }
+        } catch (error) {
+            console.error('Error calling API:', error);
+            alert('An error occurred while deleting the user.');
+        }
+    }
+
+    async function loadUsers() {
+        try {
+            const response = await fetch('/api/users');
+            const data = await response.json();
+            if (data.success) {
+                console.log("Users loaded:", data.users);
+
+                const userList = document.getElementById("user-list");
+                userList.innerHTML = "";
+
+                data.users.forEach(user => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
           <td>${user.username || 'N/A'}</td>
           <td>${user.email || 'N/A'}</td>
           <td>${user.role || 'N/A'}</td>
           <td><button onclick="deleteUser('${user.email}', '${user.role}')">Delete</button></td>
         `;
-        userList.appendChild(row);
-      });
-    } else {
-      console.error("Error loading users:", data.error);
+                    userList.appendChild(row);
+                });
+            } else {
+                console.error("Error loading users:", data.error);
+            }
+        } catch (error) {
+            console.error("Fetch error:", error);
+        }
     }
-  } catch (error) {
-    console.error("Fetch error:", error);
-  }
-}
 
-function showTime() {
-  let time = new Date();
-  let hour = time.getHours();
-  let min = time.getMinutes();
-  let am_pm = "AM";
+    function showTime() {
+        let time = new Date();
+        let hour = time.getHours();
+        let min = time.getMinutes();
+        let am_pm = "AM";
 
-  if (hour >= 12) {
-      am_pm = "PM";
-      if (hour > 12) hour -= 12;
-  } else if (hour == 0) {
-      hour = 12;
-  }
+        if (hour >= 12) {
+            am_pm = "PM";
+            if (hour > 12) hour -= 12;
+        } else if (hour == 0) {
+            hour = 12;
+        }
 
-  min = min < 10 ? "0" + min : min;
+        min = min < 10 ? "0" + min : min;
 
-  let currentTime = hour + ":" + min + " " + am_pm;
+        let currentTime = hour + ":" + min + " " + am_pm;
 
-  let timeBox = document.querySelector(".time-box");
-  if (timeBox) {
-      timeBox.textContent = currentTime;
-  } 
+        let timeBox = document.querySelector(".time-box");
+        if (timeBox) {
+            timeBox.textContent = currentTime;
+        }
 
-  let dateBox = document.querySelector(".date-box");
-      if (dateBox) {
-          let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-          let currentDate = time.toLocaleDateString("en-US", options);
-          dateBox.textContent = currentDate;
-      }
-}
+        let dateBox = document.querySelector(".date-box");
+        if (dateBox) {
+            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let currentDate = time.toLocaleDateString("en-US", options);
+            dateBox.textContent = currentDate;
+        }
+    }
 
-setInterval(showTime, 1000);
-showTime();
+    setInterval(showTime, 1000);
+    showTime();
 
-document.addEventListener("DOMContentLoaded", function () {
-  initMobNab();
-});
-
-function initMobNab() {
-  const menuToggleAdmin = document.getElementById('menuToggleAdmin');
-  const navBarAdmin = document.querySelector('.sidebar');
-  const sidebarLinks = document.querySelectorAll('.sidebar a');
-
-  menuToggleAdmin.addEventListener('click', () => {
-      navBarAdmin.classList.toggle('active');
-  });
-
-  sidebarLinks.forEach(link => {
-      link.addEventListener('click', () => {
-          navBarAdmin.classList.remove('active');
+    /*
+    document.addEventListener("DOMContentLoaded", function () {
+      initMobNab();
+    });
+    
+    function initMobNab() {
+      const menuToggleAdmin = document.getElementById('menuToggleAdmin');
+      const navBarAdmin = document.querySelector('.sidebar');
+      const sidebarLinks = document.querySelectorAll('.sidebar a');
+    
+      menuToggleAdmin.addEventListener('click', () => {
+          navBarAdmin.classList.toggle('active');
       });
-  });
-}
+    
+      sidebarLinks.forEach(link => {
+          link.addEventListener('click', () => {
+              navBarAdmin.classList.remove('active');
+          });
+      });
+    }
+    */
 
-// Export functions for Jest tests
-if (typeof window !== 'undefined') {
-  module.exports = {showTime, addUser, deleteUser, loadUsers, initMobNab,};
-  window.loadUsers = loadUsers;
-  module.exports = { addUser, deleteUser, loadUsers };
-}
 
-// Prevent accessing dashboard using the browser back button after logout
-window.addEventListener('pageshow', function (event) {
-  if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
-    window.location.reload(); 
-  }
-});
+
+    // Export functions for Jest tests
+    if (typeof window !== 'undefined') {
+        module.exports = { showTime, addUser, deleteUser, loadUsers, initMobNab, initReviewsManagement, updateContent };
+        window.loadUsers = loadUsers;
+        //window.updateContent = updateContent
+        module.exports = { showTime, addUser, deleteUser, loadUsers, initMobNab, initReviewsManagement, updateContent };
+    }
+
+
+
+    // Prevent accessing dashboard using the browser back button after logout
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted || (window.performance && window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+            window.location.reload();
+        }
+    });
 
 // function for uploading images
 async function uploadImage() {
