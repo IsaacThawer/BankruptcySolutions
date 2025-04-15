@@ -10,4 +10,4 @@ async function loadMap() {
  document.addEventListener("DOMContentLoaded", function() {
   loadMap();
  });
- 
+ module.exports = {loadMap}
