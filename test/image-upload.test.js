@@ -13,12 +13,12 @@ expect.extend({ toMatchImage })
 // Set a longer timeout for the entire test suite
 jest.setTimeout(60000);
 
+const baseUrl = 'http://localhost:8000/admin/login.html';
+const adminUsername = 'username';    // change to valid username
+const adminPassword = 'password';    // change to valid password
+
 describe('Home Page Image Upload Tests', () => {
         let driver;
-        const baseUrl = 'http://localhost:8000/admin/login.html';
-
-        const adminUsername = 'IsaacThawer';    // change to valid username
-        const adminPassword = 'Badatgame1!';    // change to valid password
 
         const imageName = 'banner-index.png'; // Name of the image
         const testImageFolder = path.join(__dirname, './testFiles'); // Path to the test image
@@ -157,10 +157,6 @@ describe('Home Page Image Upload Tests', () => {
 
 describe('Services Page Image Upload Tests', () => {
     let driver;
-    const baseUrl = 'http://localhost:8000/admin/login.html';
-
-    const adminUsername = 'IsaacThawer';    // change to valid username
-    const adminPassword = 'Badatgame1!';    // change to valid password
 
     const imageName = 'banner-services.png'; // Name of the image
     const testImageFolder = path.join(__dirname, './testFiles'); // Path to the test image
@@ -305,10 +301,6 @@ describe('Services Page Image Upload Tests', () => {
 
 describe('About Us Page Image Upload Tests', () => {
     let driver;
-    const baseUrl = 'http://localhost:8000/admin/login.html';
-
-    const adminUsername = 'IsaacThawer';    // change to valid username
-    const adminPassword = 'Badatgame1!';    // change to valid password
 
     const imageName = 'banner-about.png'; // Name of the image
     const testImageFolder = path.join(__dirname, './testFiles'); // Path to the test image
@@ -461,10 +453,6 @@ describe('About Us Page Image Upload Tests', () => {
 
 describe('Reviews Page Image Upload Tests', () => {
     let driver;
-    const baseUrl = 'http://localhost:8000/admin/login.html';
-
-    const adminUsername = 'IsaacThawer';    // change to valid username
-    const adminPassword = 'Badatgame1!';    // change to valid password
 
     const imageName = 'banner-reviews.png'; // Name of the image
     const testImageFolder = path.join(__dirname, './testFiles'); // Path to the test image
