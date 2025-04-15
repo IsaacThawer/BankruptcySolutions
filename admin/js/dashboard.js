@@ -1,487 +1,476 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const contentSection = document.getElementById("dynamic-content");
-  const navLinks = document.querySelectorAll("nav a");
+const pages = {
+  "home": `
+    <section id="rectangle-24">
+      <h1>Edit Home Page</h1>
 
+      <div class="page-section">
+        <label for="home-page-title">Title</label>
+        <textarea id="home-page-title" rows="1"></textarea>
+        <button class="button" onclick="saveText('home-page-title', 'index-title.json')">Update</button>
+      </div>
 
-  // Check if the dynamic content section exists
-  if (!contentSection) {
-    console.error("Error: #dynamic-content section not found!");
-  
+      <div class="page-section">
+        <label for="home-page-description">Main Description</label>
+        <textarea id="home-page-description" rows="4"></textarea>
+        <button class="button" onclick="saveText('home-page-description', 'index-description.json')">Update</button>
+      </div>
+
+      <div class="page-section">
+       <label for="home-page-map">Google Map</label>
+       <textarea id="home-page-map" rows="4"></textarea>
+       <button class="button" onclick="saveText('home-page-map', 'index-map.json')">Update</button>
+      </div>
+
+      <div class="page-section">
+        <label for="home-page-contactInfo">Contact Information</label>
+        <textarea id="home-page-contactInfo" rows="4"></textarea>
+        <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="home-page-services-selection">Select Service Description</label>
+        <select id="home-page-services-selection">
+          <option value="Chapter7">Chapter 7 Description</option>
+          <option value="Chapter11">Chapter 11 Description</option>
+          <option value="Chapter12">Chapter 12 Description</option>
+          <option value="Chapter13">Chapter 13 Description</option>
+        </select>
+        <textarea id="home-page-services" rows="4"></textarea>
+        <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.json')">Update</button>
+      </div>
+      <div class="page-section">
+<label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
+<input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+<br>
+<button type="submit" class="button" id="upload-btn">Upload</button>
+<p id="upload-status"></p> <!-- Status message for upload -->
+
+</div>
+
+<script>
+function uploadImage(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  const fileInput = document.getElementById("image");
+  const statusMessage = document.getElementById("upload-status");
+  if (fileInput.files.length === 0) {
+    statusMessage.innerText = "Please select an image file.";
+    statusMessage.style.color = "red";
     return;
   }
 
-  // Define content for each section now updated JSON files
-  const pages = {
-    "home": `
-      <section id="rectangle-24">
-        <h1>Edit Home Page</h1>
-  
-        <div class="page-section">
-          <label for="home-page-title">Title</label>
-          <textarea id="home-page-title" rows="1"></textarea>
-          <button class="button" onclick="saveText('home-page-title', 'index-title.json')">Update</button>
-        </div>
-  
-        <div class="page-section">
-          <label for="home-page-description">Main Description</label>
-          <textarea id="home-page-description" rows="4"></textarea>
-          <button class="button" onclick="saveText('home-page-description', 'index-description.json')">Update</button>
-        </div>
+  const formData = new FormData();
+  formData.append("image", fileInput.files[0]);
 
-        <div class="page-section">
-         <label for="home-page-map">Google Map</label>
-         <textarea id="home-page-map" rows="4"></textarea>
-         <button class="button" onclick="saveText('home-page-map', 'index-map.json')">Update</button>
-        </div>
+  document.getElementById("upload-btn").innerText = "Uploading...";
 
-        <div class="page-section">
-          <label for="home-page-contactInfo">Contact Information</label>
-          <textarea id="home-page-contactInfo" rows="4"></textarea>
-          <button class="button" onclick="saveText('home-page-contactInfo', 'index-contact.json')">Update</button>
+  fetch("/upload", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    if (data.success) {
+      statusMessage.innerText = "Image uploaded successfully!";
+      statusMessage.style.color = "green";
+    } else {
+      statusMessage.innerText = "Upload failed: " + data.message;
+      statusMessage.style.color = "red";
+    }
+  })
+  .catch(error => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    statusMessage.innerText = "An error occurred while uploading.";
+    statusMessage.style.color = "red";
+    console.error("Error uploading image:", error);
+  });
+}
+
+document.getElementById("upload-btn").addEventListener("click", uploadImage);
+</script>
+
+      
+    </section>
+  `,
+  "services": `
+    <section id="rectangle-24">
+      <h1>Edit Services Page</h1>
+      <div class="page-section">
+        <label for="services-Chapter7">Chapter 7</label>
+        <textarea id="services-Chapter7" rows="4"></textarea>
+        <button class="button" onclick="saveText('services-Chapter7', 'services-Chapter7.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="services-Chapter11">Chapter 11</label>
+        <textarea id="services-Chapter11" rows="4"></textarea>
+        <button class="button" onclick="saveText('services-Chapter11', 'services-Chapter11.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="services-Chapter12">Chapter 12</label>
+        <textarea id="services-Chapter12" rows="4"></textarea>
+        <button class="button" onclick="saveText('services-Chapter12', 'services-Chapter12.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="services-Chapter13">Chapter 13</label>
+        <textarea id="services-Chapter13" rows="4"></textarea>
+        <button class="button" onclick="saveText('services-Chapter13', 'services-Chapter13.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="service-benefits">Benefits Description</label>
+        <textarea id="service-benefits" rows="4"></textarea>
+        <button class="button" onclick="saveText('service-benefits', 'service-benefits.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="why-choose-us">Why Choose Us</label>
+        <textarea id="why-choose-us" rows="4"></textarea>
+        <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.json')">Update</button>
+      </div>
+      <div class="page-section">
+<label for="image">If you want to change the banner image at the top of the Services page, select it below:</label>
+<input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+<br>
+<button type="submit" class="button" id="upload-btn">Upload</button>
+<p id="upload-status"></p> <!-- Status message for upload -->
+</div>
+
+<script>
+function uploadImage(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  const fileInput = document.getElementById("image");
+  const statusMessage = document.getElementById("upload-status");
+  if (fileInput.files.length === 0) {
+    statusMessage.innerText = "Please select an image file.";
+    statusMessage.style.color = "red";
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", fileInput.files[0]);
+
+  document.getElementById("upload-btn").innerText = "Uploading...";
+
+  fetch("/upload", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    if (data.success) {
+      statusMessage.innerText = "Image uploaded successfully!";
+      statusMessage.style.color = "green";
+    } else {
+      statusMessage.innerText = "Upload failed: " + data.message;
+      statusMessage.style.color = "red";
+    }
+  })
+  .catch(error => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    statusMessage.innerText = "An error occurred while uploading.";
+    statusMessage.style.color = "red";
+    console.error("Error uploading image:", error);
+  });
+}
+
+document.getElementById("upload-btn").addEventListener("click", uploadImage);
+
+</script>
+
+    </section>  
+  `,
+  "about-us": `
+    <section id="rectangle-24">
+      <h1>Edit About Us Page</h1>
+       <div class="page-section">
+        <label for="about-us">About Us</label>
+        <textarea id="about-us" rows="4"></textarea>
+        <button class="button" onclick="saveText('about-us', 'about-us.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="about-meet-eric">Meet Eric</label>
+        <textarea id="about-meet-eric" rows="4"></textarea>
+        <button class="button" onclick="saveText('about-meet-eric', 'about-meet-eric.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="about-erics-role">Eric's Role</label>
+        <textarea id="about-erics-role" rows="4"></textarea>
+        <button class="button" onclick="saveText('about-erics-role', 'about-erics-role.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="about-education">Education</label>
+        <textarea id="about-education" rows="4"></textarea>
+        <button class="button" onclick="saveText('about-education', 'about-education.json')">Update</button>
+      </div>
+      <div class="page-section">
+        <label for="about-client-commitment">Client Commitment</label>
+        <textarea id="about-client-commitment" rows="4"></textarea>
+        <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.json')">Update</button>
+      </div>
+      <div class="page-section">
+<label for="image">If you want to change the banner image at the top of the About Us page, select it below:</label>
+<input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+<br>
+<button type="submit" class="button" id="upload-btn">Upload</button>
+<p id="upload-status"></p> <!-- Status message for upload -->
+</div>
+
+<script>
+function uploadImage(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  const fileInput = document.getElementById("image");
+  const statusMessage = document.getElementById("upload-status");
+  if (fileInput.files.length === 0) {
+    statusMessage.innerText = "Please select an image file.";
+    statusMessage.style.color = "red";
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", fileInput.files[0]);
+
+  document.getElementById("upload-btn").innerText = "Uploading...";
+
+  fetch("/upload", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    if (data.success) {
+      statusMessage.innerText = "Image uploaded successfully!";
+      statusMessage.style.color = "green";
+    } else {
+      statusMessage.innerText = "Upload failed: " + data.message;
+      statusMessage.style.color = "red";
+    }
+  })
+  .catch(error => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    statusMessage.innerText = "An error occurred while uploading.";
+    statusMessage.style.color = "red";
+    console.error("Error uploading image:", error);
+  });
+}
+
+document.getElementById("upload-btn").addEventListener("click", uploadImage);
+</script>
+
+      
+    </section>
+  `,
+  "reviews": `
+    <section id="rectangle-24">
+
+      <div class="platform-tabs">
+        <button class="tab-button active" onclick="showReviewTab('google')">Google Reviews</button>
+        <button class="tab-button" onclick="showReviewTab('yelp')">Yelp Reviews</button>
+      </div>
+      
+      <div id="google-reviews-tab" class="review-tab active">
+        <h2>Google Reviews</h2>
+        <div class="reviews-grid" id="google-reviews-grid">
+          <div class="loading">Loading reviews...</div>
         </div>
-        <div class="page-section">
-          <label for="home-page-services-selection">Select Service Description</label>
-          <select id="home-page-services-selection">
-            <option value="Chapter7">Chapter 7 Description</option>
-            <option value="Chapter11">Chapter 11 Description</option>
-            <option value="Chapter12">Chapter 12 Description</option>
-            <option value="Chapter13">Chapter 13 Description</option>
+      </div>
+      
+      <div id="yelp-reviews-tab" class="review-tab">
+        <h2>Yelp Reviews</h2>
+        <div class="reviews-grid" id="yelp-reviews-grid">
+          <div class="loading">Loading reviews...</div>
+        </div>
+      </div>
+      <div class="page-section">
+<label for="image">If you want to change the banner image at the top of the Reviews page, select it below:</label>
+<input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
+<br>
+<button type="submit" class="button" id="upload-btn">Upload</button>
+<p id="upload-status"></p> <!-- Status message for upload -->
+</div>
+
+<script>
+function uploadImage(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  const fileInput = document.getElementById("image");
+  const statusMessage = document.getElementById("upload-status");
+  if (fileInput.files.length === 0) {
+    statusMessage.innerText = "Please select an image file.";
+    statusMessage.style.color = "red";
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", fileInput.files[0]);
+
+  document.getElementById("upload-btn").innerText = "Uploading...";
+
+  fetch("/upload", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    if (data.success) {
+      statusMessage.innerText = "Image uploaded successfully!";
+      statusMessage.style.color = "green";
+    } else {
+      statusMessage.innerText = "Upload failed: " + data.message;
+      statusMessage.style.color = "red";
+    }
+  })
+  .catch(error => {
+    document.getElementById("upload-btn").innerText = "Upload";
+    statusMessage.innerText = "An error occurred while uploading.";
+    statusMessage.style.color = "red";
+    console.error("Error uploading image:", error);
+  });
+}
+
+document.getElementById("upload-btn").addEventListener("click", uploadImage);
+
+</script>
+
+      
+    </section>
+  `,
+ "modify-users": `
+    <section id="modify-users-section" class="rectangle-24">
+      <h1>Add Users</h1>
+      <div class="page-section">
+        <form id="modify-user-form">
+          <label for="modify-username">Username</label>
+          <input type="text" id="modify-username" placeholder="Enter Username" required />
+          <label for="modify-phone-number">Phone Number</label>
+          <input type="phone-number" id="modify-phone-number" placeholder="Enter Phone Number" required />
+          <label for="modify-email">Email</label>
+          <input type="email" id="modify-email" placeholder="Enter Email" required />
+          <label for="modify-password">Password</label>
+          <input type="password" id="modify-password" placeholder="Enter Password" required />
+          <label for="modify-password-verify">Confirm Password</label>
+          <input type="password" id="modify-password-verify" placeholder="Re-enter Password" required />
+          <label for="modify-role">Role</label>
+          <select id="modify-role" required>
+          <option value="Admin">Admin</option>
+          <option value="Editor">Editor</option>
           </select>
-          <textarea id="home-page-services" rows="4"></textarea>
-          <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.json')">Update</button>
-        </div>
-        <div class="page-section">
-  <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
-  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-  <br>
-  <button type="submit" class="button" id="upload-btn">Upload</button>
-  <p id="upload-status"></p> <!-- Status message for upload -->
+          <button type="submit" class="button">Submit</button>
+        </form>
+      </div>
+      <div class="page-section">
+        <h2>Existing Users</h2>
+        <table border="1" id="user-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="user-list"></tbody>
+        </table>
+      </div>
+    </section>
+  `
+}; 
 
-</div>
 
-<script>
-  function uploadImage(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const fileInput = document.getElementById("image");
-    const statusMessage = document.getElementById("upload-status");
-    if (fileInput.files.length === 0) {
-      statusMessage.innerText = "Please select an image file.";
-      statusMessage.style.color = "red";
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", fileInput.files[0]);
-
-    document.getElementById("upload-btn").innerText = "Uploading...";
-
-    fetch("/upload", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      if (data.success) {
-        statusMessage.innerText = "Image uploaded successfully!";
-        statusMessage.style.color = "green";
-      } else {
-        statusMessage.innerText = "Upload failed: " + data.message;
-        statusMessage.style.color = "red";
-      }
-    })
-    .catch(error => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "An error occurred while uploading.";
-      statusMessage.style.color = "red";
-      console.error("Error uploading image:", error);
-    });
-  }
-
-  document.getElementById("upload-btn").addEventListener("click", uploadImage);
-</script>
-
-        
-      </section>
-    `,
-    "services": `
-      <section id="rectangle-24">
-        <h1>Edit Services Page</h1>
-        <div class="page-section">
-          <label for="services-Chapter7">Chapter 7</label>
-          <textarea id="services-Chapter7" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter7', 'services-Chapter7.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="services-Chapter11">Chapter 11</label>
-          <textarea id="services-Chapter11" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter11', 'services-Chapter11.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="services-Chapter12">Chapter 12</label>
-          <textarea id="services-Chapter12" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter12', 'services-Chapter12.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="services-Chapter13">Chapter 13</label>
-          <textarea id="services-Chapter13" rows="4"></textarea>
-          <button class="button" onclick="saveText('services-Chapter13', 'services-Chapter13.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="service-benefits">Benefits Description</label>
-          <textarea id="service-benefits" rows="4"></textarea>
-          <button class="button" onclick="saveText('service-benefits', 'service-benefits.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="why-choose-us">Why Choose Us</label>
-          <textarea id="why-choose-us" rows="4"></textarea>
-          <button class="button" onclick="saveText('why-choose-us', 'why-choose-us.json')">Update</button>
-        </div>
-        <div class="page-section">
-  <label for="image">If you want to change the banner image at the top of the Services page, select it below:</label>
-  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-  <br>
-  <button type="submit" class="button" id="upload-btn">Upload</button>
-  <p id="upload-status"></p> <!-- Status message for upload -->
-</div>
-
-<script>
-  function uploadImage(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const fileInput = document.getElementById("image");
-    const statusMessage = document.getElementById("upload-status");
-    if (fileInput.files.length === 0) {
-      statusMessage.innerText = "Please select an image file.";
-      statusMessage.style.color = "red";
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", fileInput.files[0]);
-
-    document.getElementById("upload-btn").innerText = "Uploading...";
-
-    fetch("/upload", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      if (data.success) {
-        statusMessage.innerText = "Image uploaded successfully!";
-        statusMessage.style.color = "green";
-      } else {
-        statusMessage.innerText = "Upload failed: " + data.message;
-        statusMessage.style.color = "red";
-      }
-    })
-    .catch(error => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "An error occurred while uploading.";
-      statusMessage.style.color = "red";
-      console.error("Error uploading image:", error);
-    });
-  }
-
-  document.getElementById("upload-btn").addEventListener("click", uploadImage);
-
-</script>
-
-      </section>  
-    `,
-    "about-us": `
-      <section id="rectangle-24">
-        <h1>Edit About Us Page</h1>
-         <div class="page-section">
-          <label for="about-us">About Us</label>
-          <textarea id="about-us" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-us', 'about-us.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="about-meet-eric">Meet Eric</label>
-          <textarea id="about-meet-eric" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-meet-eric', 'about-meet-eric.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="about-erics-role">Eric's Role</label>
-          <textarea id="about-erics-role" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-erics-role', 'about-erics-role.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="about-education">Education</label>
-          <textarea id="about-education" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-education', 'about-education.json')">Update</button>
-        </div>
-        <div class="page-section">
-          <label for="about-client-commitment">Client Commitment</label>
-          <textarea id="about-client-commitment" rows="4"></textarea>
-          <button class="button" onclick="saveText('about-client-commitment', 'about-client-commitment.json')">Update</button>
-        </div>
-        <div class="page-section">
-  <label for="image">If you want to change the banner image at the top of the About Us page, select it below:</label>
-  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-  <br>
-  <button type="submit" class="button" id="upload-btn">Upload</button>
-  <p id="upload-status"></p> <!-- Status message for upload -->
-</div>
-
-<script>
-  function uploadImage(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const fileInput = document.getElementById("image");
-    const statusMessage = document.getElementById("upload-status");
-    if (fileInput.files.length === 0) {
-      statusMessage.innerText = "Please select an image file.";
-      statusMessage.style.color = "red";
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", fileInput.files[0]);
-
-    document.getElementById("upload-btn").innerText = "Uploading...";
-
-    fetch("/upload", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      if (data.success) {
-        statusMessage.innerText = "Image uploaded successfully!";
-        statusMessage.style.color = "green";
-      } else {
-        statusMessage.innerText = "Upload failed: " + data.message;
-        statusMessage.style.color = "red";
-      }
-    })
-    .catch(error => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "An error occurred while uploading.";
-      statusMessage.style.color = "red";
-      console.error("Error uploading image:", error);
-    });
-  }
-
-  document.getElementById("upload-btn").addEventListener("click", uploadImage);
-</script>
-
-        
-      </section>
-    `,
-    "reviews": `
-      <section id="rectangle-24">
-
-        <div class="platform-tabs">
-          <button class="tab-button active" onclick="showReviewTab('google')">Google Reviews</button>
-          <button class="tab-button" onclick="showReviewTab('yelp')">Yelp Reviews</button>
-        </div>
-        
-        <div id="google-reviews-tab" class="review-tab active">
-          <h2>Google Reviews</h2>
-          <div class="reviews-grid" id="google-reviews-grid">
-            <div class="loading">Loading reviews...</div>
-          </div>
-        </div>
-        
-        <div id="yelp-reviews-tab" class="review-tab">
-          <h2>Yelp Reviews</h2>
-          <div class="reviews-grid" id="yelp-reviews-grid">
-            <div class="loading">Loading reviews...</div>
-          </div>
-        </div>
-        <div class="page-section">
-  <label for="image">If you want to change the banner image at the top of the Reviews page, select it below:</label>
-  <input type="file" name="banner-index.jpg" id="image" accept="image/*" required>
-  <br>
-  <button type="submit" class="button" id="upload-btn">Upload</button>
-  <p id="upload-status"></p> <!-- Status message for upload -->
-</div>
-
-<script>
-  function uploadImage(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const fileInput = document.getElementById("image");
-    const statusMessage = document.getElementById("upload-status");
-    if (fileInput.files.length === 0) {
-      statusMessage.innerText = "Please select an image file.";
-      statusMessage.style.color = "red";
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", fileInput.files[0]);
-
-    document.getElementById("upload-btn").innerText = "Uploading...";
-
-    fetch("/upload", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      if (data.success) {
-        statusMessage.innerText = "Image uploaded successfully!";
-        statusMessage.style.color = "green";
-      } else {
-        statusMessage.innerText = "Upload failed: " + data.message;
-        statusMessage.style.color = "red";
-      }
-    })
-    .catch(error => {
-      document.getElementById("upload-btn").innerText = "Upload";
-      statusMessage.innerText = "An error occurred while uploading.";
-      statusMessage.style.color = "red";
-      console.error("Error uploading image:", error);
-    });
-  }
-
-  document.getElementById("upload-btn").addEventListener("click", uploadImage);
-  
-</script>
-
-        
-      </section>
-    `,
-   "modify-users": `
-      <section id="modify-users-section" class="rectangle-24">
-        <h1>Add Users</h1>
-        <div class="page-section">
-          <form id="modify-user-form">
-            <label for="modify-username">Username</label>
-            <input type="text" id="modify-username" placeholder="Enter Username" required />
-            <label for="modify-phone-number">Phone Number</label>
-            <input type="phone-number" id="modify-phone-number" placeholder="Enter Phone Number" required />
-            <label for="modify-email">Email</label>
-            <input type="email" id="modify-email" placeholder="Enter Email" required />
-            <label for="modify-password">Password</label>
-            <input type="password" id="modify-password" placeholder="Enter Password" required />
-            <label for="modify-password-verify">Confirm Password</label>
-            <input type="password" id="modify-password-verify" placeholder="Re-enter Password" required />
-            <label for="modify-role">Role</label>
-            <select id="modify-role" required>
-            <option value="Admin">Admin</option>
-            <option value="Editor">Editor</option>
-            </select>
-            <button type="submit" class="button">Submit</button>
-          </form>
-        </div>
-        <div class="page-section">
-          <h2>Existing Users</h2>
-          <table border="1" id="user-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="user-list"></tbody>
-          </table>
-        </div>
-      </section>
-    `
-  };
 
 function updateContent(page) {
   const token = localStorage.getItem("id_token");
   let isAdmin = false;
+
   if (token) {
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
       const groups = payload["cognito:groups"] || [];
       isAdmin = groups.includes("Admin");
-      } catch (error) {
-        console.error("Error decoding token:", error);
-      }
+    } catch (error) {
+      console.error("Error decoding token:", error);
+    }
   }
-  // Expose updateContent to global scope for external scripts and tests
-  window.updateContent = updateContent;
 
-  // Override to the "home" page if user is not an Admin
   if (page === "modify-users" && !isAdmin) {
     page = "home";
   }
 
   if (pages[page]) {
-      // Update the content
-      contentSection.innerHTML = pages[page];
-      
-      // Load specific content based on the page
-      if (page === "home") {
-        loadText('home-page-title', 'index-title.json');
-        loadText('home-page-description', 'index-description.json');
-        loadText('home-page-map', 'index-map.json');
-        loadText('home-page-contactInfo', 'index-contact.json');
-        loadText('home-page-services', 'index-services.json');
-        loadText('home-page-reviews', 'index-reviews.json');
-      } else if (page === "reviews") {
-        // Initialize the reviews management interface
-        initReviewsManagement();
-      } else if (page === "services") {
-        loadText('services-Chapter7', 'services-Chapter7.json');
-        loadText('services-Chapter11', 'services-Chapter11.json');
-        loadText('services-Chapter12', 'services-Chapter12.json');
-        loadText('services-Chapter13', 'services-Chapter13.json');
-        loadText('service-benefits', 'service-benefits.json');
-        loadText('why-choose-us', 'why-choose-us.json');
-      } else if (page === "about-us") {
-        loadText('about-us', 'about-us.json');
-        loadText('about-meet-eric', 'about-meet-eric.json');
-        loadText('about-erics-role', 'about-erics-role.json');
-        loadText('about-education', 'about-education.json');
-        loadText('about-client-commitment', 'about-client-commitment.json');
-      } else if (page === "modify-users") {
-        // Example: Call loadUsers on page load or when needed
-        document.addEventListener("DOMContentLoaded", loadUsers);
-        const userForm = document.getElementById('modify-user-form');
-        if (userForm) {
-          userForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            addUser();
-          });
-        } else {
-          console.error("modify-user-form not found.");
-        }
-        loadUsers();
-      }
+    const contentSection = document.getElementById("dynamic-content");
+    if (!contentSection) {
+      console.error("contentSection not found");
+      return;
+    }
 
-      // Update navigation active state
-      navLinks.forEach(link => link.classList.remove("active"));
-      const activeLink = document.getElementById(`${page}-link`);
-      if (activeLink) {
-        activeLink.classList.add("active");
-      }
+    contentSection.innerHTML = pages[page];
 
-      // Save the last visited page
-      localStorage.setItem("lastVisitedPage", page);
+    if (page === "home") {
+      loadText('home-page-title', 'index-title.json');
+      loadText('home-page-description', 'index-description.json');
+      loadText('home-page-map', 'index-map.json');
+      loadText('home-page-contactInfo', 'index-contact.json');
+      loadText('home-page-services', 'index-services.json');
+      loadText('home-page-reviews', 'index-reviews.json');
+    } else if (page === "reviews") {
+      initReviewsManagement();
+    } else if (page === "services") {
+      loadText('services-Chapter7', 'services-Chapter7.json');
+      loadText('services-Chapter11', 'services-Chapter11.json');
+      loadText('services-Chapter12', 'services-Chapter12.json');
+      loadText('services-Chapter13', 'services-Chapter13.json');
+      loadText('service-benefits', 'service-benefits.json');
+      loadText('why-choose-us', 'why-choose-us.json');
+    } else if (page === "about-us") {
+      loadText('about-us', 'about-us.json');
+      loadText('about-meet-eric', 'about-meet-eric.json');
+      loadText('about-erics-role', 'about-erics-role.json');
+      loadText('about-education', 'about-education.json');
+      loadText('about-client-commitment', 'about-client-commitment.json');
+    } else if (page === "modify-users") {
+      loadUsers();
+      const userForm = document.getElementById('modify-user-form');
+      if (userForm) {
+        userForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          addUser();
+        });
+      } else {
+        console.error("modify-user-form not found.");
+      }
+    }
+
+    // Update nav state
+    const navLinks = document.querySelectorAll("nav a");
+    navLinks.forEach(link => link.classList.remove("active"));
+    const activeLink = document.getElementById(`${page}-link`);
+    if (activeLink) {
+      activeLink.classList.add("active");
+    }
+
+    localStorage.setItem("lastVisitedPage", page);
   }
 }
 
-  // Attach click events to navigation links
+window.updateContent = updateContent;
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  initMobNab()
+  const navLinks = document.querySelectorAll("nav a");
+
   navLinks.forEach(link => {
     link.addEventListener("click", function (event) {
-      const page = this.id.replace("-link", ""); // Extract page name
+      const page = this.id.replace("-link", "");
 
-      // Allow external links (like Database) to open
-      if (page === "database") {
-        return; // Don't prevent the default action
-      }
-
-      event.preventDefault();  // Prevents anchor jump for internal pages
+      if (page === "database") return;
+      event.preventDefault();
       updateContent(page);
     });
   });
 
-  // Load the last visited page from localStorage or default to home
   const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
   updateContent(lastVisitedPage);
 
@@ -489,19 +478,14 @@ function updateContent(page) {
 
   if (token) {
     try {
-      // Decode the token payload
       const payload = JSON.parse(atob(token.split(".")[1]));
-
-      // Extract the username from the token
       const username = payload["cognito:username"] || payload["username"] || "User";
 
-      // Update the greeting in the profile container (replace "Hello, Eric!" with the actual username)
       const greetingElement = document.querySelector(".profile-container h2");
       if (greetingElement) {
         greetingElement.textContent = `Hello, ${username}!`;
       }
 
-      // Hide links if the user is not an Admin
       const groups = payload["cognito:groups"] || [];
       if (!groups.includes("Admin")) {
         document.getElementById("modify-users-link").style.display = "none";
@@ -516,6 +500,28 @@ function updateContent(page) {
 
 
 });
+
+
+function initMobNab() {
+  const menuToggleAdmin = document.getElementById('menuToggleAdmin');
+  const navBarAdmin = document.querySelector('.sidebar');
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+  // Ensure elements exist before adding event listeners
+  if (menuToggleAdmin && navBarAdmin) {
+    menuToggleAdmin.addEventListener('click', () => {
+      navBarAdmin.classList.toggle('active');
+    });
+  } else {
+    console.warn('menuToggleAdmin or navBarAdmin is missing');
+  }
+
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navBarAdmin.classList.remove('active');
+    });
+  });
+}
 
 // Function to initialize reviews management
 function initReviewsManagement() {
@@ -672,7 +678,6 @@ async function loadUsers() {
 
 function showTime() {
   let time = new Date();
-  //testing
   let hour = time.getHours();
   let min = time.getMinutes();
   let am_pm = "AM";
@@ -704,6 +709,7 @@ function showTime() {
 setInterval(showTime, 1000);
 showTime();
 
+/*
 document.addEventListener("DOMContentLoaded", function () {
   initMobNab();
 });
@@ -723,13 +729,19 @@ function initMobNab() {
       });
   });
 }
+*/
+
+
 
 // Export functions for Jest tests
 if (typeof window !== 'undefined') {
-  module.exports = {showTime, addUser, deleteUser, loadUsers, initMobNab,};
+  module.exports = {showTime, addUser, deleteUser, loadUsers, initMobNab, initReviewsManagement, updateContent};
   window.loadUsers = loadUsers;
-  module.exports = { addUser, deleteUser, loadUsers };
+  //window.updateContent = updateContent
+  module.exports = { showTime, addUser, deleteUser, loadUsers, initMobNab, initReviewsManagement, updateContent  };
 }
+
+
 
 // Prevent accessing dashboard using the browser back button after logout
 window.addEventListener('pageshow', function (event) {
@@ -737,5 +749,4 @@ window.addEventListener('pageshow', function (event) {
     window.location.reload(); 
   }
 });
-
 
