@@ -1,4 +1,4 @@
- async function uploadImage(e) {
+async function uploadImage(e) {
     e.preventDefault();
 
     const image = document.getElementById("image");
@@ -14,5 +14,3 @@
       .then((res) => alert("Image successfully uploaded."))
       .catch ((err) => alert("Error uploading file", err));
 };
-
-module.exports = {uploadImage}
