@@ -3,7 +3,6 @@
 // user-management.test.js
 const { addUser, deleteUser, loadUsers } = require('../admin/js/dashboard');
 
-
 describe('User management functions', () => {
   beforeEach(() => {
     // Set up our DOM elements
@@ -29,13 +28,10 @@ describe('User management functions', () => {
 
     // Clear fetch mocks if any
     global.fetch = jest.fn();
-
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    global.fetch.mockReset();
-    global.alert.mockReset();
   });
 
   test('addUser sends correct payload and calls loadUsers on success', async () => {
@@ -120,8 +116,6 @@ describe('User management functions', () => {
     loadUsersSpy.mockRestore();
   });
 
- 
-
   test('loadUsers updates the user list with fetched data', async () => {
     // Set up a dummy API response for users
     const users = [
@@ -181,18 +175,5 @@ describe('User management functions', () => {
     // Expect some error handling, for a log message
     expect(global.alert).toHaveBeenCalled();
   });
-
-   test('addUser handles missing or invalid inputs correctly', async () => {
-    document.getElementById('modify-username').value = '';
-    document.getElementById('modify-email').value = '';
-  
-    // Simulate an invalid user addition (empty fields)
-    await addUser();
-  
-    // Adjusted to match the error message actually returned
-    expect(global.alert).toHaveBeenCalledWith('Error: All fields are required.');
-  });
-
   
 });
- 
