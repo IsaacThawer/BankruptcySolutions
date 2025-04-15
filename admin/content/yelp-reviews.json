@@ -43,7 +43,7 @@
       "rating": 5,
       "date": "Apr 10, 2012",
       "content": "Eric and Tom are phenomenal. I was referred to him by a former bankruptcy attorney here in Sacramento. His exact words were: \"If I were to have to go through bankruptcy and had a choice to use any attorney in Sacramento, I would definitely choose Eric.\"",
-      "active": true
+      "active": false
     },
     {
       "id": "y6",
@@ -52,7 +52,7 @@
       "rating": 5,
       "date": "Jul 29, 2014",
       "content": "Quick update to my previous review of N&S: The attorney that I worked with, Tom Amberg, now has his own firm (called Amberg Harvey). Eric is awesome, but I worked with Tom, so I wanted everyone to be aware that he is no longer at N&S.",
-      "active": true
+      "active": false
     },
     {
       "id": "y7",
@@ -61,7 +61,7 @@
       "rating": 5,
       "date": "Oct 12, 2012",
       "content": "My experience was with Tom Amberg. From the minute I talked to him on the phone I felt at ease and I didn't feel like he was trying to take advantage of my situation.",
-      "active": true
+      "active": false
     },
     {
       "id": "y8",
@@ -70,7 +70,7 @@
       "rating": 5,
       "date": "Feb 3, 2014",
       "content": "Very knowledgeable. I have talked to a number of attorneys. Tom Amberg is extremely knowledgeable. Some of the questions are pretty sticky. He's also very helpful and actually cares.",
-      "active": true
+      "active": false
     }
   ]
 }
