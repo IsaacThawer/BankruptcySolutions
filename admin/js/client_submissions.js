@@ -1,5 +1,6 @@
 // Global variables to hold clients data and the currently selected client
 let clients = [];
+let allClients = [];
 let selectedClient = null;
 
 // Pagination variables
@@ -13,6 +14,7 @@ async function loadClients() {
     try {
         const response = await fetch('/api/clients');
         clients = await response.json();
+        allClients = [...clients];
         currentPage = 1; // reset to first page when reloading
 
         // Only call populateClients if the "client-list" element exists ( to avoid error in unit testing)
@@ -206,6 +208,8 @@ function searchClients() {
     const searchInput = document.getElementById('search').value.toLowerCase().trim();
 
     if (searchInput === '') {
+        currentPage = 1;
+        clients = [...allClients];
         populateClients(clients); // Show all clients when search is empty
         return;
     }
@@ -228,8 +232,10 @@ function searchClients() {
                    client.email.toLowerCase().includes(searchInput);
         }
     });
-
-    populateClients(filteredClients);
+    
+    currentPage = 1;
+    clients = [...filteredClients]; 
+    populateClients(clients);
 }
 
 /**
@@ -258,8 +264,12 @@ function formatTimestamp(isoString) {
  * Populate the client list panel with data for the current page.
  * Also updates the global clients variable.
  */
+
+let lastDisplayedClients = [];
+
 function populateClients(clientData) {
-    clients = clientData; // update global clients
+    lastDisplayedClients = clientData; // update global clients
+    clients = clientData;
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
 
@@ -316,7 +326,7 @@ function renderPagination(totalItems) {
             prevButton.textContent = 'Prev<';
             prevButton.addEventListener('click', () => {
                 currentPage--;
-                populateClients(clients);
+                populateClients(lastDisplayedClients);
             });
             paginationContainer.appendChild(prevButton);
         }
@@ -331,7 +341,7 @@ function renderPagination(totalItems) {
             nextButton.textContent = '>Next';
             nextButton.addEventListener('click', () => {
                 currentPage++;
-                populateClients(clients);
+                populateClients(lastDisplayedClients);
             });
             paginationContainer.appendChild(nextButton);
         }
@@ -356,7 +366,7 @@ function renderPagination(totalItems) {
         prevButton.textContent = 'Prev <';
         prevButton.addEventListener('click', () => {
             currentPage--;
-            populateClients(clients);
+            populateClients(lastDisplayedClients);
         });
         paginationContainer.appendChild(prevButton);
     }
@@ -371,7 +381,7 @@ function renderPagination(totalItems) {
         }
         pageButton.addEventListener('click', () => {
             currentPage = i;
-            populateClients(clients);
+            populateClients(lastDisplayedClients);
         });
         paginationContainer.appendChild(pageButton);
     }
@@ -382,7 +392,7 @@ function renderPagination(totalItems) {
         nextButton.textContent = '>  Next';
         nextButton.addEventListener('click', () => {
             currentPage++;
-            populateClients(clients);
+            populateClients(lastDisplayedClients);
         });
         paginationContainer.appendChild(nextButton);
     }
@@ -396,9 +406,9 @@ function renderPagination(totalItems) {
 /*if (typeof window !== 'undefined' && window.document && process.env.NODE_ENV !== 'test') {
     loadClients();
   }*/
-  if (typeof window !== 'undefined' && window.document && !window.__TEST__) {
-    loadClients();
-}
+    if (typeof window !== 'undefined' && window.document && !window.__TEST__) {
+        loadClients();
+    }
 
 
 // forces the page to reload prevents users from accessing the client_submissions page after siging out.

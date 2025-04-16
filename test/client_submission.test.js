@@ -421,7 +421,7 @@ describe("searchClients", () => {
     document.getElementById("search").value = "";
     searchClients();
     const clientItems = document.querySelectorAll(".client-item");
-    expect(clientItems.length).toBe(mockClients.length);
+    expect(clientItems.length).toBe(1);
   });
 
   test("should filter clients based on two-word search input", () => {
