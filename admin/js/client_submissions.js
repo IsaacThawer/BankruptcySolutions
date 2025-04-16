@@ -265,6 +265,7 @@ let lastDisplayedClients = [];
 
 function populateClients(clientData) {
     lastDisplayedClients = clientData; // update global clients
+    clients = clientData;
     const clientList = document.getElementById('client-list');
     clientList.innerHTML = '';
 
