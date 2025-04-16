@@ -1,6 +1,5 @@
 /** @jest-environment jsdom */
 const {   deleteUser, initReviewsManagement, updateContent } = require('../admin/js/dashboard');
-const {uploadImage} = require('../admin/js/upload-image')
 const fs = require("fs");
 const path = require("path");
 const { fireEvent, screen, waitFor } = require('@testing-library/react');
