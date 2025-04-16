@@ -726,7 +726,6 @@ function initMobNab() {
 if (typeof window !== 'undefined') {
   module.exports = {showTime, addUser, deleteUser, loadUsers, initMobNab,};
   window.loadUsers = loadUsers;
-  module.exports = { addUser, deleteUser, loadUsers };
 }
 
 // Prevent accessing dashboard using the browser back button after logout

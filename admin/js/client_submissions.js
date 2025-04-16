@@ -1,5 +1,6 @@
 // Global variables to hold clients data and the currently selected client
 let clients = [];
+let allClients = [];
 let selectedClient = null;
 
 // Pagination variables
@@ -13,6 +14,7 @@ async function loadClients() {
     try {
         const response = await fetch('/api/clients');
         clients = await response.json();
+        allClients = [...clients];
         currentPage = 1; // reset to first page when reloading
 
         // Only call populateClients if the "client-list" element exists ( to avoid error in unit testing)
@@ -207,6 +209,7 @@ function searchClients() {
 
     if (searchInput === '') {
         currentPage = 1;
+        clients = [...allClients];
         populateClients(clients); // Show all clients when search is empty
         return;
     }
@@ -231,7 +234,8 @@ function searchClients() {
     });
     
     currentPage = 1;
-    populateClients(filteredClients);
+    clients = [...filteredClients]; 
+    populateClients(clients);
 }
 
 /**
