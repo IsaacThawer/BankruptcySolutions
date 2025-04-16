@@ -548,7 +548,6 @@ const pages = {
     */
 
 
-
     // Export functions for Jest tests
     if (typeof window !== 'undefined') {
         module.exports = { showTime, addUser, deleteUser, loadUsers, initMobNab, initReviewsManagement, updateContent };
