@@ -247,32 +247,51 @@ app.get('/verify-email', async (req, res) => {
 
 // endpoint for form submission to DynamoDB
 app.post('/submit-form', async (req, res) => {
-  const { firstname, lastname, email, phone, message } = req.body;
+  const { firstname, lastname, email, phone, message, captchaToken } = req.body;
 
   // Validate input
-  if (!firstname || !lastname || !email || !phone || !message) {
+  if (!firstname || !lastname || !email || !phone || !message || !captchaToken) {
     return res.status(400).json({ 
       success: false, 
       error: 'All fields are required' 
     });
   }
 
-  const params = {
-    TableName: 'ClientSubmissions',
-    Item: {
-      submissionId: uuidv4(),
-      firstName: firstname,
-      lastName: lastname,
-      email: email,
-      phoneNumber: phone,
-      message: message,
-      submissionDate: new Date().toISOString(),
-      status: 'new',
-      flagged: false
-    }
-  };
-
   try {
+    const captchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        secret: process.env.RECAPTCHA_SECRET_KEY,
+        response: captchaToken
+      })
+    });
+ 
+    const captchaData = await captchaResponse.json();
+    console.log('reCAPTCHA response:', captchaData);
+ 
+    // Return error if recaptcha is not properly verified
+    if (!captchaData.success) {
+      return res.status(400).json({
+        success: false,
+        error: 'Failed reCAPTCHA verification'
+      });
+    }
+    const params = {
+      TableName: 'ClientSubmissions',
+      Item: {
+        submissionId: uuidv4(),
+        firstName: firstname,
+        lastName: lastname,
+        email: email,
+        phoneNumber: phone,
+        message: message,
+        submissionDate: new Date().toISOString(),
+        status: 'new',
+        flagged: false
+      }
+    };
+    
     await docClient.send(new PutCommand(params));
     const mailOptions = {
       from: process.env.EMAIL_USER,          // send email to self
@@ -280,9 +299,8 @@ app.post('/submit-form', async (req, res) => {
       subject: `New Form Submission From ${firstname} ${lastname}`,
       text: 'A new form has been submitted. Please check the Client Submissions page'
     };
-
-    await transporter.sendMail(mailOptions);
-    
+      await transporter.sendMail(mailOptions);
+     
     res.json({ success: true, message: 'Submission successful' });
   } catch (error) {
     console.error('DynamoDB Error:', error);

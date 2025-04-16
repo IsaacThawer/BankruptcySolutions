@@ -4,7 +4,7 @@
 ## BankruptcySolutions
 "Building a user-friendly landing page for bankruptcy solutions."
 
-## Contributers 
+## Main Contributers 
 
 - [Romaine De La Cruz](https://github.com/r2dcruz)
 - [Isaac Thawer](https://github.com/IsaacThawer)
@@ -17,25 +17,25 @@
 
 ## Prototype UI
 ### Home Page
-<img src="images/Readme/Home-Page.png" alt="Home-Page" width="400" >
+<img src="images/Readme/homepage.png" alt="Home-Page" width="400" >
 
 ### About Us Page
-<img src="images/Readme/About-page.png" alt="About-page" width="400">
+<img src="images/Readme/about.png" alt="About-page" width="400">
 
 ### Testimonials Page
-<img src="images/Readme/Testimonials.png" alt="Testimonials" width="400">
+<img src="images/Readme/reviews.png" alt="Testimonials" width="400">
 
 ### Services Page
-<img src="images/Readme/Services.png" alt="Services" width="400">
+<img src="images/Readme/services.png" alt="Services" width="400">
 
 ### Login Page
-<img src="images/Readme/Login.png" alt="Login" width="400">
+<img src="images/Readme/login.png" alt="Login" width="400">
 
 ### Admin Dashboard
-<img src="images/Readme/Admin-Dashboard.png" alt="Admin-Dashboard" width="400">
+<img src="images/Readme/adminDashboard.png" alt="Admin-Dashboard" width="400">
 
 ### Admin Database
-<img src="images/Readme/Admin-Database.png" alt="Admin-Database" width="400">
+<img src="images/Readme/database.png" alt="Admin-Database" width="400">
 
 ## Description
 This project is a professional landing page for Bankruptcy Solutions by Eric Schwab, designed to provide clients with easy access to information and services. The website includes:
@@ -50,21 +50,34 @@ This project is a professional landing page for Bankruptcy Solutions by Eric Sch
 * **CSS** (Cascading Style Sheets): Styles the website with custom designs, colors, and responsive layouts to ensure a visually appealing and mobile-friendly experience.
 * **JavaScript** Adds interactivity, such as form validation, dynamic content updates, and potential animations to enhance the user experience. This will be added in future revisions
 
-## Installation
+## Getting Started
 
-No current dependencies. You only need a browser to view the landing page
+npm is required for this project. Please do the following to see if you have npm installed
+```
+npm -v
+```
+If you have an older version or you want the latest update, please check out [npm website](https://docs.npmjs.com/cli/v8/commands/) and proceed with the command   
+```
+npm install
+```
 Follow these steps to set up and view the landing page locally:
 1. Clone the repository: Download the repository to your computer. You can either use Git or download it as a ZIP file:
-    `git clone git@github.com:IsaacThawer/BankruptcySolutions.git `
+    ```
+    git clone git@github.com:IsaacThawer/BankruptcySolutions.git 
+    ```
 
 2. Navigate to the project folder: If you cloned the repository, go to the folder using:
-    `cd ~/BankruptcySolutions`
+    ```
+    cd ~/BankruptcySolutions
+    ```
 
 3. Open the landing page: Locate the main HTML file (e.g., index.html) and open it in your preferred web browser. You can do this by:
     + Double-clicking the `index.html` file.
     + Dragging and dropping the file into a browser window.
 4. Optional - Use a local server: If you want to serve the page locally (for testing purposes), you can use a simple HTTP server:
-    `python -m http.server`
+    ```
+    python -m http.server
+    ```
 Then, visit http://localhost:8000 in your browser.
 Or, use a lightweight server like Live Server in Visual Studio Code.
 
@@ -118,7 +131,9 @@ This project provides a professional and user-friendly interface with the follow
 ## Testing
 This section will cover the testing approach for the project in future iterations. Planned testing phases include:
 - **Unit Testing:** 
+testing is done by JEST
 - **Integration Testing:** 
+integration testing by Selenium
 - **UI/UX Testing:** 
 - **Tools Used:** 
 
@@ -130,9 +145,16 @@ Steps for deploying the project to a live server:
 ## Developer Instructions
 This section is intended to guide developers contributing to the project. Future updates will include:
 - **Code Style Guidelines:**
+[Google HTML/CSS Style Guide](https://google.github.io/styleguide/htmlcssguide.html) is the code flow for the code stack
 - **Branching Strategy:**
+Start by creating a testing branch
+```
+git checkout -b <branch name>
+```
 - **Testing Requirements:**
+We follow JEST guidelines in testing our codes and codes >85% or more are accepted
 - **Contribution Guidelines:** 
+Contribution are always welcome! Please star, fork, push, and create a pull request!
 
 
 ## Getting help
