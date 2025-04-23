@@ -115,7 +115,7 @@ describe("updaetContent dom", () => {
     const content = document.getElementById("dynamic-content").innerHTML;
     expect(content).toContain("Edit Home Page");
     expect(loadText).toHaveBeenCalledWith("home-page-title", "index-title.json");
-    expect(loadText).toHaveBeenCalledTimes(5); // Adjust if more/less
+    expect(loadText).toHaveBeenCalledTimes(6); // Adjust if more/less
   });
 
 

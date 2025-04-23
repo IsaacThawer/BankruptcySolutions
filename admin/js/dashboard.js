@@ -231,6 +231,7 @@ const pages = {
                 loadText('home-page-map', 'index-map.json');
                 loadText('home-page-contactInfo', 'index-contact.json');
                 loadText('home-page-reviews', 'index-reviews.json');
+                _homeServicesReady = false;
                 initHomeServicesSection();
             } else if (page === "reviews") {
                 initReviewsManagement();
