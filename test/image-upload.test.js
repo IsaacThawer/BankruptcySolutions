@@ -1,11 +1,12 @@
 // npm install selenium-webdriver
 // npm install jest-image-matcher
-    // ^ this also requires babel, use npm install --save-dev babel-jest @babel/core @babel/preset-env
+    // ^ this also requires babel, use npm install --save-dev babel-jest @babel/core @babel/preset-env @babel/register
     // requires jest.config.js and babel.config.js
 // Import necessary modules from Selenium WebDriver
 const { Builder, By, until, Key } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const fs = require('fs');
+require('dotenv').config();
 const path = require('path');
 const { toMatchImage } = require('jest-image-matcher');
 expect.extend({ toMatchImage })
@@ -14,8 +15,8 @@ expect.extend({ toMatchImage })
 jest.setTimeout(60000);
 
 const baseUrl = 'http://localhost:8000/admin/login.html';
-const adminUsername = 'username';    // change to valid username
-const adminPassword = 'password';    // change to valid password
+const adminUsername = process.env.TEST_USER_NAME;    // change to valid username
+const adminPassword = process.env.TEST_USER_PASSWORD;    // change to valid password
 
 describe('Home Page Image Upload Tests', () => {
         let driver;
