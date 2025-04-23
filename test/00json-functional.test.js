@@ -15,6 +15,7 @@
   * Pages render without errors or fallback/missing text placeholders
   * Any changes to the JSON files reflect correctly in the UI upon reload
   * Tests cover all major components and sections that depend on JSON content
+  * Name changed to 00 so the test will execute first
 */ 
 
 const { Builder, By, until } = require('selenium-webdriver');

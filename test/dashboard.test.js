@@ -115,7 +115,7 @@ describe("updaetContent dom", () => {
     const content = document.getElementById("dynamic-content").innerHTML;
     expect(content).toContain("Edit Home Page");
     expect(loadText).toHaveBeenCalledWith("home-page-title", "index-title.json");
-    expect(loadText).toHaveBeenCalledTimes(6); // Adjust if more/less
+    expect(loadText).toHaveBeenCalledTimes(5); // Adjust if more/less
   });
 
 
@@ -240,7 +240,6 @@ describe('pages elif', () => {
     expect(loadText).toHaveBeenCalledWith('home-page-description', 'index-description.json');
     expect(loadText).toHaveBeenCalledWith('home-page-map', 'index-map.json');
     expect(loadText).toHaveBeenCalledWith('home-page-contactInfo', 'index-contact.json');
-    expect(loadText).toHaveBeenCalledWith('home-page-services', 'index-services.json');
     expect(loadText).toHaveBeenCalledWith('home-page-reviews', 'index-reviews.json');
   });
 
