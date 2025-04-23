@@ -26,10 +26,10 @@
 <img src="images/Readme/reviews.png" alt="Testimonials" width="400">
 
 ### Services Page
-<img src="images/Readme/services.png" alt="Services" width="400">
+<img src="images/Readme/Services.png" alt="Services" width="400">
 
 ### Login Page
-<img src="images/Readme/login.png" alt="Login" width="400">
+<img src="images/Readme/Login.png" alt="Login" width="400">
 
 ### Admin Dashboard
 <img src="images/Readme/adminDashboard.png" alt="Admin-Dashboard" width="400">
