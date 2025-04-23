@@ -756,6 +756,17 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+  
+  .hero-text {
+    width: 90%;           /* shrink the width */
+    left: 50%;            /* keep it centered */
+    transform: translate(-50%, -45%);
+    padding: 0 1rem;      /* give it a good padding */
+  }
+  .hero-text h1 {
+    font-size: 1.8rem;    /* scale the text down so it fits neatly in the backdrop */
+  }
     .introduction , .service-card p , .review-text, .send-text p, .disclaimer p, .services-page-grid p{
     font-size: 17px;
     }
@@ -811,6 +822,8 @@ footer {
    
    .google, .yelp {
      margin-bottom: 1.5rem;
+     width: 100%;
+     max-width: 400px; /* if you still want to cap them */
    }
  
    .review-cards {
@@ -821,6 +834,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 1rem;
   }
 
   .services-page-grid {

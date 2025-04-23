@@ -240,7 +240,6 @@ describe('pages elif', () => {
     expect(loadText).toHaveBeenCalledWith('home-page-description', 'index-description.json');
     expect(loadText).toHaveBeenCalledWith('home-page-map', 'index-map.json');
     expect(loadText).toHaveBeenCalledWith('home-page-contactInfo', 'index-contact.json');
-    expect(loadText).toHaveBeenCalledWith('home-page-services', 'index-services.json');
     expect(loadText).toHaveBeenCalledWith('home-page-reviews', 'index-reviews.json');
   });
 

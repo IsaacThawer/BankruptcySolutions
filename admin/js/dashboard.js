@@ -1,3 +1,4 @@
+let _homeServicesReady = false;
 const pages = {
     "home": `
       <section id="rectangle-24">
@@ -35,7 +36,7 @@ const pages = {
             <option value="Chapter13">Chapter 13 Description</option>
           </select>
           <textarea id="home-page-services" rows="4"></textarea>
-          <button id="update-services-button" class="button" onclick="saveText('home-page-services', 'index-services.json')">Update</button>
+          <button id="update-services-button" class="button">Update</button>
         </div>
         <div class="page-section">
   <label for="image">If you want to change the banner image at the top of the home page, select it below:</label>
@@ -197,6 +198,7 @@ const pages = {
   };
 
     function updateContent(page) {
+      if (page === "home") initHomeServicesSection();
         const token = localStorage.getItem("id_token");
         let isAdmin = false;
 
@@ -228,8 +230,9 @@ const pages = {
                 loadText('home-page-description', 'index-description.json');
                 loadText('home-page-map', 'index-map.json');
                 loadText('home-page-contactInfo', 'index-contact.json');
-                loadText('home-page-services', 'index-services.json');
                 loadText('home-page-reviews', 'index-reviews.json');
+                _homeServicesReady = false;
+                initHomeServicesSection();
             } else if (page === "reviews") {
                 initReviewsManagement();
             } else if (page === "services") {
@@ -289,6 +292,7 @@ const pages = {
 
         const lastVisitedPage = localStorage.getItem("lastVisitedPage") || "home";
         updateContent(lastVisitedPage);
+        
 
         const token = localStorage.getItem("id_token");
 
@@ -603,5 +607,38 @@ async function uploadImage() {
             console.error("Error uploading image:", fileName);
         };
 }
+function initHomeServicesSection() {
+  if (_homeServicesReady) return;
+  _homeServicesReady = true;
+  const select  = document.getElementById('home-page-services-selection');
+  const textarea = document.getElementById('home-page-services');
+  const btn     = document.getElementById('update-services-button');
+  if (!select || !textarea || !btn) return;
+
+  // build the filename from the current dropdown value
+  const currentFile = () => `services-${select.value}.json`;
+
+  // load into the textarea
+  function loadService() {
+    loadText('home-page-services', currentFile());
+  }
+
+  // save and then re-load
+  async function saveService() {
+    await saveText('home-page-services', currentFile());
+    loadService();
+  }
+
+  // wire up events
+  select.addEventListener('change', loadService);
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    saveService();
+  });
+
+  // initial load
+  loadService();
+}
+
 
 
