@@ -42,7 +42,7 @@ This project is a professional landing page for Bankruptcy Solutions by Eric Sch
 *   A homepage summarizing services, featuring the product owner's profile, and a consultation request form for quick submissions.
 *   Sections showcasing client reviews, business hours, and a Google map for easy navigation.
 *   An "About Us" page with detailed information about Eric Schwab’s background and his law practice.
-*   An admin page for securely updating website content and managing client information.
+*   An admin backend for securely updating website content and managing client information.
 
 
 **Technology stack**
@@ -136,7 +136,7 @@ This project provides a professional and user-friendly interface with the follow
 ## Known issues
 - **Browser Compatibility**: The page may not render properly on older versions of Internet Explorer.  
 - **Mobile Device Performance**: The page elements are optimized for a mobile device platform. Some images do not load preemptively.
-- **Responsive Design**: Some elements may load previous html version until JavaScript code is fetched from server.  
+- **Responsive Design**: Some elements may load a previous HTML version until JavaScript code is fetched from the server.  
 - **Limited Testing**: The page has been tested on the latest versions of Chrome, Safari, and Edge only.  
 
 ## Testing
@@ -151,13 +151,16 @@ UI/UX Testing was done with tools like Google Lighthouse to ensure best practice
     * Jest
     * Selenium
     * ChromeDevTools and Lighthouse
+***For more testing information and package dependencies, please reference the how-to-test.txt file within the repository, it gives detailed information on how to test the files.***
+
+`Since there is no .env file, it may cause some tests to fail.`
 
 ## Deployment
 Steps for deploying the project to a live server:
 - **Local Deployment:** 
 1. Clone the repository using  `git clone https://github.com/IsaacThawer/BankruptcySolutions.git`.
 2. Run command `cd BankruptcySolutions` to navigate into proper folder .
-3. Install all the dependencies from commands found in the howtorun.txt file .
+3. Install all the dependencies from commands found in the how-to-run.txt file .
 4. Create env file with all variables needed within source code i.e. Cognito_pool_ID, Client_ID, REGION, and so forth.
 5. Create a node.js instance by running ` node server.js` and visit http://localhost:8000 .
 - **Cloud Deployment:** 
@@ -165,7 +168,7 @@ Steps for deploying the project to a live server:
 2. Clone the repository using  `git clone https://github.com/IsaacThawer/BankruptcySolutions.git` .
 3. Run command `cd BankruptcySolutions` to navigate into proper folder.
 4. Run command  ` apt update && apt install nodejs npm -y` (may need to use sudo in front of apt).
-5. Install all the dependencies from commands found in the howtorun.txt file.
+5. Install all the dependencies from commands found in the how-to-run.txt file.
 6. Configure .env file to use all process.env variables within the source code.
 7. Install PM2, and start the process manager.
     * Run the following commands in the remote server:
