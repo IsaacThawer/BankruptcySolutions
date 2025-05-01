@@ -4,7 +4,7 @@
 ## BankruptcySolutions
 "Building a user-friendly landing page for bankruptcy solutions."
 
-## Main Contributers 
+## Main Contributors 
 
 - [Romaine De La Cruz](https://github.com/r2dcruz)
 - [Isaac Thawer](https://github.com/IsaacThawer)
@@ -48,7 +48,7 @@ This project is a professional landing page for Bankruptcy Solutions by Eric Sch
 **Technology stack**
 * **HTML** (HyperText Markup Language): Structures the content and layout of the website, providing the foundation for all pages.
 * **CSS** (Cascading Style Sheets): Styles the website with custom designs, colors, and responsive layouts to ensure a visually appealing and mobile-friendly experience.
-* **JavaScript** Adds interactivity, such as form validation, dynamic content updates, and potential animations to enhance the user experience. This will be added in future revisions
+* **JavaScript** Adds interactivity, such as form validation, dynamic content updates, and animations to enhance the user experience.
 
 ## Getting Started
 
@@ -81,6 +81,7 @@ Follow these steps to set up and view the landing page locally:
 Then, visit http://localhost:8000 in your browser.
 Or, use a lightweight server like Live Server in Visual Studio Code.
 
+  ` Some of the core JavaScript functionality will not work due to the lack of the .env file `
 ## Usage
 
 This project provides a professional and user-friendly interface with the following features:
@@ -102,46 +103,100 @@ This project provides a professional and user-friendly interface with the follow
 - Information on how these services benefit potential clients.
 
 #### Testimonials Page
-- Displays positive client testimonials and feedback.
+- Displays positive client testimonials and feedback from Google and Yelp.
 
-#### Admin Page
-- Secure, encrypted login for the product owner.
+#### Login Page
+- Secure, encrypted login for the product owner with implementation of AWS Cognito.
+- Show password functionality.
+- Forgot password functionality with email delivery for account recovery.
+- Captcha is implemented if failed attempts exceed 3.
+
+#### Admin Dashboard
+- Secure, encrypted login for the product owner with implementation of AWS Cognito.
 - Features for managing website content:
   - Update text and images on the site.
   - Maintain a modern and professional appearance.
-- Secure connection to the SQL database.
-- Ability to remove client information after intake appointments.
+  - Add or remove users' access privileges to the Admin Dashboard.
+  - Show the current time.
+  - Add a personal profile picture that is stored on the computer's local storage.
+  - Role-based Admin Control for Admin and Editor users.
 
-#### Database and Security Features
-- Form submissions are stored securely in an SQL database.
-- Ensures data security and compliance for client information.
+#### Client Submissions Page
+- Secure connection to the NoSQL database.
+- Ability to remove client information after intake appointments.
+- Ability to search, flag, and reply to the submissions within the DynamoDB Database.
+
 
 #### Search Engine Optimization (SEO)
-- Keywords and phrases optimized for search engines to attract potential clients.
+- Keywords and phrases within metadata are optimized for search engines to attract potential clients.
 - Engaging and easy-to-read content.
 - User-friendly website structure for better search engine visibility.
 
 
 ## Known issues
 - **Browser Compatibility**: The page may not render properly on older versions of Internet Explorer.  
-- **Mobile Device Compatibility**: The page elements are not properly initialized for a mobile device platform.
-- **Responsive Design**: Some elements may overlap on very small or very large screen sizes.  
-- **Limited Testing**: The page has been tested on the latest versions of Chrome, Firefox, and Edge only.  
+- **Mobile Device Performance**: The page elements are optimized for a mobile device platform. Some images do not load preemptively.
+- **Responsive Design**: Some elements may load previous html version until JavaScript code is fetched from server.  
+- **Limited Testing**: The page has been tested on the latest versions of Chrome, Safari, and Edge only.  
 
 ## Testing
-This section will cover the testing approach for the project in future iterations. Planned testing phases include:
+
 - **Unit Testing:** 
-testing is done by JEST
+Unit Testing is done by JEST for individual components and functions. 
 - **Integration Testing:** 
-integration testing by Selenium
+Integration Testing by Selenium to verify interactions between different modules.
 - **UI/UX Testing:** 
+UI/UX Testing was done with tools like Google Lighthouse to ensure best practices
 - **Tools Used:** 
+    * Jest
+    * Selenium
+    * ChromeDevTools and Lighthouse
 
 ## Deployment
 Steps for deploying the project to a live server:
 - **Local Deployment:** 
+1. Clone the repository using  `git clone https://github.com/IsaacThawer/BankruptcySolutions.git`.
+2. Run command `cd BankruptcySolutions` to navigate into proper folder .
+3. Install all the dependencies from commands found in the howtorun.txt file .
+4. Create env file with all variables needed within source code i.e. Cognito_pool_ID, Client_ID, REGION, and so forth.
+5. Create a node.js instance by running ` node server.js` and visit http://localhost:8000 .
 - **Cloud Deployment:** 
+1. SSH into server ip, with command ` ssh root@server-ip`(server-ip has to be specific to server used).
+2. Clone the repository using  `git clone https://github.com/IsaacThawer/BankruptcySolutions.git` .
+3. Run command `cd BankruptcySolutions` to navigate into proper folder.
+4. Run command  ` apt update && apt install nodejs npm -y` (may need to use sudo in front of apt).
+5. Install all the dependencies from commands found in the howtorun.txt file.
+6. Configure .env file to use all process.env variables within the source code.
+7. Install PM2, and start the process manager.
+    * Run the following commands in the remote server:
+        1. `npm install -g pm2`
+        2. ` pm2 start server.js`
+        3. ` pm2 save`
+        4. ` pm2 startup`
+8. Install Nginx to create a reverse proxy.
+    * Run the following commands in the remote server:  
+        1.  `sudo apt install nginx -y`  
+        2.  `sudo nano /etc/nginx/sites/default`  
+            * Within the nano editor, put the following code:
 
+            ```nginx
+            server {
+                listen 80;
+                server_name yourdomain.com;
+
+                location / {
+                    proxy_pass http://localhost:800;
+                    proxy_http_version 1.1;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection 'upgrade';
+                    proxy_set_header Host $host;
+                    proxy_cache_bypass $http_upgrade;
+                }
+            }
+            ```
+        3. Run sudo nginx -t .
+        4. Run sudo systemctl restart nginx .
+ * SSL Certificates require a different nginx file configuration; more documentation can be found here "https://nginx.org/en/docs/http/configuring_https_servers.html" .
 ## Developer Instructions
 This section is intended to guide developers contributing to the project. Future updates will include:
 - **Code Style Guidelines:**
@@ -154,7 +209,7 @@ git checkout -b <branch name>
 - **Testing Requirements:**
 We follow JEST guidelines in testing our codes and codes >85% or more are accepted
 - **Contribution Guidelines:** 
-Contribution are always welcome! Please star, fork, push, and create a pull request!
+Contributions are always welcome! Please star, fork, push, and create a pull request!
 
 
 ## Getting help
